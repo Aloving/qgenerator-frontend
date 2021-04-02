@@ -1,3 +1,7 @@
 import { combineReducers } from 'redux';
 
-export const rootReducer = combineReducers({});
+import { questionReducer } from './duck/question/question';
+
+export const rootReducer = combineReducers({
+  question: questionReducer,
+});
