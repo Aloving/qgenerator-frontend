@@ -22,12 +22,12 @@ const initialState: QuestionState = {
 
 export const questionReducer = combineReducers({
   data: createReducer(initialState.question.data).handleAction(
-    questionActions.fetchQuestionCompleted,
+    questionActions.fetchQuestionSuccess,
     (state, action) => action.payload,
   ),
   isLoading: createReducer(initialState.question.isLoading)
     .handleAction(questionActions.fetchQuestionRequest, () => true)
-    .handleAction(questionActions.fetchQuestionCompleted, () => false)
+    .handleAction(questionActions.fetchQuestionSuccess, () => false)
     .handleAction(questionActions.fetchQuestionFailure, () => false),
   hasError: createReducer(initialState.question.hasError).handleAction(
     questionActions.fetchQuestionFailure,
