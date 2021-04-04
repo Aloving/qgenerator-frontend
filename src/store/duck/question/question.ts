@@ -15,7 +15,7 @@ const initialState: QuestionState = {
       dislikes: 0,
       authorId: '',
       id: 0,
-      answer: [],
+      answers: [],
     },
   },
 };
