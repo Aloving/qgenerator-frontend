@@ -1,2 +1,2 @@
-export * from './question';
+export * from './questionReducer';
 export * from './actions';
