@@ -10,11 +10,11 @@ const initialState: QuestionState = {
     isLoading: false,
     hasError: false,
     data: {
+      id: 0,
       text: '',
       likes: 0,
       dislikes: 0,
       authorId: '',
-      id: 0,
       answers: [],
     },
   },
