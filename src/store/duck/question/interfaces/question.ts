@@ -1,9 +1,10 @@
+import { IAnswer } from './answer';
+
 export interface IQuestion {
+  id: number;
   text: string;
   likes: number;
   dislikes: number;
   authorId: string;
-  id: number;
-  // TODO: fix it
-  answer: Array<any>;
+  answers: Array<IAnswer>;
 }
