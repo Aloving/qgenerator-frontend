@@ -1,4 +1,4 @@
-import { questionActions } from './duck/question/actions';
+import { questionActions } from './duck/question';
 
 export const rootAction = {
   questionActions,
