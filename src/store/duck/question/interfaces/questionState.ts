@@ -1,6 +1,6 @@
 import { IQuestion } from './index';
 
-export interface QuestionState {
+export interface IQuestionState {
   question: {
     isLoading: boolean;
     hasError: boolean;

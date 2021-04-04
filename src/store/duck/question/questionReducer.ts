@@ -3,9 +3,9 @@ import { createReducer } from 'typesafe-actions';
 
 import { questionActions } from './actions';
 
-import { QuestionState } from './interfaces';
+import { IQuestionState } from './interfaces';
 
-const initialState: QuestionState = {
+const initialState: IQuestionState = {
   question: {
     isLoading: false,
     hasError: false,
