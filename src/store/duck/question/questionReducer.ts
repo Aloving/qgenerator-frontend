@@ -37,4 +37,12 @@ export const questionReducer = combineReducers({
     questionActions.fetchQuestionFailure,
     () => true,
   ),
+  liked: createReducer(initialState.questions.liked).handleAction(
+    questionActions.setLiked,
+    (state, action) => action.payload,
+  ),
+  disliked: createReducer(initialState.questions.disliked).handleAction(
+    questionActions.setDisliked,
+    (state, action) => action.payload,
+  ),
 });
