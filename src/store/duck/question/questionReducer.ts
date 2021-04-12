@@ -6,7 +6,7 @@ import { questionActions } from './actions';
 import { IQuestionState } from './interfaces';
 
 const initialState: IQuestionState = {
-  question: {
+  randomizer: {
     isLoading: false,
     hasError: false,
     data: {
@@ -18,18 +18,22 @@ const initialState: IQuestionState = {
       answers: [],
     },
   },
+  questions: {
+    liked: [],
+    disliked: [],
+  },
 };
 
 export const questionReducer = combineReducers({
-  data: createReducer(initialState.question.data).handleAction(
+  data: createReducer(initialState.randomizer.data).handleAction(
     questionActions.fetchQuestionSuccess,
     (state, action) => action.payload,
   ),
-  isLoading: createReducer(initialState.question.isLoading)
+  isLoading: createReducer(initialState.randomizer.isLoading)
     .handleAction(questionActions.fetchQuestionRequest, () => true)
     .handleAction(questionActions.fetchQuestionSuccess, () => false)
     .handleAction(questionActions.fetchQuestionFailure, () => false),
-  hasError: createReducer(initialState.question.hasError).handleAction(
+  hasError: createReducer(initialState.randomizer.hasError).handleAction(
     questionActions.fetchQuestionFailure,
     () => true,
   ),
