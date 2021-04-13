@@ -15,6 +15,7 @@ const questionExample: IQuestion = {
     name: 'test author',
   },
   questionText: 'Что такое бутылка?',
+  answers: [],
 };
 
 export const QuestionRoutes = () => {

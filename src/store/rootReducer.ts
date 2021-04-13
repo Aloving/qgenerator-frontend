@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { questionReducer } from './duck/question';
+import { questionsDataReducer } from '../modules/common';
+import { questionReducer } from '../modules/question';
 
 export const rootReducer = combineReducers({
   question: questionReducer,
+  questionsData: questionsDataReducer,
 });
