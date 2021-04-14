@@ -1,6 +1,6 @@
 import { HttpTransport } from './httpTransport';
 import { AuthTransport } from './authTransport';
-import { TestService } from './services';
+import { TestService, QuestionService } from './services';
 
 export const authTransport = new AuthTransport({
   httpTransport: new HttpTransport(),
@@ -8,3 +8,4 @@ export const authTransport = new AuthTransport({
 });
 
 export const testService = new TestService(authTransport);
+export const questionService = new QuestionService(authTransport);

@@ -5,3 +5,4 @@ export * from './ILoginRequestPayload';
 export * from './IApi';
 export * from './ITokenResponse';
 export * from './ITestService';
+export * from './IQuestionService';
