@@ -1,5 +1,10 @@
-import { IQuestionState } from '../interfaces';
-import { questionReducer, questionActions } from './question';
+import { IQuestion, IQuestionState } from '../interfaces';
+import {
+  questionReducer,
+  questionActions,
+  PREFIX,
+  questionActionTypes,
+} from './question';
 
 const initialState: IQuestionState = {
   isLoading: false,
@@ -7,22 +12,45 @@ const initialState: IQuestionState = {
   data: null,
 };
 
-describe('reducer', () => {
-  it('request', () => {
-    const action = {
-      type: questionActions.fetchQuestionRequest,
-    };
+describe('question ducks', () => {
+  describe('Actions', () => {
+    it('should check returned action creators', () => {
+      const expectedActionsList = {
+        fetchQuestionRequest: expect.any(Function),
+        fetchQuestionSuccess: expect.any(Function),
+        fetchQuestionFailure: expect.any(Function),
+      };
 
-    expect(questionReducer(initialState, action)).toEqual({
-      ...initialState,
-      isLoading: true,
+      expect(expectedActionsList).toEqual(questionActions);
+    });
+
+    it('should check return action types', () => {
+      const expectedActionsList = {
+        FETCH_QUESTION_REQUEST: `${PREFIX}//FETCH_QUESTION_REQUEST`,
+        FETCH_QUESTION_SUCCESS: `${PREFIX}//FETCH_QUESTION_SUCCESS`,
+        FETCH_QUESTION_FAILURE: `${PREFIX}//FETCH_QUESTION_FAILURE`,
+      };
+
+      expect(expectedActionsList).toEqual(questionActionTypes);
     });
   });
 
-  it('success', () => {
-    const action = {
-      type: questionActions.fetchQuestionSuccess,
-      payload: {
+  describe('reducer', () => {
+    it('should return initial state by default', () => {
+      expect(questionReducer(initialState, { type: '' })).toEqual(initialState);
+    });
+
+    it('should switch isLoading to true', () => {
+      expect(
+        questionReducer(initialState, questionActions.fetchQuestionRequest),
+      ).toEqual({
+        ...initialState,
+        isLoading: true,
+      });
+    });
+
+    it('should set question to data', () => {
+      const question: IQuestion = {
         id: 1,
         likes: 1,
         dislikes: 1,
@@ -34,25 +62,28 @@ describe('reducer', () => {
         },
         answers: [],
         questionText: '1',
-      },
-    };
+      };
 
-    expect(questionReducer(initialState, action)).toEqual({
-      ...initialState,
-      error: false,
-      completed: true,
-      data: action.payload,
+      expect(
+        questionReducer(
+          initialState,
+          questionActions.fetchQuestionSuccess(question),
+        ),
+      ).toEqual({
+        ...initialState,
+        error: false,
+        completed: true,
+        data: question,
+      });
     });
-  });
 
-  it('failure', () => {
-    const action = {
-      type: questionActions.fetchQuestionFailure,
-    };
-
-    expect(questionReducer(initialState, action)).toEqual({
-      ...initialState,
-      error: true,
+    it('should switch error to true', () => {
+      expect(
+        questionReducer(initialState, questionActions.fetchQuestionFailure),
+      ).toEqual({
+        ...initialState,
+        error: true,
+      });
     });
   });
 });
