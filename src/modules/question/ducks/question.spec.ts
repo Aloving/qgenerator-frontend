@@ -1,10 +1,11 @@
-import { IQuestion, IQuestionState } from '../interfaces';
 import {
   questionReducer,
   questionActions,
   PREFIX,
   questionActionTypes,
 } from './question';
+
+import { IQuestion, IQuestionState } from '../interfaces';
 
 const initialState: IQuestionState = {
   isLoading: false,
