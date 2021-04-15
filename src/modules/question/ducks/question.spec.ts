@@ -36,53 +36,65 @@ describe('question ducks', () => {
   });
 
   describe('reducer', () => {
-    it('should return initial state by default', () => {
-      expect(questionReducer(initialState, { type: '' })).toEqual(initialState);
-    });
+    describe('Dispatch wrong action', () => {
+      it('should return initial state by default', () => {
+        const expectedData = questionReducer(initialState, { type: '' });
 
-    it('should switch isLoading to true', () => {
-      expect(
-        questionReducer(initialState, questionActions.fetchQuestionRequest),
-      ).toEqual({
-        ...initialState,
-        isLoading: true,
+        expect(expectedData).toEqual(initialState);
       });
     });
 
-    it('should set question to data', () => {
-      const question: IQuestion = {
-        id: 1,
-        likes: 1,
-        dislikes: 1,
-        commentariesCount: 1,
-        author: {
-          id: '1',
-          avatar: '1',
-          name: '1',
-        },
-        answers: [],
-        questionText: '1',
-      };
+    describe('fetchQuestionRequest', () => {
+      it('should switch isLoading to true', () => {
+        const expectedData = questionReducer(
+          initialState,
+          questionActions.fetchQuestionRequest,
+        );
+        const inputData = { ...initialState, isLoading: true };
+        expect(expectedData).toEqual(inputData);
+      });
+    });
 
-      expect(
-        questionReducer(
+    describe('fetchQuestionSuccess', () => {
+      it('should set question to data', () => {
+        const question: IQuestion = {
+          id: 1,
+          likes: 1,
+          dislikes: 1,
+          commentariesCount: 1,
+          author: {
+            id: '1',
+            avatar: '1',
+            name: '1',
+          },
+          answers: [],
+          questionText: '1',
+        };
+
+        const expectedData = questionReducer(
           initialState,
           questionActions.fetchQuestionSuccess(question),
-        ),
-      ).toEqual({
-        ...initialState,
-        error: false,
-        completed: true,
-        data: question,
+        );
+        const inputData = {
+          ...initialState,
+          error: false,
+          completed: true,
+          data: question,
+        };
+
+        expect(expectedData).toEqual(inputData);
       });
     });
 
-    it('should switch error to true', () => {
-      expect(
-        questionReducer(initialState, questionActions.fetchQuestionFailure),
-      ).toEqual({
-        ...initialState,
-        error: true,
+    describe('fetchQuestionFailure', () => {
+      it('should switch error to true', () => {
+        const expectedData = questionReducer(
+          initialState,
+          questionActions.fetchQuestionFailure,
+        );
+        const inputData = { ...initialState, error: true };
+
+        expect(expectedData).toEqual(inputData);
       });
     });
   });
