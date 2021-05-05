@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 
 import { QuestionRoutes } from '../question';
-import { Button } from './components/Button';
 import { useTheme } from './styles';
+import { Button } from './components';
 import { LangSwitcherContainer, ThemeSwitcherContainer } from './containers';
 
 export const Routes = () => {

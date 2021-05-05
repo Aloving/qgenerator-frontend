@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-interface IThemeSwitcherProps {
+export interface IThemeSwitcherProps {
   checked: boolean;
   switchTheme: () => void;
 }
