@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { mainTheme } from './mainTheme';
 import { secondaryTheme } from './secondaryTheme';
 
-export function useThemeActions() {
+export function useThemeInteractions() {
   const [theme, setTheme] = useState(mainTheme);
   const setMainTheme = useCallback(() => {
     setTheme({ ...mainTheme });

@@ -2,7 +2,7 @@ import React, { createContext } from 'react';
 import { noop } from 'lodash';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 
-import { useThemeActions } from './useThemeActions';
+import { useThemeInteractions } from './useThemeInteractions';
 import { mainTheme } from './mainTheme';
 
 export const ThemeInteractions = createContext({
@@ -14,7 +14,7 @@ export const ThemeInteractions = createContext({
 });
 
 export const ThemeProvider: React.FC = ({ children }) => {
-  const themeInteractions = useThemeActions();
+  const themeInteractions = useThemeInteractions();
 
   return (
     <ThemeInteractions.Provider value={themeInteractions}>
