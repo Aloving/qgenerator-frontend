@@ -1,9 +1,8 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
 import { Route, Switch } from 'react-router';
 
 import { QuestionRoutes } from '../question';
-import { Button as MyButton } from './components/Button';
+import { Button } from './components/Button';
 
 export const Routes = () => {
   const a = () => 1 + 2;
@@ -12,35 +11,20 @@ export const Routes = () => {
     <Switch>
       <Route exact path="/">
         <div>
-          <MyButton
-            onClick={a}
-            variant="contained"
-            color="primary"
-            size="large"
-          >
+          <Button onClick={a} variant="contained" color="primary" size="large">
             Отправить
-          </MyButton>
-          <MyButton
-            onClick={a}
-            variant="contained"
-            color="secondary"
-            size="large"
-          >
-            Отправить
-          </MyButton>
+          </Button>
+          <Button onClick={a} variant="contained" color="secondary">
+            Отправить4в
+          </Button>
         </div>
         <div>
-          <MyButton onClick={a} variant="outlined" color="primary" size="large">
+          <Button onClick={a} variant="outlined" color="primary">
             Отправить
-          </MyButton>
-          <MyButton
-            onClick={a}
-            variant="outlined"
-            color="secondary"
-            size="large"
-          >
+          </Button>
+          <Button onClick={a} variant="outlined" color="secondary">
             Отправить
-          </MyButton>
+          </Button>
         </div>
       </Route>
       <QuestionRoutes />
