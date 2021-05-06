@@ -4,7 +4,11 @@ import { Route, Switch } from 'react-router';
 import { QuestionRoutes } from '../question';
 import { useTheme } from './styles';
 import { Button } from './components';
-import { LangSwitcherContainer, ThemeSwitcherContainer } from './containers';
+import {
+  LangSwitcherContainer,
+  ThemeSwitcherContainer,
+  LogoContainer,
+} from './containers';
 
 export const Routes = () => {
   const { switchTheme } = useTheme();
@@ -21,6 +25,7 @@ export const Routes = () => {
           </Button>
           <ThemeSwitcherContainer />
           <LangSwitcherContainer />
+          <LogoContainer />
         </div>
       </Route>
       <QuestionRoutes />
