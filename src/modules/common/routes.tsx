@@ -3,28 +3,23 @@ import { Route, Switch } from 'react-router';
 
 import { QuestionRoutes } from '../question';
 import { Button } from './components/Button';
+import { useTheme } from './styles';
+import { ThemeSwitcherContainer } from './containers';
 
 export const Routes = () => {
-  const a = () => 1 + 2;
+  const { switchTheme } = useTheme();
 
   return (
     <Switch>
       <Route exact path="/">
         <div>
-          <Button onClick={a} variant="contained" color="primary" size="large">
+          <Button onClick={switchTheme} variant="contained" color="primary">
             Отправить
           </Button>
-          <Button onClick={a} variant="contained" color="secondary">
+          <Button onClick={switchTheme} variant="contained" color="secondary">
             Отправить4в
           </Button>
-        </div>
-        <div>
-          <Button onClick={a} variant="outlined" color="primary">
-            Отправить
-          </Button>
-          <Button onClick={a} variant="outlined" color="secondary">
-            Отправить
-          </Button>
+          <ThemeSwitcherContainer />
         </div>
       </Route>
       <QuestionRoutes />
