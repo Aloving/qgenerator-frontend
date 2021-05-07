@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Button, Typography } from '@material-ui/core';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
@@ -24,11 +24,20 @@ export const Likes: React.FC<ILikesProps> = ({
   liked,
   disliked,
 }) => {
+  const likedIcon = useMemo(
+    () => (liked ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />),
+    [liked],
+  );
+  const dislikedIcon = useMemo(
+    () => (disliked ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />),
+    [disliked],
+  );
+
   return (
     <div className={styles.root}>
       <div className={styles.item}>
         <Button
-          startIcon={liked ? <ThumbUpIcon /> : <ThumbUpOutlinedIcon />}
+          startIcon={likedIcon}
           color="primary"
           onClick={onLike}
           className={styles.button}
@@ -40,7 +49,7 @@ export const Likes: React.FC<ILikesProps> = ({
       </div>
       <div className={styles.item}>
         <Button
-          startIcon={disliked ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+          startIcon={dislikedIcon}
           color="primary"
           onClick={onDislike}
           className={styles.button}
