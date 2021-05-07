@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 
 import { QuestionRoutes } from '../question';
-import { Button } from './components/Button';
 import { useTheme } from './styles';
-import { ThemeSwitcherContainer } from './containers';
+import { Button } from './components';
+import { LangSwitcherContainer, ThemeSwitcherContainer } from './containers';
 
 export const Routes = () => {
   const { switchTheme } = useTheme();
@@ -20,6 +20,7 @@ export const Routes = () => {
             Отправить4в
           </Button>
           <ThemeSwitcherContainer />
+          <LangSwitcherContainer />
         </div>
       </Route>
       <QuestionRoutes />
