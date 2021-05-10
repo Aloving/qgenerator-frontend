@@ -3,6 +3,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { Story } from '@storybook/react';
 
 import { mainTheme, secondaryTheme } from '../src/modules/common/styles';
+import { IntlProvider } from '../src/modules/common/translations';
 
 export const globalTypes = {
   theme: {
@@ -25,9 +26,11 @@ const getTheme = (themeName) => {
 const withThemeProvider = (Story, context) => {
   const theme = getTheme(context.globals.theme);
   return (
-    <ThemeProvider theme={theme}>
-      <Story {...context} />
-    </ThemeProvider>
+    <IntlProvider>
+      <ThemeProvider theme={theme}>
+        <Story {...context} />
+      </ThemeProvider>
+    </IntlProvider>
   );
 };
 
