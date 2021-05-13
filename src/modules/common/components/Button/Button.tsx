@@ -7,9 +7,12 @@ import {
 import styles from './Button.module.css';
 
 export interface ButtonProps
-  extends Pick<MuiButtonProps, 'disabled' | 'children' | 'onClick'> {
-  variant: 'outlined' | 'contained';
-  color: 'primary' | 'secondary';
+  extends Pick<
+    MuiButtonProps,
+    'disabled' | 'children' | 'onClick' | 'className'
+  > {
+  variant?: 'outlined' | 'contained';
+  color?: 'primary' | 'secondary';
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {

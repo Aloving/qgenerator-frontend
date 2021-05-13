@@ -1,0 +1,31 @@
+.root {
+  width: 53.75rem;
+}
+
+.actions {
+  display: flex;
+}
+
+.answerAction {
+  margin-right: 32px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 86px;
+}
+
+.text {
+  width: 70%;
+}
+
+.image {
+  width: 30%;
+  text-align: right;
+}
+
+.header {
+  margin-bottom: 6rem;
+}
