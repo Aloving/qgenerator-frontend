@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history';
 
 import { store } from '../../../store';
 import { ThemeProvider } from '../styles';
-import { Routes } from '../routes';
+import { Routes } from '../../../routes';
 import { IntlProvider } from '../translations';
 
 import './index.css';

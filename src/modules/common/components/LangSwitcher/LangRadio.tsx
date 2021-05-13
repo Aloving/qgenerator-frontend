@@ -18,6 +18,9 @@ const useColors = makeStyles((theme) => ({
     '& input:checked + span': {
       color: theme.palette.primary.main,
     },
+    '& input:not(:checked) + span': {
+      color: theme.palette.text.disabled,
+    },
     '& input:checked + span::before': {
       background: theme.palette.primary.main,
     },

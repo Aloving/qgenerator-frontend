@@ -4,6 +4,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 
 import { useThemeInteractions } from './useThemeInteractions';
 import { mainTheme } from './mainTheme';
+import { GlobalStyles } from './GlobalStyles';
 
 export const ThemeInteractions = createContext({
   theme: mainTheme,
@@ -23,6 +24,7 @@ export const ThemeProvider: React.FC = ({ children }) => {
           <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
         )}
       </ThemeInteractions.Consumer>
+      <GlobalStyles />
     </ThemeInteractions.Provider>
   );
 };

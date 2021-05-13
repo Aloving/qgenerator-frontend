@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import { Question } from './Question';
 import { IQuestion } from './interfaces';
+import { QuestionPage } from './components/QuestionPage';
 
 const questionExample: IQuestion = {
   id: 10,
@@ -21,8 +21,8 @@ const questionExample: IQuestion = {
 export const QuestionRoutes = () => {
   return (
     <>
-      <Route path="/q/:id">
-        <Question {...questionExample} />
+      <Route path="/q/:questionId">
+        <QuestionPage />
       </Route>
     </>
   );
