@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { QuestionCounter } from '../QuestionCounter';
+import { Likes } from '../../../common/components';
 
 import styles from './QuestionHeader.module.css';
-import { Likes } from '../../../common/components';
 
 interface IQuestionHeaderProps {
   count: number;
