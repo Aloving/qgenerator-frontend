@@ -11,6 +11,7 @@ interface IQuestionHeaderProps {
   likes: number;
   disliked: boolean;
   liked: boolean;
+  isLoading: boolean;
   illustration?: string | React.ElementType;
 
   onLike: () => void;
@@ -19,12 +20,13 @@ interface IQuestionHeaderProps {
 
 export const QuestionHeader: React.FC<IQuestionHeaderProps> = ({
   count,
+  isLoading,
   ...props
 }) => {
   return (
     <div className={styles.root}>
-      <QuestionCounter count={count} />
-      <Likes {...props} />
+      <QuestionCounter count={count} isLoading={isLoading} />
+      <Likes {...props} isLoading={isLoading} />
     </div>
   );
 };

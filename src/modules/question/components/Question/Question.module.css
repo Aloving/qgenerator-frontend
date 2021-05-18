@@ -17,13 +17,18 @@
   margin-bottom: 86px;
 }
 
+.disabledButton {
+
+}
+
 .text {
   width: 70%;
 }
 
 .image {
   width: 30%;
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .header {

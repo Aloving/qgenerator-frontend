@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 
 import { store } from '../../../store';
-import { ThemeProvider } from '../styles';
 import { Routes } from '../../../routes';
+import { SkeletonContainer } from '../containers';
+import { ThemeProvider } from '../styles';
 import { IntlProvider } from '../translations';
 
 import './index.css';
@@ -18,9 +19,11 @@ export const App = () => {
     <Provider store={store}>
       <IntlProvider>
         <Router history={history}>
-          <ThemeProvider>
-            <Routes />
-          </ThemeProvider>
+          <SkeletonContainer>
+            <ThemeProvider>
+              <Routes />
+            </ThemeProvider>
+          </SkeletonContainer>
         </Router>
       </IntlProvider>
     </Provider>

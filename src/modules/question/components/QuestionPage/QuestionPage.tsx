@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Question } from '../Question';
 
 import { ReactComponent as IllustrationSvg } from '../../../../stories/assets/illustration.svg';
-import { Header, BackgroundWrapper } from '../../../common/components';
+import {
+  Header,
+  BackgroundWrapper,
+  SkeletonContext,
+} from '../../../common/components';
 
 import styles from './QuestionPage.module.css';
 
@@ -18,13 +22,21 @@ const props = {
 };
 
 export const QuestionPage: React.FC = () => {
+  const { isLoading } = useContext(SkeletonContext);
+
   return (
     <BackgroundWrapper className={styles.root}>
       <Header />
 
       <div className={styles.question}>
-        {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
-        <Question {...props} onDislike={() => {}} onLike={() => {}} />
+        <Question
+          {...props}
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onDislike={() => {}}
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          onLike={() => {}}
+          isLoading={isLoading}
+        />
       </div>
     </BackgroundWrapper>
   );
