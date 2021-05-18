@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { Button } from '../../../common/components';
 import { QuestionHeader } from '../QuestionHeader';
 
-import { questionTranslations } from '../../translations';
+import { questionTranslations } from '../../../../translations';
 
 import styles from './Question.module.css';
 import { Skeleton } from '@material-ui/lab';
