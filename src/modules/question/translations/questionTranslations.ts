@@ -5,4 +5,12 @@ export const questionTranslations = defineMessages({
     id: 'app.question.textLabel',
     defaultMessage: 'Вопрос',
   },
+  answerIt: {
+    id: 'app.question.answerIt',
+    defaultMessage: 'Ответить',
+  },
+  oneMoreAnswer: {
+    id: 'app.question.oneMoreAnswer',
+    defaultMessage: 'Ещё вопрос',
+  },
 });
