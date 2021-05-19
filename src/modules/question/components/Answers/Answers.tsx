@@ -5,6 +5,7 @@ import { Answer } from '../Answer';
 import { IAnswer } from '../../interfaces/IAnswer';
 
 import styles from './Answers.module.css';
+import { makeEmptyAnswer } from '../../helpers';
 
 interface IAnswersProps {
   answers: IAnswer[];
@@ -12,9 +13,13 @@ interface IAnswersProps {
 }
 
 export const Answers: React.FC<IAnswersProps> = ({ answers, isLoading }) => {
+  const answersToRender = isLoading
+    ? [makeEmptyAnswer(), makeEmptyAnswer()]
+    : answers;
+
   return (
     <>
-      {answers.map((answer) => (
+      {answersToRender.map((answer) => (
         <div className={styles.item}>
           <Answer isLoading={isLoading} {...answer} />
         </div>
