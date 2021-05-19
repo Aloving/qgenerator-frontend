@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { FormattedMessage } from 'react-intl';
@@ -10,6 +10,7 @@ import { questionTranslations } from '../../../../translations';
 
 import styles from './Question.module.css';
 import { AnswerSection } from '../AnswerSection/AnswerSection';
+import { AnswerForm } from '../AnswerForm';
 
 export interface IQuestionProps {
   id: number;
@@ -38,6 +39,8 @@ export const Question: React.FC<IQuestionProps> = ({
   onLike,
   ...props
 }) => {
+  const [isAnswerActive] = useState(true);
+
   return (
     <div className={styles.root}>
       <div className={styles.questionRoot}>
@@ -89,6 +92,11 @@ export const Question: React.FC<IQuestionProps> = ({
             <FormattedMessage {...questionTranslations.oneMoreAnswer} />
           </Button>
         </div>
+        {isAnswerActive && (
+          <div className={styles.answerForm}>
+            <AnswerForm />
+          </div>
+        )}
       </div>
       <AnswerSection
         answers={[
