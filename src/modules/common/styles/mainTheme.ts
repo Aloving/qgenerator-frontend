@@ -5,6 +5,10 @@ import { commonTheme } from './commonTheme';
 export const mainTheme = createMuiTheme({
   ...commonTheme,
   palette: {
+    common: {
+      black: '#0D0E13',
+      white: '#FDFFFC',
+    },
     primary: {
       main: '#E71D36',
     },
@@ -16,6 +20,7 @@ export const mainTheme = createMuiTheme({
     },
     text: {
       primary: '#FDFFFC',
+      disabled: '#8D8D8D',
     },
     action: {
       active: '#FDFFFC',
