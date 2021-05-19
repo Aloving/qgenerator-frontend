@@ -5,6 +5,14 @@ export const questionTranslations = defineMessages({
     id: 'app.question.textLabel',
     defaultMessage: 'Вопрос',
   },
+  answers: {
+    id: 'qpp.question.answers',
+    defaultMessage: 'Другие ответы',
+  },
+  answerCounter: {
+    id: 'qpp.question.answers',
+    defaultMessage: 'Ответы: {count}',
+  },
   answerIt: {
     id: 'app.question.answerIt',
     defaultMessage: 'Ответить',
