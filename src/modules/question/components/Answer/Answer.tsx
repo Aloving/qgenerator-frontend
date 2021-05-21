@@ -1,11 +1,11 @@
 import React from 'react';
 import { Avatar, makeStyles, Typography } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 import cn from 'classnames';
 
 import { Likes } from '../../../common/components';
 
 import styles from './Answer.module.css';
-import { Skeleton } from '@material-ui/lab';
 
 interface IAnswerProps {
   likes: number;
