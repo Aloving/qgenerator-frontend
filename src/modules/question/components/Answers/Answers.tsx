@@ -4,8 +4,8 @@ import { Answer } from '../Answer';
 
 import { IAnswer } from '../../interfaces/IAnswer';
 
-import styles from './Answers.module.css';
 import { makeEmptyAnswer } from '../../helpers';
+import styles from './Answers.module.css';
 
 interface IAnswersProps {
   answers: IAnswer[];

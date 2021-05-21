@@ -3,8 +3,8 @@ import { Divider, makeStyles, Typography } from '@material-ui/core';
 import cn from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
-import styles from './AnswerCounter.module.css';
 import { questionTranslations } from '../../../../translations';
+import styles from './AnswerCounter.module.css';
 
 interface IAnswerCounterProps {
   count: number;
