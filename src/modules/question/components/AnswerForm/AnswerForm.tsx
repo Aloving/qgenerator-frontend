@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { makeStyles, TextField } from '@material-ui/core';
 
 import { Button } from '../../../common/components';
+
 import { questionTranslations } from '../../../../translations';
 import styles from './AnswerForm.module.css';
 

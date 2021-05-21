@@ -5,12 +5,11 @@ import { FormattedMessage } from 'react-intl';
 
 import { Button } from '../../../common/components';
 import { QuestionHeader } from '../QuestionHeader';
+import { AnswerSection } from '../AnswerSection';
+import { AnswerForm } from '../AnswerForm';
 
 import { questionTranslations } from '../../../../translations';
-
 import styles from './Question.module.css';
-import { AnswerSection } from '../AnswerSection/AnswerSection';
-import { AnswerForm } from '../AnswerForm';
 
 export interface IQuestionProps {
   id: number;
