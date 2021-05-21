@@ -19,5 +19,5 @@ const SkeletonContainerPure: React.FC<ISkeletonProviderPureProps> = ({
 };
 
 export const SkeletonContainer = connect(() => ({
-  isLoading: true,
+  isLoading: false,
 }))(SkeletonContainerPure);
