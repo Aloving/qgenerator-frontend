@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Button as MuiButton,
   ButtonProps as MuiButtonProps,
@@ -34,15 +34,20 @@ const useStyles = makeStyles((theme) => ({
 
 export const Button: React.FC<ButtonProps> = (props) => {
   const classes = useStyles();
+  const rootClasses = useMemo(
+    () =>
+      cn(styles.button, {
+        [styles.large]: props.size === 'large',
+        [styles.small]: props.size === 'small',
+      }),
+    [props.size],
+  );
 
   return (
     <MuiButton
       classes={{
         outlined: styles.outlined,
-        root: cn(styles.button, {
-          [styles.large]: props.size === 'large',
-          [styles.small]: props.size === 'small',
-        }),
+        root: rootClasses,
         disabled: classes.disabledButton,
       }}
       size="large"
