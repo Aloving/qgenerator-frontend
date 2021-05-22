@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { SkeletonContext } from '../../components';
-import { connect } from 'react-redux';
+import { selectIsQuestionLoading } from '../../../question';
+import { IStoreState } from '../../../../store';
 
 interface ISkeletonProviderPureProps {
   isLoading: boolean;
@@ -18,6 +20,6 @@ const SkeletonContainerPure: React.FC<ISkeletonProviderPureProps> = ({
   );
 };
 
-export const SkeletonContainer = connect(() => ({
-  isLoading: false,
+export const SkeletonContainer = connect((state: IStoreState) => ({
+  isLoading: selectIsQuestionLoading(state),
 }))(SkeletonContainerPure);

@@ -1,6 +1,9 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
+import { get } from 'lodash/fp';
 
 import { IQuestion, IQuestionState } from '../interfaces';
+import { IStoreState } from '../../../store';
 
 const initialState: IQuestionState = {
   isLoading: false,
@@ -23,6 +26,20 @@ export const questionActionTypes = {
 const fetchQuestionRequest = createAction(FETCH_QUESTION_REQUEST);
 const fetchQuestionSuccess = createAction<IQuestion>(FETCH_QUESTION_SUCCESS);
 const fetchQuestionFailure = createAction(FETCH_QUESTION_FAILURE);
+
+const selectQuestionSlice = (state: IStoreState) => state.question;
+export const selectIsQuestionLoading = createSelector(
+  selectQuestionSlice,
+  (state) => state.isLoading,
+);
+export const selectQuestionError = createSelector(
+  selectQuestionSlice,
+  (state) => state.error,
+);
+export const selectQuestionData = createSelector(
+  selectQuestionSlice,
+  (state) => state.data,
+);
 
 export const questionActions = {
   fetchQuestionRequest,

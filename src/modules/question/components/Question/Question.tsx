@@ -22,6 +22,7 @@ export interface IQuestionProps {
   isLoading: boolean;
   illustration?: string | React.ReactElement;
 
+  requestQuestion: () => void;
   onLike: () => void;
   onDislike: () => void;
 }
@@ -35,6 +36,7 @@ export const Question: React.FC<IQuestionProps> = ({
   likes,
   disliked,
   dislikes,
+  requestQuestion,
   onDislike,
   onLike,
   ...props
@@ -86,7 +88,11 @@ export const Question: React.FC<IQuestionProps> = ({
               </Typography>
             </Button>
           </div>
-          <Button variant="outlined" disabled={isLoading}>
+          <Button
+            variant="outlined"
+            disabled={isLoading}
+            onClick={requestQuestion}
+          >
             <FormattedMessage {...questionTranslations.oneMoreAnswer} />
           </Button>
         </div>
