@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { FormattedMessage } from 'react-intl';
+import { subDays } from 'date-fns';
 
 import { Button } from '../../../common/components';
 import { QuestionHeader } from '../QuestionHeader';
@@ -100,7 +101,7 @@ export const Question: React.FC<IQuestionProps> = ({
             liked: true,
             avatar: 'https://source.unsplash.com/48x48/?people',
             authorName: 'Алешка Попович',
-            time: '10 sec назад',
+            date: subDays(new Date(), 2).toString(),
             text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae error est illo quidem, voluptas? Accusamus aspernatur atque deserunt dolores ex harum id laboriosam perspiciatis, praesentium quasi quis rerum voluptates.`,
           },
           {
@@ -111,7 +112,7 @@ export const Question: React.FC<IQuestionProps> = ({
             liked: true,
             avatar: 'https://source.unsplash.com/48x48/?people',
             authorName: 'Алешка Попович',
-            time: '10 sec назад',
+            date: subDays(new Date(), 6).toString(),
             text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae error est illo quidem, voluptas? Accusamus aspernatur atque deserunt dolores ex harum id laboriosam perspiciatis, praesentium quasi quis rerum voluptates.`,
           },
         ]}

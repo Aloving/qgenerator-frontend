@@ -5,5 +5,5 @@ interface ISkeletonContextProps {
 }
 
 export const SkeletonContext = React.createContext<ISkeletonContextProps>({
-  isLoading: false,
+  isLoading: true,
 });

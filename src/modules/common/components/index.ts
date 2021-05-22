@@ -1,5 +1,6 @@
 export * from './BackgroundWrapper';
 export * from './Button';
+export * from './Date';
 export * from './Header';
 export * from './LangSwitcher';
 export * from './Likes';
