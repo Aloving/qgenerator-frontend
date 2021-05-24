@@ -1,1 +1,1 @@
-export * from './ITestRequest';
+export * from './IGenerateQuestion';

@@ -1,7 +1,7 @@
-import { takeLatest } from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
+
+import { questionRooSaga } from '../modules/question';
 
 export const rootSaga = function* () {
-  yield takeLatest('TEST', () => {
-    console.log('test');
-  });
+  yield all([questionRooSaga()]);
 };

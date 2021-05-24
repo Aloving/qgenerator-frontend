@@ -1,5 +1,10 @@
-import { IQuestion } from '../../modules/question/interfaces';
+import { IGenerateQuestionResponse, IGenerateQuestionRequest } from '../dto';
+import { IQuestion } from '../../modules/question';
 
 export interface IQuestionService {
-  getQuestion(): Promise<IQuestion>;
+  getQuestion(
+    payload: IGenerateQuestionRequest,
+  ): Promise<IGenerateQuestionResponse>;
+
+  likeQuestion(questionId: number): Promise<IQuestion>;
 }

@@ -3,22 +3,22 @@ import { createReducer, createAction } from '@reduxjs/toolkit';
 
 import { ILikes } from '../interfaces';
 
-const defaultInitialState: ILikes = {
+export const defaultLikesInitialState: ILikes = {
   liked: [],
   disliked: [],
 };
 
 export const createLikes = (
   prefix: string,
-  initialState: ILikes = defaultInitialState,
+  initialState: ILikes = defaultLikesInitialState,
 ) => {
-  const actionTypes = {
+  const likesActionTypes = {
     LIKE: `${prefix}//LIKE`,
     DISLIKE: `${prefix}//DISLIKE`,
   };
 
-  const like = createAction<string | number>(actionTypes.LIKE);
-  const dislike = createAction<string | number>(actionTypes.DISLIKE);
+  const like = createAction<string | number>(likesActionTypes.LIKE);
+  const dislike = createAction<string | number>(likesActionTypes.DISLIKE);
 
   const likesActions = {
     like,
@@ -57,7 +57,7 @@ export const createLikes = (
   });
 
   return {
-    actionTypes,
+    likesActionTypes,
     likesActions,
     likesReducer,
   };
