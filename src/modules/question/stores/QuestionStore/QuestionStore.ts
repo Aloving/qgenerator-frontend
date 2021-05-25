@@ -1,22 +1,16 @@
+import { computed } from 'mobx';
+
+import { IQuestionService } from '../../../../api/interfaces';
 import { ILikesStore } from '../../../common/stores';
 import { IQuestionDataStore } from '../QuestionDataStore';
 import { IQuestionStore } from './IQuestionStore';
-import { IQuestionService } from '../../../../api/interfaces';
-import { computed, observable } from 'mobx';
-import { IQuestion } from '../../interfaces';
 
 export class QuestionStore implements IQuestionStore {
-  @computed questionData: IQuestion | null;
-  @computed isLoading: boolean;
-
   constructor(
     private questionService: IQuestionService,
-    private questionDataStore: IQuestionDataStore,
+    readonly questionDataStore: IQuestionDataStore,
     private likesStore: ILikesStore,
-  ) {
-    this.questionData = this.questionDataStore.data;
-    this.isLoading = this.questionDataStore.isLoading;
-  }
+  ) {}
 
   @computed get isLiked() {
     const questionId = this.questionDataStore.questionId;
@@ -38,6 +32,7 @@ export class QuestionStore implements IQuestionStore {
 
   requestQuestion = async () => {
     try {
+      console.log('here');
       this.questionDataStore.preRequestQuestionActions();
       const { question } = await this.questionService.getQuestion({
         excludeIds: [],

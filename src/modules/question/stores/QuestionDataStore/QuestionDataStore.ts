@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, makeAutoObservable } from 'mobx';
 
 import { IQuestionDataStore } from './IQuestionDataStore';
 import { IQuestion } from '../../interfaces';
@@ -9,6 +9,10 @@ export class QuestionDataStore implements IQuestionDataStore {
   @observable completed = false;
   @observable data: IQuestion | null = null;
   @observable excludeIds: number[] = [];
+
+  constructor() {
+    makeAutoObservable(this);
+  }
 
   get questionId() {
     return this.data?.id || -1;

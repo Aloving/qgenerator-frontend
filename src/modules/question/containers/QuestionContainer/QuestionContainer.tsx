@@ -20,10 +20,9 @@ const questionPropsExample = {
 export const QuestionContainerPure: React.FC = () => {
   const { isLoading } = useContext(SkeletonContext);
   const { questionStore } = useStores();
-  console.log(questionStore.questionData);
   const data = useMemo(
-    () => questionStore.questionData || questionPropsExample,
-    [questionStore.questionData, questionPropsExample],
+    () => questionStore.questionDataStore.data || questionPropsExample,
+    [questionStore.questionDataStore.data, questionPropsExample],
   );
   const disliked = useMemo(() => questionStore.isDisliked, [
     questionStore.isDisliked,
@@ -40,6 +39,8 @@ export const QuestionContainerPure: React.FC = () => {
     () => questionStore.requestQuestion(),
     [questionStore.requestQuestion],
   );
+
+  console.log(data);
 
   return (
     <Question
