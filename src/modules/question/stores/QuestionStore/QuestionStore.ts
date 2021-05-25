@@ -24,11 +24,17 @@ export class QuestionStore implements IQuestionStore {
     return this.likesStore.isDisliked(questionId);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  likeQuestion = () => {};
+  likeQuestion = () => {
+    const questionId = this.questionDataStore.questionId;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  dislikeQuestion = () => {};
+    return this.likesStore.like(questionId);
+  };
+
+  dislikeQuestion = () => {
+    const questionId = this.questionDataStore.questionId;
+
+    return this.likesStore.dislike(questionId);
+  };
 
   requestQuestion = async () => {
     try {

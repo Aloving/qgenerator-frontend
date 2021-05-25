@@ -1,5 +1,5 @@
 import { ILikesStore } from './ILikesStore';
-import { action, observable } from 'mobx';
+import { action, makeAutoObservable, observable } from 'mobx';
 import { filter } from 'lodash';
 
 type LikeType = string | number;
@@ -7,6 +7,10 @@ type LikeType = string | number;
 export class LikesStore implements ILikesStore {
   @observable liked: Array<LikeType> = [];
   @observable disliked: Array<LikeType> = [];
+
+  constructor() {
+    makeAutoObservable(this);
+  }
 
   isLiked = (id: LikeType) => {
     return this.liked.includes(id);

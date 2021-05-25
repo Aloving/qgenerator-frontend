@@ -40,8 +40,6 @@ export const QuestionContainerPure: React.FC = () => {
     [questionStore.requestQuestion],
   );
 
-  console.log(data);
-
   return (
     <Question
       {...data}
