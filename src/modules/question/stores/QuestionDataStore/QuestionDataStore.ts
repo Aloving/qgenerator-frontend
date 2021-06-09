@@ -1,7 +1,8 @@
-import { action, observable, makeAutoObservable } from 'mobx';
+import { action, observable, makeAutoObservable, computed } from 'mobx';
 
 import { IQuestionDataStore } from './IQuestionDataStore';
 import { IQuestion } from '../../interfaces';
+import { ILikesStore } from '../../../common/stores/LikesStore';
 
 export class QuestionDataStore implements IQuestionDataStore {
   @observable isLoading = false;
@@ -10,13 +11,55 @@ export class QuestionDataStore implements IQuestionDataStore {
   @observable data: IQuestion | null = null;
   @observable excludeIds: number[] = [];
 
-  constructor() {
+  constructor(private likesStore: ILikesStore) {
     makeAutoObservable(this);
   }
 
   get questionId() {
     return this.data?.id || -1;
   }
+
+  @computed get isLiked() {
+    return this.likesStore.isLiked(this.questionId);
+  }
+
+  @computed get isDisliked() {
+    return this.likesStore.isDisliked(this.questionId);
+  }
+
+  @action
+  likeQuestion = () => {
+    if (!this.isLiked) {
+      this.increaseLikes();
+    }
+
+    if (this.isLiked) {
+      this.decreaseLikes();
+    }
+
+    if (this.isDisliked) {
+      this.decreaseDislikes();
+    }
+
+    return this.likesStore.like(this.questionId);
+  };
+
+  @action
+  dislikeQuestion = () => {
+    if (this.isLiked) {
+      this.decreaseLikes();
+    }
+
+    if (this.isDisliked) {
+      this.decreaseDislikes();
+    }
+
+    if (!this.isDisliked) {
+      this.increaseDislikes();
+    }
+
+    return this.likesStore.dislike(this.questionId);
+  };
 
   @action
   setLoading = () => {
@@ -51,6 +94,27 @@ export class QuestionDataStore implements IQuestionDataStore {
   @action
   setData = (data: IQuestion) => {
     this.data = data;
+  };
+
+  @action
+  increaseLikes = () => {
+    this.data && this.data.likes++;
+    console.log(this.completed);
+  };
+
+  @action
+  decreaseLikes = () => {
+    this.data && this.data.likes--;
+  };
+
+  @action
+  increaseDislikes = () => {
+    this.data && this.data.dislikes++;
+  };
+
+  @action
+  decreaseDislikes = () => {
+    this.data && this.data.dislikes--;
   };
 
   @action

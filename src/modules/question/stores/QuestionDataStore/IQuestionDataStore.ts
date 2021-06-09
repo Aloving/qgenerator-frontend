@@ -6,7 +6,15 @@ export interface IQuestionDataStore {
   error: boolean;
   isLoading: boolean;
   questionId: number;
+  isLiked: boolean;
+  isDisliked: boolean;
 
+  likeQuestion(): void;
+  dislikeQuestion(): void;
+  increaseLikes(): void;
+  decreaseLikes(): void;
+  increaseDislikes(): void;
+  decreaseDislikes(): void;
   preRequestQuestionActions(): void;
   requestQuestionError(): void;
   requestQuestionSuccess(data: IQuestion): void;

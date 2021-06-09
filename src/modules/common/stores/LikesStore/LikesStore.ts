@@ -7,6 +7,8 @@ type LikeType = string | number;
 export class LikesStore implements ILikesStore {
   @observable liked: Array<LikeType> = [];
   @observable disliked: Array<LikeType> = [];
+  @observable likeCounter = 0;
+  @observable dislikeCounter = 0;
 
   constructor() {
     makeAutoObservable(this);
