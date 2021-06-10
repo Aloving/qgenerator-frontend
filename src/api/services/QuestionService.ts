@@ -23,4 +23,10 @@ export class QuestionService implements IQuestionService {
       `/api/questions/${questionId}/like`,
     );
   };
+
+  dislikeQuestion = (questionId: number): Promise<IQuestion> => {
+    return this._httpTransport.put<IQuestion>(
+      `/api/questions/${questionId}/dislike`,
+    );
+  };
 }

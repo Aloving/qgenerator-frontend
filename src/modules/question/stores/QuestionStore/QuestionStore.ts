@@ -1,4 +1,4 @@
-import { action, computed } from 'mobx';
+import { computed } from 'mobx';
 
 import { IQuestionService } from '../../../../api/interfaces';
 import { IQuestionDataStore } from '../QuestionDataStore';
@@ -18,14 +18,24 @@ export class QuestionStore implements IQuestionStore {
     return this.questionDataStore.isDisliked;
   }
 
-  @action
   likeQuestion = () => {
-    this.questionDataStore.likeQuestion();
+    try {
+      this.questionDataStore.likeQuestion();
+
+      this.questionService.likeQuestion(this.questionDataStore.questionId);
+    } catch (e) {
+      // the catch flow
+    }
   };
 
-  @action
   dislikeQuestion = () => {
-    this.questionDataStore.dislikeQuestion();
+    try {
+      this.questionDataStore.dislikeQuestion();
+
+      this.questionService.dislikeQuestion(this.questionDataStore.questionId);
+    } catch (e) {
+      // the catch flow
+    }
   };
 
   requestQuestion = async () => {

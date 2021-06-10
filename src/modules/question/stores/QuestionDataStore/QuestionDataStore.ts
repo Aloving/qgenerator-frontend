@@ -8,7 +8,19 @@ export class QuestionDataStore implements IQuestionDataStore {
   @observable isLoading = false;
   @observable error = false;
   @observable completed = false;
-  @observable data: IQuestion | null = null;
+  @observable data: IQuestion = {
+    id: -1,
+    commentariesCount: 0,
+    likes: 0,
+    dislikes: 0,
+    author: {
+      id: '',
+      avatar: '',
+      name: '',
+    },
+    answers: [],
+    text: '',
+  };
   @observable excludeIds: number[] = [];
 
   constructor(private likesStore: ILikesStore) {

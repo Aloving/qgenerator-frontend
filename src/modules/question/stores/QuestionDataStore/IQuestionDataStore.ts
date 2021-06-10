@@ -2,7 +2,7 @@ import { IQuestion } from '../../interfaces';
 
 export interface IQuestionDataStore {
   completed: boolean;
-  data: IQuestion | null;
+  data: IQuestion;
   error: boolean;
   isLoading: boolean;
   questionId: number;

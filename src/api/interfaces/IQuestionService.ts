@@ -7,4 +7,5 @@ export interface IQuestionService {
   ): Promise<IGenerateQuestionResponse>;
 
   likeQuestion(questionId: number): Promise<IQuestion>;
+  dislikeQuestion(questionId: number): Promise<IQuestion>;
 }
