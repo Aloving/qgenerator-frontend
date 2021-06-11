@@ -18,21 +18,73 @@ export class QuestionStore implements IQuestionStore {
     return this.questionDataStore.isDisliked;
   }
 
-  likeQuestion = () => {
+  likeQuestion = async () => {
     try {
-      this.questionDataStore.likeQuestion();
+      if (!this.isLiked && !this.isDisliked) {
+        this.questionDataStore.increaseLikes();
 
-      this.questionService.likeQuestion(this.questionDataStore.questionId);
+        await this.questionService.increaseQuestionLikes(
+          this.questionDataStore.questionId,
+        );
+      }
+
+      if (this.isDisliked) {
+        this.questionDataStore.decreaseDislikes();
+        this.questionDataStore.increaseLikes();
+
+        await this.questionService.decreaseQuestionDislikes(
+          this.questionDataStore.questionId,
+        );
+        await this.questionService.increaseQuestionLikes(
+          this.questionDataStore.questionId,
+        );
+      }
+
+      if (this.isLiked) {
+        this.questionDataStore.decreaseLikes();
+
+        await this.questionService.decreaseQuestionLikes(
+          this.questionDataStore.questionId,
+        );
+      }
+
+      this.questionDataStore.likeQuestion();
     } catch (e) {
       // the catch flow
     }
   };
 
-  dislikeQuestion = () => {
+  dislikeQuestion = async () => {
     try {
-      this.questionDataStore.dislikeQuestion();
+      if (!this.isLiked && !this.isDisliked) {
+        this.questionDataStore.increaseDislikes();
 
-      this.questionService.dislikeQuestion(this.questionDataStore.questionId);
+        await this.questionService.increaseQuestionLikes(
+          this.questionDataStore.questionId,
+        );
+      }
+
+      if (this.isLiked) {
+        this.questionDataStore.decreaseLikes();
+        this.questionDataStore.increaseDislikes();
+
+        await this.questionService.decreaseQuestionLikes(
+          this.questionDataStore.questionId,
+        );
+        await this.questionService.increaseQuestionDislikes(
+          this.questionDataStore.questionId,
+        );
+      }
+
+      if (this.isDisliked) {
+        this.questionDataStore.decreaseDislikes();
+
+        await this.questionService.decreaseQuestionDislikes(
+          this.questionDataStore.questionId,
+        );
+      }
+
+      this.questionDataStore.dislikeQuestion();
     } catch (e) {
       // the catch flow
     }

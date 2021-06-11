@@ -18,15 +18,27 @@ export class QuestionService implements IQuestionService {
     );
   };
 
-  likeQuestion = (questionId: number): Promise<IQuestion> => {
+  increaseQuestionLikes = (questionId: number): Promise<IQuestion> => {
     return this._httpTransport.put<IQuestion>(
-      `/api/questions/${questionId}/like`,
+      `/api/questions/${questionId}/increaseLikes`,
     );
   };
 
-  dislikeQuestion = (questionId: number): Promise<IQuestion> => {
+  decreaseQuestionLikes = (questionId: number): Promise<IQuestion> => {
     return this._httpTransport.put<IQuestion>(
-      `/api/questions/${questionId}/dislike`,
+      `/api/questions/${questionId}/decreaseLikes`,
+    );
+  };
+
+  increaseQuestionDislikes = (questionId: number): Promise<IQuestion> => {
+    return this._httpTransport.put<IQuestion>(
+      `/api/questions/${questionId}/increaseDislikes`,
+    );
+  };
+
+  decreaseQuestionDislikes = (questionId: number): Promise<IQuestion> => {
+    return this._httpTransport.put<IQuestion>(
+      `/api/questions/${questionId}/decreaseDislikes`,
     );
   };
 }

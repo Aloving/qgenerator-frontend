@@ -41,35 +41,11 @@ export class QuestionDataStore implements IQuestionDataStore {
 
   @action
   likeQuestion = () => {
-    if (!this.isLiked) {
-      this.increaseLikes();
-    }
-
-    if (this.isLiked) {
-      this.decreaseLikes();
-    }
-
-    if (this.isDisliked) {
-      this.decreaseDislikes();
-    }
-
     return this.likesStore.like(this.questionId);
   };
 
   @action
   dislikeQuestion = () => {
-    if (this.isLiked) {
-      this.decreaseLikes();
-    }
-
-    if (this.isDisliked) {
-      this.decreaseDislikes();
-    }
-
-    if (!this.isDisliked) {
-      this.increaseDislikes();
-    }
-
     return this.likesStore.dislike(this.questionId);
   };
 

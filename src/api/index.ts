@@ -1,5 +1,6 @@
-import { authTransport, questionService } from './entities';
 import { IApi } from './interfaces';
-export * from './interfaces';
 
+import { authTransport, questionService } from './entities';
+
+export * from './interfaces';
 export const api: IApi = { authTransport, questionService };

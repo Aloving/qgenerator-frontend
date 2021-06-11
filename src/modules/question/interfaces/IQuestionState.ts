@@ -1,5 +1,5 @@
-import { ILikes } from '../../common';
-import { IQuestion } from './';
+import { ILikes } from '../../common/interfaces';
+import { IQuestion } from './IQuestion';
 
 interface IQuestionData {
   isLoading: boolean;

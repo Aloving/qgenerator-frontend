@@ -6,6 +6,9 @@ export interface IQuestionService {
     payload: IGenerateQuestionRequest,
   ): Promise<IGenerateQuestionResponse>;
 
-  likeQuestion(questionId: number): Promise<IQuestion>;
-  dislikeQuestion(questionId: number): Promise<IQuestion>;
+  increaseQuestionLikes(questionId: number): Promise<IQuestion>;
+  decreaseQuestionLikes(questionId: number): Promise<IQuestion>;
+
+  increaseQuestionDislikes(questionId: number): Promise<IQuestion>;
+  decreaseQuestionDislikes(questionId: number): Promise<IQuestion>;
 }
