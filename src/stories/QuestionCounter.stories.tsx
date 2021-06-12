@@ -5,7 +5,7 @@ import { Story } from '@storybook/react';
 import {
   QuestionCounter,
   IQuestionNumProps,
-} from '../modules/question/components';
+} from '../modules/question/components/QuestionCounter';
 
 const Template: Story<IQuestionNumProps> = (args) => (
   <QuestionCounter {...args} />
