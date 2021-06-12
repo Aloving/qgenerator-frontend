@@ -1,1 +1,1 @@
-export * from './IGenerateQuestion';
+export * from './IRandomizeQuestion';

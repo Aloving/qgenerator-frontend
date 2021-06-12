@@ -21,7 +21,6 @@ export class QuestionDataStore implements IQuestionDataStore {
     answers: [],
     text: '',
   };
-  @observable excludeIds: number[] = [];
 
   constructor(private likesStore: ILikesStore) {
     makeAutoObservable(this);

@@ -1,10 +1,10 @@
 import { IQuestion } from '../../modules/question';
 
-export interface IGenerateQuestionRequest {
+export interface IRandomizeQuestionRequest {
   excludeIds: number[];
 }
 
-export interface IGenerateQuestionResponse {
+export interface IRandomizeQuestionResponse {
   excludeIds: number[];
   question: IQuestion;
 }

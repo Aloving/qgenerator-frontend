@@ -1,13 +1,17 @@
 import React, { useCallback, useContext, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useParams } from 'react-router';
 
 import { SkeletonContext } from '../../../common/components';
 import { Question } from '../../components/Question';
 import { useStores } from '../../../common/containers/StoreProvider/useStores';
+import { IRouterParams } from '../../../common/interfaces';
 
 export const QuestionContainerPure: React.FC = () => {
   const { isLoading } = useContext(SkeletonContext);
   const { questionStore } = useStores();
+  const isCompleted = questionStore.questionDataStore.completed;
+  const { questionId } = useParams<IRouterParams>();
   const data = useMemo(() => questionStore.questionDataStore.data, [
     questionStore.questionDataStore.data,
   ]);
@@ -22,13 +26,15 @@ export const QuestionContainerPure: React.FC = () => {
     () => questionStore.dislikeQuestion(),
     [questionStore],
   );
-  const handleRequestQuestion = useCallback(
-    () => questionStore.requestQuestion(),
-    [questionStore.requestQuestion],
-  );
+  const handleRequestQuestion = useCallback(() => {
+    questionStore.randomizeQuestion();
+  }, [questionStore.requestQuestion]);
 
   useEffect(() => {
-    questionStore.requestQuestion();
+    questionId &&
+      !isCompleted &&
+      !isLoading &&
+      questionStore.requestQuestion(+questionId);
   }, []);
 
   return (

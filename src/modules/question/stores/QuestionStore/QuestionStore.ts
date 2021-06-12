@@ -1,12 +1,18 @@
-import { computed } from 'mobx';
+import { computed, observable } from 'mobx';
+import { History } from 'history';
+
+import { buildQuestionId } from '../../../common/utils/urls';
 
 import { IQuestionService } from '../../../../api/interfaces';
 import { IQuestionDataStore } from '../QuestionDataStore';
 import { IQuestionStore } from './IQuestionStore';
 
 export class QuestionStore implements IQuestionStore {
+  @observable excludeIds: number[] = [];
+
   constructor(
     private questionService: IQuestionService,
+    private history: History,
     readonly questionDataStore: IQuestionDataStore,
   ) {}
 
@@ -90,14 +96,35 @@ export class QuestionStore implements IQuestionStore {
     }
   };
 
-  requestQuestion = async () => {
+  requestQuestion = async (questionId: number) => {
+    const excludeIds = this.excludeIds?.includes(questionId)
+      ? this.excludeIds
+      : [...this.excludeIds, questionId];
+
     try {
       this.questionDataStore.preRequestQuestionActions();
-      const { question } = await this.questionService.getQuestion({
-        excludeIds: [],
+      const question = await this.questionService.getQuestion(questionId);
+
+      this.questionDataStore.requestQuestionSuccess(question);
+      this.excludeIds = excludeIds;
+    } catch (e) {
+      this.questionDataStore.requestQuestionError();
+    }
+  };
+
+  randomizeQuestion = async () => {
+    try {
+      this.questionDataStore.preRequestQuestionActions();
+      const {
+        question,
+        excludeIds,
+      } = await this.questionService.randomizeQuestion({
+        excludeIds: this.excludeIds,
       });
 
       this.questionDataStore.requestQuestionSuccess(question);
+      this.excludeIds = excludeIds;
+      this.history.push(buildQuestionId(question.id));
     } catch (e) {
       this.questionDataStore.requestQuestionError();
     }

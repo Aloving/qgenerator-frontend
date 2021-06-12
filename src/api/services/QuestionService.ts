@@ -1,5 +1,5 @@
 import { IAuthTransport, IQuestionService } from '../interfaces';
-import { IGenerateQuestionRequest, IGenerateQuestionResponse } from '../dto';
+import { IRandomizeQuestionResponse, IRandomizeQuestionRequest } from '../dto';
 import { IQuestion } from '../../modules/question/interfaces';
 
 export class QuestionService implements IQuestionService {
@@ -9,13 +9,17 @@ export class QuestionService implements IQuestionService {
     this._httpTransport = httpTransport;
   }
 
-  getQuestion = ({
+  randomizeQuestion = ({
     excludeIds,
-  }: IGenerateQuestionRequest): Promise<IGenerateQuestionResponse> => {
-    return this._httpTransport.post<IGenerateQuestionResponse>(
-      '/api/questions/generate',
+  }: IRandomizeQuestionRequest): Promise<IRandomizeQuestionResponse> => {
+    return this._httpTransport.post<IRandomizeQuestionResponse>(
+      '/api/questions/randomize',
       { excludeIds },
     );
+  };
+
+  getQuestion = (questionId: number): Promise<IQuestion> => {
+    return this._httpTransport.get<IQuestion>(`/api/questions/${questionId}`);
   };
 
   increaseQuestionLikes = (questionId: number): Promise<IQuestion> => {

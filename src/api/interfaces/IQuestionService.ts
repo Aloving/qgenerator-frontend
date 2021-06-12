@@ -1,10 +1,11 @@
-import { IGenerateQuestionResponse, IGenerateQuestionRequest } from '../dto';
+import { IRandomizeQuestionRequest, IRandomizeQuestionResponse } from '../dto';
 import { IQuestion } from '../../modules/question';
 
 export interface IQuestionService {
-  getQuestion(
-    payload: IGenerateQuestionRequest,
-  ): Promise<IGenerateQuestionResponse>;
+  randomizeQuestion(
+    payload: IRandomizeQuestionRequest,
+  ): Promise<IRandomizeQuestionResponse>;
+  getQuestion(questionId: number): Promise<IQuestion>;
 
   increaseQuestionLikes(questionId: number): Promise<IQuestion>;
   decreaseQuestionLikes(questionId: number): Promise<IQuestion>;
