@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Button as MuiButton,
   ButtonProps as MuiButtonProps,
   makeStyles,
   fade,
 } from '@material-ui/core';
+import cn from 'classnames';
 
 import styles from './Button.module.css';
 
@@ -13,8 +14,9 @@ export interface ButtonProps
     MuiButtonProps,
     'disabled' | 'children' | 'onClick' | 'className'
   > {
-  variant?: 'outlined' | 'contained';
+  variant?: 'outlined' | 'contained' | 'text';
   color?: 'primary' | 'secondary';
+  size?: 'large' | 'small';
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -32,12 +34,20 @@ const useStyles = makeStyles((theme) => ({
 
 export const Button: React.FC<ButtonProps> = (props) => {
   const classes = useStyles();
+  const rootClasses = useMemo(
+    () =>
+      cn(styles.button, {
+        [styles.large]: props.size === 'large',
+        [styles.small]: props.size === 'small',
+      }),
+    [props.size],
+  );
 
   return (
     <MuiButton
       classes={{
         outlined: styles.outlined,
-        root: styles.button,
+        root: rootClasses,
         disabled: classes.disabledButton,
       }}
       size="large"
@@ -49,4 +59,5 @@ export const Button: React.FC<ButtonProps> = (props) => {
 Button.defaultProps = {
   color: 'primary',
   variant: 'contained',
+  size: 'large',
 };

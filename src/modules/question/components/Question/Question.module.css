@@ -13,6 +13,10 @@
   display: flex;
 }
 
+.answerForm {
+  margin-top: 3rem;
+}
+
 .answerAction {
   margin-right: 32px;
 }
