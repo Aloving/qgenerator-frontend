@@ -10,10 +10,13 @@ import { AnswerSection } from '../AnswerSection';
 
 import { questionTranslations } from '../../../../translations';
 
+import { IAnswer } from '../../interfaces/IAnswer';
+
 import styles from './Question.module.css';
 
 export interface IQuestionProps {
   id: number;
+  answers: IAnswer[];
   text: string;
   dislikes: number;
   likes: number;
@@ -29,6 +32,7 @@ export interface IQuestionProps {
 
 export const Question: React.FC<IQuestionProps> = ({
   id,
+  answers,
   text,
   illustration,
   isLoading,
@@ -87,7 +91,7 @@ export const Question: React.FC<IQuestionProps> = ({
                 <FormattedMessage {...questionTranslations.answerIt} />
               </Typography>
             </Button>
-          </div>
+          </div>w
           <Button
             variant="outlined"
             disabled={isLoading}
@@ -97,33 +101,7 @@ export const Question: React.FC<IQuestionProps> = ({
           </Button>
         </div>
       </div>
-      <AnswerSection
-        answers={[
-          {
-            id: 1,
-            likes: 5123,
-            dislikes: 10,
-            disliked: false,
-            liked: true,
-            avatar: 'https://source.unsplash.com/48x48/?people',
-            authorName: 'Алешка Попович',
-            date: subDays(new Date(), 2).toString(),
-            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae error est illo quidem, voluptas? Accusamus aspernatur atque deserunt dolores ex harum id laboriosam perspiciatis, praesentium quasi quis rerum voluptates.`,
-          },
-          {
-            id: 2,
-            likes: 5123,
-            dislikes: 10,
-            disliked: false,
-            liked: true,
-            avatar: 'https://source.unsplash.com/48x48/?people',
-            authorName: 'Алешка Попович',
-            date: subDays(new Date(), 6).toString(),
-            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae error est illo quidem, voluptas? Accusamus aspernatur atque deserunt dolores ex harum id laboriosam perspiciatis, praesentium quasi quis rerum voluptates.`,
-          },
-        ]}
-        isLoading={isLoading}
-      />
+      <AnswerSection answers={answers} isLoading={isLoading} />
     </div>
   );
 };
