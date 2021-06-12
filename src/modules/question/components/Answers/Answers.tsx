@@ -14,14 +14,14 @@ interface IAnswersProps {
 
 export const Answers: React.FC<IAnswersProps> = ({ answers, isLoading }) => {
   const answersToRender = isLoading
-    ? [makeEmptyAnswer(), makeEmptyAnswer()]
+    ? [makeEmptyAnswer({ id: -1 }), makeEmptyAnswer({ id: -2 })]
     : answers;
 
   return (
     <>
       {answersToRender.map((answer) => (
-        <div className={styles.item}>
-          <Answer isLoading={isLoading} {...answer} />
+        <div className={styles.item} key={answer.id}>
+          <Answer isLoading={isLoading} key={answer.id} {...answer} />
         </div>
       ))}
     </>

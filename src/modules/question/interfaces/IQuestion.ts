@@ -8,5 +8,5 @@ export interface IQuestion {
   commentariesCount: number;
   author: IAuthor;
   answers: IAnswer[];
-  questionText: string;
+  text: string;
 }

@@ -1,2 +1,1 @@
-export * from './ILikes';
-export * from './IQuestionsDataState';
+export * from './IRouterParams';

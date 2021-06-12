@@ -1,16 +1,13 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 
 import { SkeletonContext } from '../../components';
-import { connect } from 'react-redux';
+import { useStores } from '../StoreProvider/useStores';
 
-interface ISkeletonProviderPureProps {
-  isLoading: boolean;
-}
+const SkeletonContainerPure: React.FC = ({ children }) => {
+  const { questionStore } = useStores();
+  const isLoading = questionStore.questionDataStore.isLoading;
 
-const SkeletonContainerPure: React.FC<ISkeletonProviderPureProps> = ({
-  isLoading,
-  children,
-}) => {
   return (
     <SkeletonContext.Provider value={{ isLoading }}>
       {children}
@@ -18,6 +15,4 @@ const SkeletonContainerPure: React.FC<ISkeletonProviderPureProps> = ({
   );
 };
 
-export const SkeletonContainer = connect(() => ({
-  isLoading: false,
-}))(SkeletonContainerPure);
+export const SkeletonContainer = observer(SkeletonContainerPure);

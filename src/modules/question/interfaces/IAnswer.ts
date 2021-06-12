@@ -7,5 +7,5 @@ export interface IAnswer {
   disliked: boolean;
   liked: boolean;
   avatar: string;
-  time: string;
+  date: string;
 }

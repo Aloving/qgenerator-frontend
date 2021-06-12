@@ -9,10 +9,14 @@ import { AnswerSection } from '../AnswerSection';
 import { AnswerForm } from '../AnswerForm';
 
 import { questionTranslations } from '../../../../translations';
+
+import { IAnswer } from '../../interfaces/IAnswer';
+
 import styles from './Question.module.css';
 
 export interface IQuestionProps {
   id: number;
+  answers: IAnswer[];
   text: string;
   dislikes: number;
   likes: number;
@@ -21,12 +25,14 @@ export interface IQuestionProps {
   isLoading: boolean;
   illustration?: string | React.ReactElement;
 
+  requestQuestion: () => void;
   onLike: () => void;
   onDislike: () => void;
 }
 
 export const Question: React.FC<IQuestionProps> = ({
   id,
+  answers,
   text,
   illustration,
   isLoading,
@@ -34,6 +40,7 @@ export const Question: React.FC<IQuestionProps> = ({
   likes,
   disliked,
   dislikes,
+  requestQuestion,
   onDislike,
   onLike,
   ...props
@@ -87,7 +94,11 @@ export const Question: React.FC<IQuestionProps> = ({
               </Typography>
             </Button>
           </div>
-          <Button variant="outlined" disabled={isLoading}>
+          <Button
+            variant="outlined"
+            disabled={isLoading}
+            onClick={requestQuestion}
+          >
             <FormattedMessage {...questionTranslations.oneMoreAnswer} />
           </Button>
         </div>
@@ -97,33 +108,7 @@ export const Question: React.FC<IQuestionProps> = ({
           </div>
         )}
       </div>
-      <AnswerSection
-        answers={[
-          {
-            id: 1,
-            likes: 5123,
-            dislikes: 10,
-            disliked: false,
-            liked: true,
-            avatar: 'https://source.unsplash.com/48x48/?people',
-            authorName: 'Алешка Попович',
-            time: '10 sec назад',
-            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae error est illo quidem, voluptas? Accusamus aspernatur atque deserunt dolores ex harum id laboriosam perspiciatis, praesentium quasi quis rerum voluptates.`,
-          },
-          {
-            id: 2,
-            likes: 5123,
-            dislikes: 10,
-            disliked: false,
-            liked: true,
-            avatar: 'https://source.unsplash.com/48x48/?people',
-            authorName: 'Алешка Попович',
-            time: '10 sec назад',
-            text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae error est illo quidem, voluptas? Accusamus aspernatur atque deserunt dolores ex harum id laboriosam perspiciatis, praesentium quasi quis rerum voluptates.`,
-          },
-        ]}
-        isLoading={isLoading}
-      />
+      <AnswerSection answers={answers} isLoading={isLoading} />
     </div>
   );
 };
