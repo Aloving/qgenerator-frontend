@@ -3,7 +3,7 @@ import { Avatar, makeStyles, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import cn from 'classnames';
 
-import { Likes } from '../../../common/components';
+import { FromNowDate, Likes } from '../../../common/components';
 
 import styles from './Answer.module.css';
 
@@ -14,7 +14,7 @@ interface IAnswerProps {
   liked: boolean;
   avatar: string;
   authorName: string;
-  time: string;
+  date: string;
   text: string;
   isLoading: boolean;
 }
@@ -32,7 +32,7 @@ export const Answer: React.FC<IAnswerProps> = ({
   liked,
   dislikes,
   disliked,
-  time,
+  date,
   isLoading,
   text,
 }) => {
@@ -67,7 +67,7 @@ export const Answer: React.FC<IAnswerProps> = ({
                 color="secondary"
                 className={cn(classNames.time, styles.time)}
               >
-                {time}
+                <FromNowDate date={date} />
               </Typography>
             )}
           </div>

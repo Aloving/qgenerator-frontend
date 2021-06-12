@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
+import { debounce } from 'lodash';
 import { Button, Typography } from '@material-ui/core';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+import { Skeleton } from '@material-ui/lab';
 
 import styles from './Likes.module.css';
-import { Skeleton } from '@material-ui/lab';
 
 export interface ILikesProps {
   liked: boolean;
@@ -36,6 +37,8 @@ export const Likes: React.FC<ILikesProps> = ({
     () => (disliked ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />),
     [disliked],
   );
+  const handleOnLike = debounce(onLike, 500);
+  const handleOnDislike = debounce(onDislike, 500);
 
   return (
     <div className={styles.root}>
@@ -46,7 +49,7 @@ export const Likes: React.FC<ILikesProps> = ({
           <Button
             startIcon={likedIcon}
             color="primary"
-            onClick={onLike}
+            onClick={handleOnLike}
             className={styles.button}
           >
             <Typography variant="caption" color="textPrimary">
@@ -62,7 +65,7 @@ export const Likes: React.FC<ILikesProps> = ({
           <Button
             startIcon={dislikedIcon}
             color="primary"
-            onClick={onDislike}
+            onClick={handleOnDislike}
             className={styles.button}
           >
             <Typography variant="caption" color="textPrimary">

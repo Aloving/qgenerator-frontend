@@ -59,7 +59,6 @@ export class AuthTransport implements IAuthTransport {
           ...config,
           headers: {
             ...config.headers,
-            Authorization: this.getAuthorizationHeader(),
           },
         };
 

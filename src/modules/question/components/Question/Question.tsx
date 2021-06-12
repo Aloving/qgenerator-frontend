@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { FormattedMessage } from 'react-intl';
+import { subDays } from 'date-fns';
 
 import { Button } from '../../../common/components';
 import { QuestionHeader } from '../QuestionHeader';
@@ -21,6 +22,7 @@ export interface IQuestionProps {
   isLoading: boolean;
   illustration?: string | React.ReactElement;
 
+  requestQuestion: () => void;
   onLike: () => void;
   onDislike: () => void;
 }
@@ -34,6 +36,7 @@ export const Question: React.FC<IQuestionProps> = ({
   likes,
   disliked,
   dislikes,
+  requestQuestion,
   onDislike,
   onLike,
   ...props
@@ -87,7 +90,11 @@ export const Question: React.FC<IQuestionProps> = ({
               </Typography>
             </Button>
           </div>
-          <Button variant="outlined" disabled={isLoading}>
+          <Button
+            variant="outlined"
+            disabled={isLoading}
+            onClick={requestQuestion}
+          >
             <FormattedMessage {...questionTranslations.oneMoreAnswer} />
           </Button>
         </div>
@@ -107,7 +114,7 @@ export const Question: React.FC<IQuestionProps> = ({
             liked: true,
             avatar: 'https://source.unsplash.com/48x48/?people',
             authorName: 'Алешка Попович',
-            time: '10 sec назад',
+            date: subDays(new Date(), 2).toString(),
             text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae error est illo quidem, voluptas? Accusamus aspernatur atque deserunt dolores ex harum id laboriosam perspiciatis, praesentium quasi quis rerum voluptates.`,
           },
           {
@@ -118,7 +125,7 @@ export const Question: React.FC<IQuestionProps> = ({
             liked: true,
             avatar: 'https://source.unsplash.com/48x48/?people',
             authorName: 'Алешка Попович',
-            time: '10 sec назад',
+            date: subDays(new Date(), 6).toString(),
             text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda beatae error est illo quidem, voluptas? Accusamus aspernatur atque deserunt dolores ex harum id laboriosam perspiciatis, praesentium quasi quis rerum voluptates.`,
           },
         ]}
