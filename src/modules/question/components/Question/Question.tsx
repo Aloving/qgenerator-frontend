@@ -45,7 +45,7 @@ export const Question: React.FC<IQuestionProps> = ({
   onLike,
   ...props
 }) => {
-  const [isAnswerActive] = useState(true);
+  const [isAnswerActive, setIsAnswerActive] = useState(false);
 
   return (
     <div className={styles.root}>
@@ -88,7 +88,10 @@ export const Question: React.FC<IQuestionProps> = ({
         </div>
         <div className={styles.actions}>
           <div className={styles.answerAction}>
-            <Button disabled={isLoading}>
+            <Button
+              disabled={isLoading}
+              onClick={() => setIsAnswerActive(true)}
+            >
               <Typography>
                 <FormattedMessage {...questionTranslations.answerIt} />
               </Typography>
