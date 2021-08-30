@@ -1,10 +1,9 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { toJS } from 'mobx';
 import { useParams } from 'react-router';
 
 import { SkeletonContext } from '../../../common/components';
-import { Question } from '../../components/Question';
+import { Question } from '../../components';
 import { useStores } from '../../../common/containers/StoreProvider/useStores';
 import { IRouterParams } from '../../../common/interfaces';
 
@@ -34,11 +33,9 @@ export const QuestionContainerPure: React.FC = () => {
       questionStore.requestQuestion(+questionId);
   }, []);
 
-  console.log(toJS(data));
-
   return (
     <Question
-      {...toJS(data)}
+      {...data}
       liked={liked}
       disliked={disliked}
       isLoading={isLoading}
