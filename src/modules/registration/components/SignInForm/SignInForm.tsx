@@ -21,8 +21,8 @@ const initialValues: ISignInForm = {
 };
 
 export const SignInForm: React.FC = () => {
-  const handleSubmit = useCallback((...args) => {
-    console.log(args);
+  const handleSubmit = useCallback((values: ISignInForm) => {
+    console.log(values);
   }, []);
 
   return (
@@ -31,6 +31,8 @@ export const SignInForm: React.FC = () => {
         <Formik<ISignInForm>
           onSubmit={handleSubmit}
           validationSchema={signInValidationForm}
+          validateOnChange={false}
+          validateOnBlur={false}
           initialValues={initialValues}
         >
           {({ handleSubmit }) => {

@@ -10,6 +10,6 @@ export class UsersService implements IUsersService {
   }
 
   findUserByLogin = (login: string): Promise<IUser> => {
-    return this._httpTransport.post<IUser>(`/api/users/${login}`);
+    return this._httpTransport.get<IUser>(`/api/users/${login}`);
   };
 }
