@@ -1,7 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
-import { QuestionRoutes } from './modules/question';
+import { QuestionPage } from './modules/question';
+import { certainQuestionUrl, registrationUrl } from './modules/common/utils';
+import { RegistrationPage } from './modules/registration/components';
 
 export const Routes = () => {
   return (
@@ -9,7 +11,12 @@ export const Routes = () => {
       <Route exact path="/">
         MAINPAGE
       </Route>
-      <QuestionRoutes />
+      <Route path={certainQuestionUrl} exact>
+        <QuestionPage />
+      </Route>
+      <Route path={registrationUrl} exact>
+        <RegistrationPage />
+      </Route>
     </Switch>
   );
 };
