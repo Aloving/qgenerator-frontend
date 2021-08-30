@@ -1,9 +1,9 @@
 import { computed, observable } from 'mobx';
 import { History } from 'history';
 
-import { buildQuestionId } from '../../../common/utils/urls';
+import { buildQuestionId } from '../../../common/utils';
 
-import { IQuestionService } from '../../../../api/interfaces';
+import { IQuestionService } from '../../services';
 import { IQuestionDataStore } from '../QuestionDataStore';
 import { IQuestionStore } from './IQuestionStore';
 

@@ -1,6 +1,10 @@
-import { IAuthTransport, IQuestionService } from '../interfaces';
-import { IRandomizeQuestionResponse, IRandomizeQuestionRequest } from '../dto';
-import { IQuestion } from '../../modules/question/interfaces';
+import { IAuthTransport } from '../../../api';
+import {
+  IRandomizeQuestionResponse,
+  IRandomizeQuestionRequest,
+} from '../../../api/dto';
+import { IQuestion } from '../interfaces';
+import { IQuestionService } from './IQuestionService';
 
 export class QuestionService implements IQuestionService {
   private _httpTransport: IAuthTransport;

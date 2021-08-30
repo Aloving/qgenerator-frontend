@@ -1,5 +1,8 @@
-import { IRandomizeQuestionRequest, IRandomizeQuestionResponse } from '../dto';
-import { IQuestion } from '../../modules/question';
+import {
+  IRandomizeQuestionRequest,
+  IRandomizeQuestionResponse,
+} from '../../../api/dto';
+import { IQuestion } from '../index';
 
 export interface IQuestionService {
   randomizeQuestion(

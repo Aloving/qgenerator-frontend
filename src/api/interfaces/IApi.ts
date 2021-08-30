@@ -1,5 +1,5 @@
 import { IAuthTransport } from './IAuthTransport';
-import { IQuestionService } from './IQuestionService';
+import { IQuestionService } from '../../modules/question/services/IQuestionService';
 
 export interface IApi {
   authTransport: IAuthTransport;
