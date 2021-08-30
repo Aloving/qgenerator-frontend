@@ -1,4 +1,4 @@
-import { IQuestion } from '../../modules/question';
+import { IQuestion } from '../index';
 
 export interface IRandomizeQuestionRequest {
   excludeIds: number[];

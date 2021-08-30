@@ -6,7 +6,7 @@ import { useStores } from '../StoreProvider/useStores';
 
 const SkeletonContainerPure: React.FC = ({ children }) => {
   const { questionStore } = useStores();
-  const isLoading = questionStore.questionDataStore.isLoading;
+  const isLoading = questionStore.isLoading;
 
   return (
     <SkeletonContext.Provider value={{ isLoading }}>

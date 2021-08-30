@@ -1,5 +1,6 @@
-import React, { useCallback, useContext, useEffect, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import { toJS } from 'mobx';
 import { useParams } from 'react-router';
 
 import { SkeletonContext } from '../../../common/components';
@@ -10,15 +11,11 @@ import { IRouterParams } from '../../../common/interfaces';
 export const QuestionContainerPure: React.FC = () => {
   const { isLoading } = useContext(SkeletonContext);
   const { questionStore } = useStores();
-  const isCompleted = questionStore.questionDataStore.completed;
+  const isCompleted = questionStore.completed;
   const { questionId } = useParams<IRouterParams>();
-  const data = useMemo(() => questionStore.questionDataStore.data, [
-    questionStore.questionDataStore.data,
-  ]);
-  const disliked = useMemo(() => questionStore.isDisliked, [
-    questionStore.isDisliked,
-  ]);
-  const liked = useMemo(() => questionStore.isLiked, [questionStore.isLiked]);
+  const data = questionStore.data;
+  const disliked = questionStore.isDisliked;
+  const liked = questionStore.isLiked;
   const handleQuestionLike = useCallback(() => questionStore.likeQuestion(), [
     data,
   ]);
@@ -37,9 +34,11 @@ export const QuestionContainerPure: React.FC = () => {
       questionStore.requestQuestion(+questionId);
   }, []);
 
+  console.log(toJS(data));
+
   return (
     <Question
-      {...data}
+      {...toJS(data)}
       liked={liked}
       disliked={disliked}
       isLoading={isLoading}

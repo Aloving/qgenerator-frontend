@@ -8,7 +8,7 @@ interface RegistrationPageProps {}
 
 export const RegistrationPage: React.FC<RegistrationPageProps> = (props) => {
   return (
-    <BackgroundWrapper>
+    <BackgroundWrapper onePage>
       <SignInForm />
     </BackgroundWrapper>
   );

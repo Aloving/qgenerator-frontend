@@ -1,4 +1,4 @@
-import { LikesStore } from '../stores/LikesStore';
+import { LikesStore } from '../stores';
 import { QuestionDataStore } from '../../question/stores';
 
 export const likesStore = new LikesStore();

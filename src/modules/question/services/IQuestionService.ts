@@ -1,7 +1,4 @@
-import {
-  IRandomizeQuestionRequest,
-  IRandomizeQuestionResponse,
-} from '../../../api/dto';
+import { IRandomizeQuestionRequest, IRandomizeQuestionResponse } from '../dto';
 import { IQuestion } from '../index';
 
 export interface IQuestionService {

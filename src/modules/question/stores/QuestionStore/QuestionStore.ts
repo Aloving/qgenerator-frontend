@@ -13,7 +13,7 @@ export class QuestionStore implements IQuestionStore {
   constructor(
     private questionService: IQuestionService,
     private history: History,
-    readonly questionDataStore: IQuestionDataStore,
+    private questionDataStore: IQuestionDataStore,
   ) {}
 
   @computed get isLiked() {
@@ -22,6 +22,18 @@ export class QuestionStore implements IQuestionStore {
 
   @computed get isDisliked() {
     return this.questionDataStore.isDisliked;
+  }
+
+  @computed get data() {
+    return this.questionDataStore.data;
+  }
+
+  @computed get isLoading() {
+    return this.questionDataStore.isLoading;
+  }
+
+  @computed get completed() {
+    return this.questionDataStore.completed;
   }
 
   likeQuestion = async () => {
@@ -105,10 +117,12 @@ export class QuestionStore implements IQuestionStore {
       this.questionDataStore.preRequestQuestionActions();
       const question = await this.questionService.getQuestion(questionId);
 
+      console.log('question', question);
+
       this.questionDataStore.requestQuestionSuccess(question);
       this.excludeIds = excludeIds;
     } catch (e) {
-      this.questionDataStore.requestQuestionError();
+      // this.questionDataStore.requestQuestionError();
     }
   };
 

@@ -5,10 +5,7 @@ import { IQuestion } from '../../interfaces';
 import { ILikesStore } from '../../../common/stores/LikesStore';
 
 export class QuestionDataStore implements IQuestionDataStore {
-  @observable isLoading = false;
-  @observable error = false;
-  @observable completed = false;
-  @observable data: IQuestion = {
+  private readonly initialState = {
     id: -1,
     commentariesCount: 0,
     likes: 0,
@@ -21,6 +18,10 @@ export class QuestionDataStore implements IQuestionDataStore {
     answers: [],
     text: '',
   };
+  @observable isLoading = false;
+  @observable error = false;
+  @observable completed = false;
+  @observable data: IQuestion = this.initialState;
 
   constructor(private likesStore: ILikesStore) {
     makeAutoObservable(this);
@@ -28,6 +29,10 @@ export class QuestionDataStore implements IQuestionDataStore {
 
   get questionId() {
     return this.data?.id || -1;
+  }
+
+  private transformData(data: IQuestion): IQuestion {
+    return { ...this.initialState, ...data };
   }
 
   @computed get isLiked() {
@@ -80,7 +85,7 @@ export class QuestionDataStore implements IQuestionDataStore {
 
   @action
   setData = (data: IQuestion) => {
-    this.data = data;
+    this.data = this.transformData(data);
   };
 
   @action

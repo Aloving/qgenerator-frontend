@@ -7,11 +7,13 @@ import styles from './BackgroundWrapper.module.css';
 
 interface BackgroundWrapperProps {
   className?: string;
+  onePage?: boolean;
 }
 
 export const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({
   className,
   children,
+  onePage = false,
 }) => {
   const { theme } = useTheme();
 
@@ -20,7 +22,7 @@ export const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({
       style={{
         background: theme.palette.common.black,
       }}
-      className={classNames(styles.root, className)}
+      className={classNames(onePage && styles.root, className)}
     >
       {children}
     </div>
