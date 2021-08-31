@@ -22,7 +22,7 @@ export const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({
       style={{
         background: theme.palette.common.black,
       }}
-      className={classNames(onePage && styles.root, className)}
+      className={classNames(onePage && styles.fullHeight, className)}
     >
       {children}
     </div>
