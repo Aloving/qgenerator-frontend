@@ -6,6 +6,7 @@ import {
   ILoginRequestPayload,
   ITokensResponse,
 } from './interfaces';
+import { IUser } from '../modules/users';
 
 interface IAuthTransportOptions {
   httpTransport: IHttpTransport;
@@ -37,6 +38,91 @@ export class AuthTransport implements IAuthTransport {
     this.refreshToken = refreshToken || null;
 
     this.onInit();
+  }
+
+  getToken(): ITokensResponse {
+    return {
+      accessToken: this.token || '',
+      refreshToken: this.refreshToken || '',
+    };
+  }
+
+  onLogout(listener: () => void): () => void {
+    this.onLogoutSubscribers.push(listener);
+
+    return () =>
+      this.onLogoutSubscribers.filter(
+        (logoutListener) => logoutListener !== listener,
+      );
+  }
+
+  userByToken() {
+    return this.client.get<IUser>('/auth/userByToken');
+  }
+
+  updateToken(refreshToken: string): Promise<ITokensResponse> {
+    return this.client.post<ITokensResponse, { refreshToken: string }>(
+      REFRESH_TOKEN_URL,
+      {
+        refreshToken,
+      },
+    );
+  }
+
+  async login({
+    login,
+    password,
+  }: ILoginRequestPayload): Promise<ITokensResponse> {
+    const response = await this.client.post<ITokensResponse>('/auth/login', {
+      login,
+      password,
+    });
+    const { accessToken, refreshToken } = response;
+    if (accessToken && refreshToken) {
+      this.token = accessToken;
+      this.refreshToken = refreshToken;
+      this.onLoginSubscribers.forEach((subscriber) => subscriber());
+    }
+
+    return response;
+  }
+
+  logout = () => {
+    this.clearToken();
+
+    this.onLogoutSubscribers.forEach((subscriber) => subscriber());
+  };
+
+  post<R = any, D = Record<string, any>>(
+    url: string,
+    data?: D,
+    config?: IHttpTransportOptions,
+  ): Promise<R> {
+    return this.client.post<R, D>(url, data, this.subscribeConfig(config));
+  }
+
+  put<R = any, D = Record<string, any>>(
+    url: string,
+    data?: D,
+    config?: IHttpTransportOptions,
+  ): Promise<R> {
+    return this.client.put<R, D>(url, data, this.subscribeConfig(config));
+  }
+
+  patch<R = any, D = Record<string, any>>(
+    url: string,
+    data?: D,
+    config?: IHttpTransportOptions,
+  ): Promise<R> {
+    return this.client.patch<R, D>(url, data, this.subscribeConfig(config));
+  }
+
+  get<R = any>(url: string, config?: IHttpTransportOptions): Promise<R> {
+    return this.client.get<R>(url, this.subscribeConfig(config));
+  }
+
+  delete<R = any>(url: string, config?: IHttpTransportOptions): Promise<R> {
+    return this.client.delete(url, this.subscribeConfig(config));
   }
 
   private getAuthorizationHeader(): string {
@@ -124,76 +210,5 @@ export class AuthTransport implements IAuthTransport {
   }): void {
     this.token = accessToken;
     this.refreshToken = refreshToken;
-  }
-
-  async login({
-    login,
-    password,
-  }: ILoginRequestPayload): Promise<ITokensResponse> {
-    const response = await this.client.post<ITokensResponse>('/auth/login', {
-      login,
-      password,
-    });
-    const { accessToken, refreshToken } = response;
-    if (accessToken && refreshToken) {
-      this.token = accessToken;
-      this.refreshToken = refreshToken;
-      this.onLoginSubscribers.forEach((subscriber) => subscriber());
-    }
-
-    return response;
-  }
-
-  logout = () => {
-    this.clearToken();
-
-    this.onLogoutSubscribers.forEach((subscriber) => subscriber());
-  };
-
-  getToken(): ITokensResponse {
-    return {
-      accessToken: this.token || '',
-      refreshToken: this.refreshToken || '',
-    };
-  }
-  updateToken(refreshToken: string): Promise<ITokensResponse> {
-    return this.client.post<ITokensResponse, { refreshToken: string }>(
-      REFRESH_TOKEN_URL,
-      {
-        refreshToken,
-      },
-    );
-  }
-
-  get<R = any>(url: string, config?: IHttpTransportOptions): Promise<R> {
-    return this.client.get<R>(url, this.subscribeConfig(config));
-  }
-
-  post<R = any, D = Record<string, any>>(
-    url: string,
-    data?: D,
-    config?: IHttpTransportOptions,
-  ): Promise<R> {
-    return this.client.post<R, D>(url, data, this.subscribeConfig(config));
-  }
-
-  put<R = any, D = Record<string, any>>(
-    url: string,
-    data?: D,
-    config?: IHttpTransportOptions,
-  ): Promise<R> {
-    return this.client.put<R, D>(url, data, this.subscribeConfig(config));
-  }
-
-  patch<R = any, D = Record<string, any>>(
-    url: string,
-    data?: D,
-    config?: IHttpTransportOptions,
-  ): Promise<R> {
-    return this.client.patch<R, D>(url, data, this.subscribeConfig(config));
-  }
-
-  delete<R = any>(url: string, config?: IHttpTransportOptions): Promise<R> {
-    return this.client.delete(url, this.subscribeConfig(config));
   }
 }

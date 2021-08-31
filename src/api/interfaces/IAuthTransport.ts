@@ -1,6 +1,7 @@
 import { IHttpTransportOptions } from './IHttpTransportOptions';
 import { ILoginRequestPayload } from './ILoginRequestPayload';
 import { ITokensResponse } from './ITokenResponse';
+import { IUser } from '../../modules/users';
 
 type TDataRequest = Record<string, any>;
 
@@ -9,6 +10,8 @@ export interface IAuthTransport {
   logout(): void;
   updateToken(refreshToken: string): Promise<ITokensResponse>;
   getToken(): Partial<ITokensResponse>;
+  userByToken(): Promise<IUser>;
+  onLogout(listener: () => void): () => void;
 
   delete<R = any>(url: string, config?: IHttpTransportOptions): Promise<R>;
 

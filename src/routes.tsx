@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 
 import { QuestionPage } from './modules/question';
-import { certainQuestionUrl, registrationUrl } from './modules/common/utils';
-import { RegistrationPage } from './modules/registration/components';
+import { certainQuestionUrl, registrationUrls } from './modules/common/utils';
+import { RegistrationPage } from './modules/authentication/components';
 
 export const Routes = () => {
   return (
@@ -14,7 +14,7 @@ export const Routes = () => {
       <Route path={certainQuestionUrl} exact>
         <QuestionPage />
       </Route>
-      <Route path={registrationUrl} exact>
+      <Route path={registrationUrls} exact>
         <RegistrationPage />
       </Route>
     </Switch>

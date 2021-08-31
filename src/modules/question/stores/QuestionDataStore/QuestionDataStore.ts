@@ -91,7 +91,6 @@ export class QuestionDataStore implements IQuestionDataStore {
   @action
   increaseLikes = () => {
     this.data && this.data.likes++;
-    console.log(this.completed);
   };
 
   @action
