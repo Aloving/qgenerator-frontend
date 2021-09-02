@@ -4,9 +4,8 @@ import { IRegistrationStore } from './IRegistrationStore';
 import { AsyncStatus } from '../../../common/enum';
 import { ICreateUserDto } from '../../../users/dto';
 import { IAsyncStore } from '../../../common/stores';
-import { IUsersStore } from '../../../users/stores';
+import { IUsersStore, IUserStore } from '../../../users/stores';
 import { IUsersService } from '../../../users';
-import { IUserStore } from '../../../users/stores/UserStore/IUserStore';
 
 export class RegistrationStore implements IRegistrationStore {
   @observable readonly async: IAsyncStore | null = null;
@@ -32,9 +31,5 @@ export class RegistrationStore implements IRegistrationStore {
     } catch (e) {
       this.async?.setStatus(AsyncStatus.Failed);
     }
-  }
-
-  async logout() {
-    this.userStore.resetToken();
   }
 }

@@ -8,3 +8,4 @@ export * from './Logo';
 export * from './SkeletonContext';
 export * from './TextField';
 export * from './ThemeSwitcher';
+export * from './OnePageLayout';

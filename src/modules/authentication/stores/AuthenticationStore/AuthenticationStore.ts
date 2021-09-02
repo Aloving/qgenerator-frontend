@@ -1,51 +1,95 @@
-import { IAuthenticationStore } from './IAuthenticationStore';
-import { IUserStore } from '../../../users/stores/UserStore/IUserStore';
-import { ILoginDto } from '../../dto';
+import { action, computed, makeAutoObservable, observable } from 'mobx';
+import { History } from 'history';
+
 import { IAuthTransport } from '../../../../api';
+import { IUserStore } from '../../../users/stores/';
+import { ILoginDto } from '../../dto';
 import { ITokens } from '../../interfaces';
-import { computed } from 'mobx';
+import { IAuthenticationStore } from './IAuthenticationStore';
+import { IAsyncStore } from '../../../common/stores';
+import { AsyncStatus } from '../../../common/enum';
+import {
+  restoreTokensFromStorage,
+  settingsUrl,
+  wait,
+} from '../../../common/utils';
+import { IUsersService } from '../../../users';
 
 export class AuthenticationStore implements IAuthenticationStore {
+  @observable readonly async: IAsyncStore | null = null;
+  @observable tokens: ITokens | null = null;
+
   constructor(
     private userStore: IUserStore,
     private authTransport: IAuthTransport,
+    private asyncStore: IAsyncStore,
+    private userService: IUsersService,
+    private history: History<unknown>,
   ) {
+    makeAutoObservable(this);
     this.authTransport.onLogout(this.resetToken);
+
+    this.async = asyncStore;
+    this.onInit();
   }
 
-  @computed get tokens() {
-    const accessToken = this.userStore.user?.accessToken;
-    const refreshToken = this.userStore.user?.refreshToken;
-
-    if (accessToken && refreshToken) {
-      return {
-        accessToken,
-        refreshToken,
-      };
-    }
-
-    return null;
+  @computed get isLoggedIn() {
+    return !!this.tokens?.refreshToken && !!this.tokens?.accessToken;
   }
 
+  @action
   setTokens(tokens: ITokens) {
-    this.userStore.setTokens(tokens);
+    this.authTransport.setTokens(tokens);
+    this.tokens = tokens;
   }
 
-  resetToken = () => {
-    this.userStore.resetToken();
-  };
+  @action
+  resetToken() {
+    this.tokens = null;
+  }
 
+  @action
+  async loadUserByToken() {
+    this.async?.setStatus(AsyncStatus.Loading);
+
+    try {
+      const user = await this.authTransport.userByToken();
+
+      this.userStore.completeUser(user);
+      this.async?.setStatus(AsyncStatus.Success);
+    } catch (e) {
+      this.async?.setStatus(AsyncStatus.Failed);
+    }
+  }
+
+  @action
   async login(payload: ILoginDto) {
+    this.async?.setStatus(AsyncStatus.Loading);
+
     try {
       const tokens = await this.authTransport.login(payload);
+      const user = await this.authTransport.userByToken();
 
       this.setTokens(tokens);
+      this.userStore.setUser(user);
+      await wait(2500);
+      this.userStore.completeUser(user);
+      this.history.push(settingsUrl);
+
+      this.async?.setStatus(AsyncStatus.Success);
     } catch (e) {
+      console.error(e);
+      this.async?.setStatus(AsyncStatus.Failed);
       this.resetToken();
     }
   }
 
   async logout() {
-    this.userStore.resetToken();
+    this.resetToken();
+  }
+
+  private onInit() {
+    const tokens = restoreTokensFromStorage();
+    tokens && this.setTokens(tokens);
   }
 }

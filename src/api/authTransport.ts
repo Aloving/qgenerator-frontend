@@ -7,6 +7,11 @@ import {
   ITokensResponse,
 } from './interfaces';
 import { IUser } from '../modules/users';
+import { ITokens } from '../modules/common/interfaces';
+import {
+  restoreTokensFromStorage,
+  storeTokensToStorage,
+} from '../modules/common/utils';
 
 interface IAuthTransportOptions {
   httpTransport: IHttpTransport;
@@ -18,6 +23,7 @@ interface IAuthTransportOptions {
 const REFRESH_TOKEN_URL = '/auth/refreshToken';
 
 export class AuthTransport implements IAuthTransport {
+  private STORAGE_KEY = 'auth_tokens';
   private token: string | null;
   private refreshToken: string | null;
   private window: Window;
@@ -40,7 +46,7 @@ export class AuthTransport implements IAuthTransport {
     this.onInit();
   }
 
-  getToken(): ITokensResponse {
+  getToken(): ITokens {
     return {
       accessToken: this.token || '',
       refreshToken: this.refreshToken || '',
@@ -57,7 +63,7 @@ export class AuthTransport implements IAuthTransport {
   }
 
   userByToken() {
-    return this.client.get<IUser>('/auth/userByToken');
+    return this.get<IUser>('/api/auth/userByToken');
   }
 
   updateToken(refreshToken: string): Promise<ITokensResponse> {
@@ -73,14 +79,19 @@ export class AuthTransport implements IAuthTransport {
     login,
     password,
   }: ILoginRequestPayload): Promise<ITokensResponse> {
-    const response = await this.client.post<ITokensResponse>('/auth/login', {
-      login,
-      password,
-    });
+    const response = await this.client.post<ITokensResponse>(
+      '/api/auth/login',
+      {
+        login,
+        password,
+      },
+    );
     const { accessToken, refreshToken } = response;
     if (accessToken && refreshToken) {
-      this.token = accessToken;
-      this.refreshToken = refreshToken;
+      this.setToken({
+        refreshToken,
+        accessToken,
+      });
       this.onLoginSubscribers.forEach((subscriber) => subscriber());
     }
 
@@ -93,12 +104,16 @@ export class AuthTransport implements IAuthTransport {
     this.onLogoutSubscribers.forEach((subscriber) => subscriber());
   };
 
+  setTokens(tokens: ITokens) {
+    this.setToken(tokens);
+  }
+
   post<R = any, D = Record<string, any>>(
     url: string,
     data?: D,
     config?: IHttpTransportOptions,
   ): Promise<R> {
-    return this.client.post<R, D>(url, data, this.subscribeConfig(config));
+    return this.client.post<R, D>(url, data, config);
   }
 
   put<R = any, D = Record<string, any>>(
@@ -106,7 +121,7 @@ export class AuthTransport implements IAuthTransport {
     data?: D,
     config?: IHttpTransportOptions,
   ): Promise<R> {
-    return this.client.put<R, D>(url, data, this.subscribeConfig(config));
+    return this.client.put<R, D>(url, data, config);
   }
 
   patch<R = any, D = Record<string, any>>(
@@ -114,16 +129,20 @@ export class AuthTransport implements IAuthTransport {
     data?: D,
     config?: IHttpTransportOptions,
   ): Promise<R> {
-    return this.client.patch<R, D>(url, data, this.subscribeConfig(config));
+    return this.client.patch<R, D>(url, data, config);
   }
 
   get<R = any>(url: string, config?: IHttpTransportOptions): Promise<R> {
-    return this.client.get<R>(url, this.subscribeConfig(config));
+    return this.client.get<R>(url, config);
   }
 
   delete<R = any>(url: string, config?: IHttpTransportOptions): Promise<R> {
-    return this.client.delete(url, this.subscribeConfig(config));
+    return this.client.delete(url, config);
   }
+
+  private persistTokens = () => {
+    storeTokensToStorage(this.getToken());
+  };
 
   private getAuthorizationHeader(): string {
     return `Bearer ${this.token}`;
@@ -132,6 +151,18 @@ export class AuthTransport implements IAuthTransport {
   private onInit(): void {
     this.addAuthRequestMiddleware();
     this.addAuthResponseMiddleware();
+    // this.restoreTokens();
+    // this.addPersistForToken();
+  }
+
+  private restoreTokens() {
+    const tokens = restoreTokensFromStorage();
+
+    tokens && this.setToken(tokens);
+  }
+
+  private addPersistForToken(): void {
+    this.onLoginSubscribers.push(this.persistTokens);
   }
 
   private addAuthRequestMiddleware(): void {
@@ -141,14 +172,7 @@ export class AuthTransport implements IAuthTransport {
           return config;
         }
 
-        const newConfig: IHttpTransportOptions = {
-          ...config,
-          headers: {
-            ...config.headers,
-          },
-        };
-
-        return newConfig;
+        return this.subscribeConfig(config);
       },
       (e) => Promise.reject(e),
     );

@@ -7,7 +7,4 @@ export interface IUser {
   questions?: IQuestion[];
   role: Role;
   email: string;
-
-  refreshToken?: string;
-  accessToken?: string;
 }

@@ -21,8 +21,8 @@ export const registrationTranslations = defineMessages({
     id: 'app_registration_successRegistration',
     defaultMessage: 'The user create successfully, authorize here:',
   },
-  link: {
-    id: 'app_registration_link',
-    defaultMessage: 'Login',
+  successLogin: {
+    id: 'app_registration_successLogin',
+    defaultMessage: 'Successfully logged in',
   },
 });

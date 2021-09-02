@@ -1,1 +1,1 @@
-export * from './ITokens';
+export * from '../../common/interfaces/ITokens';

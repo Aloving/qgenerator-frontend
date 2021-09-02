@@ -117,8 +117,6 @@ export class QuestionStore implements IQuestionStore {
       this.questionDataStore.preRequestQuestionActions();
       const question = await this.questionService.getQuestion(questionId);
 
-      console.log('question', question);
-
       this.questionDataStore.requestQuestionSuccess(question);
       this.excludeIds = excludeIds;
     } catch (e) {

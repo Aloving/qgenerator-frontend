@@ -1,9 +1,10 @@
+import { IAsyncStore } from '../../../common/stores';
 import { IUser } from '../../interfaces';
-import { ITokens } from '../../../authentication/interfaces';
 
 export interface IUserStore {
+  async: IAsyncStore | null;
   user: IUser | null;
-  setRefreshToken(refreshToken: string): void;
-  setTokens(tokens: ITokens): void;
-  resetToken(): void;
+
+  completeUser(payload: IUser): void;
+  setUser(payload: IUser): void;
 }

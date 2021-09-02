@@ -2,10 +2,20 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 
 import { QuestionPage } from './modules/question';
-import { certainQuestionUrl, registrationUrls } from './modules/common/utils';
-import { RegistrationPage } from './modules/authentication/components';
+import {
+  certainQuestionUrl,
+  registrationUrl,
+  loginUrl,
+  settingsUrl,
+} from './modules/common/utils';
+import { LoginPage, RegistrationPage } from './modules/authentication';
+import { SettingsPage } from './modules/users/components';
+import { PrivateRoute } from './modules/common/containers';
+import { useAppPreLoadings } from './modules/common/hooks';
 
 export const Routes = () => {
+  useAppPreLoadings();
+
   return (
     <Switch>
       <Route exact path="/">
@@ -14,9 +24,15 @@ export const Routes = () => {
       <Route path={certainQuestionUrl} exact>
         <QuestionPage />
       </Route>
-      <Route path={registrationUrls} exact>
+      <Route path={registrationUrl} exact>
         <RegistrationPage />
       </Route>
+      <Route path={loginUrl} exact>
+        <LoginPage />
+      </Route>
+      <PrivateRoute path={settingsUrl} exact>
+        <SettingsPage />
+      </PrivateRoute>
     </Switch>
   );
 };
