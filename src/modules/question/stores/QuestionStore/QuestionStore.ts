@@ -120,7 +120,7 @@ export class QuestionStore implements IQuestionStore {
       this.questionDataStore.requestQuestionSuccess(question);
       this.excludeIds = excludeIds;
     } catch (e) {
-      // this.questionDataStore.requestQuestionError();
+      this.questionDataStore.requestQuestionError();
     }
   };
 

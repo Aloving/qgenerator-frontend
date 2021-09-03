@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BackgroundWrapper, Header } from '../../../common/components';
 import { SettingsPageContainer } from '../../containers';
 

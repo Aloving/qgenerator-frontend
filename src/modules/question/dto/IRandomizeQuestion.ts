@@ -1,4 +1,4 @@
-import { IQuestion } from '../index';
+import { IQuestion } from '../../question';
 
 export interface IRandomizeQuestionRequest {
   excludeIds: number[];

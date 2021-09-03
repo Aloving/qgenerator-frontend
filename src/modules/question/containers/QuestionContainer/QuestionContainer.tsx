@@ -15,9 +15,6 @@ export const QuestionContainerPure: React.FC = () => {
   const data = questionStore.data;
   const disliked = questionStore.isDisliked;
   const liked = questionStore.isLiked;
-  const handleQuestionLike = useCallback(() => questionStore.likeQuestion(), [
-    data,
-  ]);
   const handleQuestionDislike = useCallback(
     () => questionStore.dislikeQuestion(),
     [questionStore],
@@ -40,7 +37,7 @@ export const QuestionContainerPure: React.FC = () => {
       disliked={disliked}
       isLoading={isLoading}
       requestQuestion={handleRequestQuestion}
-      onLike={handleQuestionLike}
+      onLike={questionStore.likeQuestion}
       onDislike={handleQuestionDislike}
     />
   );

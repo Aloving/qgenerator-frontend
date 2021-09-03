@@ -1,8 +1,8 @@
 import { action, observable, makeAutoObservable, computed } from 'mobx';
 
-import { IQuestionDataStore } from './IQuestionDataStore';
+import { ILikesStore } from '../../../common/stores';
 import { IQuestion } from '../../interfaces';
-import { ILikesStore } from '../../../common/stores/LikesStore';
+import { IQuestionDataStore } from './IQuestionDataStore';
 
 export class QuestionDataStore implements IQuestionDataStore {
   private readonly initialState = {
@@ -29,10 +29,6 @@ export class QuestionDataStore implements IQuestionDataStore {
 
   get questionId() {
     return this.data?.id || -1;
-  }
-
-  private transformData(data: IQuestion): IQuestion {
-    return { ...this.initialState, ...data };
   }
 
   @computed get isLiked() {
@@ -125,4 +121,8 @@ export class QuestionDataStore implements IQuestionDataStore {
     this.resetLoading();
     this.setError();
   };
+
+  private transformData(data: IQuestion): IQuestion {
+    return { ...this.initialState, ...data };
+  }
 }
