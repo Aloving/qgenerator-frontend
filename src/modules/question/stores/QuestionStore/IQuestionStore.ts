@@ -3,7 +3,9 @@ import { IQuestionDataStore } from '../QuestionDataStore';
 export interface IQuestionStore {
   isDisliked: boolean;
   isLiked: boolean;
-  readonly questionDataStore: IQuestionDataStore;
+  data: IQuestionDataStore['data'];
+  isLoading: boolean;
+  completed: boolean;
 
   likeQuestion(): void;
   dislikeQuestion(): void;

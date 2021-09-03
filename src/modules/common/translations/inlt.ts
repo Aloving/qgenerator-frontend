@@ -9,7 +9,7 @@ const cache = createIntlCache();
 export const intl = createIntl(
   {
     locale: DEFAULT_LANGUAGE,
-    messages: {},
+    defaultLocale: DEFAULT_LANGUAGE,
   },
   cache,
 );

@@ -1,9 +1,9 @@
 import { computed, observable } from 'mobx';
 import { History } from 'history';
 
-import { buildQuestionId } from '../../../common/utils/urls';
+import { buildQuestionId } from '../../../common/utils';
 
-import { IQuestionService } from '../../../../api/interfaces';
+import { IQuestionService } from '../../services';
 import { IQuestionDataStore } from '../QuestionDataStore';
 import { IQuestionStore } from './IQuestionStore';
 
@@ -13,7 +13,7 @@ export class QuestionStore implements IQuestionStore {
   constructor(
     private questionService: IQuestionService,
     private history: History,
-    readonly questionDataStore: IQuestionDataStore,
+    private questionDataStore: IQuestionDataStore,
   ) {}
 
   @computed get isLiked() {
@@ -22,6 +22,18 @@ export class QuestionStore implements IQuestionStore {
 
   @computed get isDisliked() {
     return this.questionDataStore.isDisliked;
+  }
+
+  @computed get data() {
+    return this.questionDataStore.data;
+  }
+
+  @computed get isLoading() {
+    return this.questionDataStore.isLoading;
+  }
+
+  @computed get completed() {
+    return this.questionDataStore.completed;
   }
 
   likeQuestion = async () => {

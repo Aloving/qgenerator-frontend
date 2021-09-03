@@ -6,4 +6,6 @@ export * from './LangSwitcher';
 export * from './Likes';
 export * from './Logo';
 export * from './SkeletonContext';
+export * from './TextField';
 export * from './ThemeSwitcher';
+export * from './OnePageLayout';

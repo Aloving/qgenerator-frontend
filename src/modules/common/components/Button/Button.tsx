@@ -12,7 +12,7 @@ import styles from './Button.module.css';
 export interface ButtonProps
   extends Pick<
     MuiButtonProps,
-    'disabled' | 'children' | 'onClick' | 'className'
+    'disabled' | 'children' | 'onClick' | 'className' | 'type'
   > {
   variant?: 'outlined' | 'contained' | 'text';
   color?: 'primary' | 'secondary';
