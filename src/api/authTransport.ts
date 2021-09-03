@@ -151,18 +151,6 @@ export class AuthTransport implements IAuthTransport {
   private onInit(): void {
     this.addAuthRequestMiddleware();
     this.addAuthResponseMiddleware();
-    // this.restoreTokens();
-    // this.addPersistForToken();
-  }
-
-  private restoreTokens() {
-    const tokens = restoreTokensFromStorage();
-
-    tokens && this.setToken(tokens);
-  }
-
-  private addPersistForToken(): void {
-    this.onLoginSubscribers.push(this.persistTokens);
   }
 
   private addAuthRequestMiddleware(): void {
