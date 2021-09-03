@@ -1,19 +1,20 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx';
 import { History } from 'history';
 
-import { IAuthTransport } from '../../../../api';
-import { IUserStore } from '../../../users/stores/';
-import { ILoginDto } from '../../dto';
-import { ITokens } from '../../interfaces';
-import { IAuthenticationStore } from './IAuthenticationStore';
-import { IAsyncStore } from '../../../common/stores';
-import { AsyncStatus } from '../../../common/enum';
 import {
   restoreTokensFromStorage,
   settingsUrl,
   wait,
 } from '../../../common/utils';
+
+import { IAuthTransport } from '../../../../api';
+import { IUserStore } from '../../../users/stores/';
 import { IUsersService } from '../../../users';
+import { IAsyncStore } from '../../../common/stores';
+import { AsyncStatus } from '../../../common/enum';
+import { ILoginDto } from '../../dto';
+import { ITokens } from '../../interfaces';
+import { IAuthenticationStore } from './IAuthenticationStore';
 
 export class AuthenticationStore implements IAuthenticationStore {
   @observable readonly async: IAsyncStore | null = null;
