@@ -8,10 +8,6 @@ import {
 } from './interfaces';
 import { IUser } from '../modules/users';
 import { ITokens } from '../modules/common/interfaces';
-import {
-  restoreTokensFromStorage,
-  storeTokensToStorage,
-} from '../modules/common/utils';
 
 interface IAuthTransportOptions {
   httpTransport: IHttpTransport;
@@ -23,7 +19,6 @@ interface IAuthTransportOptions {
 const REFRESH_TOKEN_URL = '/auth/refreshToken';
 
 export class AuthTransport implements IAuthTransport {
-  private STORAGE_KEY = 'auth_tokens';
   private token: string | null;
   private refreshToken: string | null;
   private window: Window;
@@ -139,10 +134,6 @@ export class AuthTransport implements IAuthTransport {
   delete<R = any>(url: string, config?: IHttpTransportOptions): Promise<R> {
     return this.client.delete(url, config);
   }
-
-  private persistTokens = () => {
-    storeTokensToStorage(this.getToken());
-  };
 
   private getAuthorizationHeader(): string {
     return `Bearer ${this.token}`;

@@ -5,48 +5,48 @@ import { Alert } from '@material-ui/lab';
 import { Link } from 'react-router-dom';
 
 import { Button, TextField } from '../../../common/components';
-import { signInValidationForm } from './signInValidationForm';
+import { signUpValidationForm } from './signUpValidationForm';
 
-import styles from './SignInForm.module.css';
+import styles from './SignUpForm.module.css';
 import { loginUrl } from '../../../common/utils';
 import { registrationTranslations } from '../../../../translations';
 
-export interface ISignInForm {
+export interface ISignUpForm {
   login: string;
   password: string;
   email: string;
 }
 
-interface SignInFormProps {
-  onSignIn(payload: ISignInForm): void;
+interface SignUpFormProps {
+  onSignUp(payload: ISignUpForm): void;
   isLoading: boolean;
   isFailed: boolean;
   isSucceed: boolean;
 }
 
-const initialValues: ISignInForm = {
+const initialValues: ISignUpForm = {
   login: '',
   password: '',
   email: '',
 };
 
-export const SignInForm: React.FC<SignInFormProps> = ({
-  onSignIn,
+export const SignUpForm: React.FC<SignUpFormProps> = ({
+  onSignUp,
   isFailed,
   isSucceed,
   isLoading,
 }) => {
   const handleSubmit = useCallback(
-    (values: ISignInForm) => {
-      onSignIn(values);
+    (values: ISignUpForm) => {
+      onSignUp(values);
     },
-    [onSignIn],
+    [onSignUp],
   );
 
   return (
-    <Formik<ISignInForm>
+    <Formik<ISignUpForm>
       onSubmit={handleSubmit}
-      validationSchema={signInValidationForm}
+      validationSchema={signUpValidationForm}
       validateOnChange={false}
       validateOnBlur={false}
       initialValues={initialValues}
@@ -56,7 +56,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           <>
             <div className={styles.fieldWrapper}>
               <Field name="login">
-                {({ field, form }: FieldProps<ISignInForm['login']>) => (
+                {({ field, form }: FieldProps<ISignUpForm['login']>) => (
                   <>
                     <TextField
                       id="login"
@@ -76,7 +76,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             </div>
             <div className={styles.fieldWrapper}>
               <Field name="password">
-                {({ field, form }: FieldProps<ISignInForm['password']>) => (
+                {({ field, form }: FieldProps<ISignUpForm['password']>) => (
                   <TextField
                     id="password"
                     disabled={isLoading}
@@ -97,7 +97,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
             </div>
             <div className={styles.fieldWrapper}>
               <Field name="email">
-                {({ field, form }: FieldProps<ISignInForm['email']>) => (
+                {({ field, form }: FieldProps<ISignUpForm['email']>) => (
                   <TextField
                     id="email"
                     disabled={isLoading}

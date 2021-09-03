@@ -8,10 +8,9 @@ import { Button, TextField } from '../../../common/components';
 import { loginValidationForm } from './loginValidationForm';
 
 import { registrationTranslations } from '../../../../translations';
-import styles from '../SignInForm/SignInForm.module.css';
+import styles from '../SignUpForm/SignUpForm.module.css';
 
 import { ILoginDto } from '../../dto';
-import { ISignInForm } from '../SignInForm';
 
 export interface ILoginForm {
   login: string;
@@ -53,7 +52,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           <>
             <div className={styles.fieldWrapper}>
               <Field name="login">
-                {({ field, form }: FieldProps<ISignInForm['login']>) => (
+                {({ field, form }: FieldProps<ILoginForm['login']>) => (
                   <>
                     <TextField
                       id="login"
@@ -73,7 +72,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             </div>
             <div className={styles.fieldWrapper}>
               <Field name="password">
-                {({ field, form }: FieldProps<ISignInForm['password']>) => (
+                {({ field, form }: FieldProps<ILoginForm['password']>) => (
                   <TextField
                     id="password"
                     disabled={isLoading}

@@ -1,5 +1,5 @@
 export * from './RegistrationPage';
-export * from './SignInForm';
+export * from './SignUpForm';
 export * from './CenteredForm';
 export * from './LoginPage';
 export * from './LoginForm';

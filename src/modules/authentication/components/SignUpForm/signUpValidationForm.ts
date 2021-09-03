@@ -2,7 +2,7 @@ import { string, object } from 'yup';
 
 import { api } from '../../../../api';
 
-export const signInValidationForm = object().shape({
+export const signUpValidationForm = object().shape({
   login: string()
     .required('Required')
     .test('checkDupName', 'User is exists', async (login?: string) => {
