@@ -1,18 +1,22 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+
+import { AdminPanelContainer } from '../../containers';
 
 import { Role } from '../../enums';
+import styles from './Settings.module.css';
 
 interface SettingsProps {
   role: Role;
-  login: string;
 }
 
-export const Settings: React.FC<SettingsProps> = ({ login, role }) => {
+export const Settings: React.FC<SettingsProps> = ({ role }) => {
+  const isAdmin = role === Role.Admin;
+
   return (
-    <div>
-      <Typography color="primary">Login: {login}</Typography>
-      <Typography color="primary">Role: {role}</Typography>
+    <div className={styles.informationWrapper}>
+      <div className={styles.informationContainer}>
+        {isAdmin && <AdminPanelContainer />}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,7 @@
+.informationWrapper {
+  display: flex;
+}
+
+.informationContainer {
+  /*flex-grow: 1;*/
+}

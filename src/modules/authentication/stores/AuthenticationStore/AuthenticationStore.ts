@@ -5,6 +5,7 @@ import {
   restoreTokensFromStorage,
   settingsUrl,
   wait,
+  storeTokensToStorage,
 } from '../../../common/utils';
 
 import { IAuthTransport } from '../../../../api';
@@ -40,8 +41,9 @@ export class AuthenticationStore implements IAuthenticationStore {
 
   @action
   setTokens(tokens: ITokens) {
-    this.authTransport.setTokens(tokens);
     this.tokens = tokens;
+    this.authTransport.setTokens(tokens);
+    storeTokensToStorage(tokens);
   }
 
   @action
@@ -91,6 +93,10 @@ export class AuthenticationStore implements IAuthenticationStore {
 
   private onInit() {
     const tokens = restoreTokensFromStorage();
-    tokens && this.setTokens(tokens);
+
+    if (tokens) {
+      this.setTokens(tokens);
+      this.loadUserByToken();
+    }
   }
 }

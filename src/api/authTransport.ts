@@ -16,7 +16,7 @@ interface IAuthTransportOptions {
   refreshToken?: string | null;
 }
 
-const REFRESH_TOKEN_URL = '/auth/refreshToken';
+const REFRESH_TOKEN_URL = '/api/auth/refreshToken';
 
 export class AuthTransport implements IAuthTransport {
   private token: string | null;

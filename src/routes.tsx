@@ -7,18 +7,16 @@ import {
   registrationUrl,
   loginUrl,
   settingsUrl,
+  mainPageUrl,
 } from './modules/common/utils';
 import { LoginPage, RegistrationPage } from './modules/authentication';
 import { SettingsPage } from './modules/users/components';
 import { PrivateRoute } from './modules/common/containers';
-import { useAppPreLoadings } from './modules/common/hooks';
 
 export const Routes = () => {
-  useAppPreLoadings();
-
   return (
     <Switch>
-      <Route exact path="/">
+      <Route exact path={mainPageUrl}>
         MAINPAGE
       </Route>
       <Route path={certainQuestionUrl} exact>

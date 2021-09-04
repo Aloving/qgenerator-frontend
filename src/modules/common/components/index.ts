@@ -9,3 +9,4 @@ export * from './SkeletonContext';
 export * from './TextField';
 export * from './ThemeSwitcher';
 export * from './OnePageLayout';
+export * from './OutWrapper';

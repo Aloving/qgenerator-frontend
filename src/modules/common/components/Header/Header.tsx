@@ -7,15 +7,16 @@ import {
   LangSwitcherContainer,
   ThemeSwitcherContainer,
 } from '../../containers';
+import { OutWrapper } from '../OutWrapper';
 
 export const Header: React.FC = () => {
   return (
-    <div className={styles.root}>
+    <OutWrapper>
       <LogoContainer />
       <div className={styles.tools}>
         <LangSwitcherContainer />
         <ThemeSwitcherContainer />
       </div>
-    </div>
+    </OutWrapper>
   );
 };
