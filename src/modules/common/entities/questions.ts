@@ -1,13 +1,24 @@
 import { api } from '../../../api';
-import { QuestionStore } from '../../question/stores/QuestionStore';
-import { QuestionDataStore } from '../../question/stores';
-import { LikesStore } from '../stores';
+import { AsyncStore, LikesStore } from '../stores';
+import {
+  QuestionsStore,
+  QuestionStore,
+  QuestionDataStore,
+} from '../../question/stores';
 import { history } from './history';
 
 const likesStore = new LikesStore();
 const questionDataStore = new QuestionDataStore(likesStore);
-export const questions = new QuestionStore(
-  api.questionService,
+export const question = new QuestionStore(
+  api.questionsService,
   history,
   questionDataStore,
+);
+
+const createAsyncStore = new AsyncStore();
+export const questions = new QuestionsStore(
+  api.questionsService,
+  history,
+  questionDataStore,
+  createAsyncStore,
 );

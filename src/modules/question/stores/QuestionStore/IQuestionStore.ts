@@ -9,6 +9,4 @@ export interface IQuestionStore {
 
   likeQuestion(): void;
   dislikeQuestion(): void;
-  requestQuestion(questionId: number): void;
-  randomizeQuestion(): void;
 }

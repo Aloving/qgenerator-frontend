@@ -8,9 +8,12 @@ import { QuestionHeader } from '../QuestionHeader';
 import { AnswerSection } from '../AnswerSection';
 import { AnswerForm } from '../AnswerForm';
 
-import { questionTranslations } from '../../../../translations';
+import {
+  questionTranslations,
+  commonTranslations,
+} from '../../../../translations';
 
-import { IAnswer } from '../../interfaces/IAnswer';
+import { IAnswer } from '../../interfaces';
 
 import styles from './Question.module.css';
 
@@ -93,7 +96,7 @@ export const Question: React.FC<IQuestionProps> = ({
               onClick={() => setIsAnswerActive(true)}
             >
               <Typography>
-                <FormattedMessage {...questionTranslations.answerIt} />
+                <FormattedMessage {...commonTranslations.answerIt} />
               </Typography>
             </Button>
           </div>

@@ -1,14 +1,22 @@
 import { IAuthTransport } from '../../../api';
-import { IRandomizeQuestionResponse, IRandomizeQuestionRequest } from '../dto';
+import { ICreateQuestionDto } from '../../common/dto';
 import { IQuestion } from '../interfaces';
-import { IQuestionService } from './IQuestionService';
+import { IRandomizeQuestionResponse, IRandomizeQuestionRequest } from '../dto';
+import { IQuestionsService } from './IQuestionsService';
 
-export class QuestionService implements IQuestionService {
+export class QuestionsService implements IQuestionsService {
   private _httpTransport: IAuthTransport;
 
   constructor(httpTransport: IAuthTransport) {
     this._httpTransport = httpTransport;
   }
+
+  create = (payload: ICreateQuestionDto): Promise<IQuestion> => {
+    return this._httpTransport.post<IQuestion>(
+      '/api/questions/create',
+      payload,
+    );
+  };
 
   randomizeQuestion = ({
     excludeIds,

@@ -1,7 +1,9 @@
 import { IRandomizeQuestionRequest, IRandomizeQuestionResponse } from '../dto';
 import { IQuestion } from '../index';
+import { ICreateQuestionDto } from '../../common/dto';
 
-export interface IQuestionService {
+export interface IQuestionsService {
+  create(payload: ICreateQuestionDto): Promise<IQuestion>;
   randomizeQuestion(
     payload: IRandomizeQuestionRequest,
   ): Promise<IRandomizeQuestionResponse>;

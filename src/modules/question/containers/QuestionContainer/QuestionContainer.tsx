@@ -4,12 +4,12 @@ import { useParams } from 'react-router';
 
 import { SkeletonContext } from '../../../common/components';
 import { Question } from '../../components';
-import { useStores } from '../../../common/containers/StoreProvider/useStores';
+import { useStores } from '../../../common/containers';
 import { IRouterParams } from '../../../common/interfaces';
 
 export const QuestionContainerPure: React.FC = () => {
   const { isLoading } = useContext(SkeletonContext);
-  const { questionStore } = useStores();
+  const { questionsStore, questionStore } = useStores();
   const isCompleted = questionStore.completed;
   const { questionId } = useParams<IRouterParams>();
   const data = questionStore.data;
@@ -20,14 +20,14 @@ export const QuestionContainerPure: React.FC = () => {
     [questionStore],
   );
   const handleRequestQuestion = useCallback(() => {
-    questionStore.randomizeQuestion();
-  }, [questionStore.requestQuestion]);
+    questionsStore.randomizeQuestion();
+  }, [questionsStore]);
 
   useEffect(() => {
     questionId &&
       !isCompleted &&
       !isLoading &&
-      questionStore.requestQuestion(+questionId);
+      questionsStore.requestQuestion(+questionId);
   }, []);
 
   return (
