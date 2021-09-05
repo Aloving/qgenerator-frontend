@@ -1,5 +1,4 @@
 import { computed } from 'mobx';
-import { History } from 'history';
 
 import { IQuestionsService } from '../../services';
 import { IQuestionDataStore } from '../QuestionDataStore';
@@ -8,7 +7,6 @@ import { IQuestionStore } from './IQuestionStore';
 export class QuestionStore implements IQuestionStore {
   constructor(
     private questionService: IQuestionsService,
-    private history: History,
     private questionDataStore: IQuestionDataStore,
   ) {}
 

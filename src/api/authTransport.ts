@@ -24,6 +24,7 @@ export class AuthTransport implements IAuthTransport {
   private window: Window;
   private onLogoutSubscribers: { (...args: any): void }[] = [];
   private onLoginSubscribers: { (...args: any): void }[] = [];
+  private onRefreshTokenSubscribers: { (...args: any): void }[] = [];
   public client: IHttpTransport;
 
   constructor({
@@ -53,6 +54,15 @@ export class AuthTransport implements IAuthTransport {
 
     return () =>
       this.onLogoutSubscribers.filter(
+        (logoutListener) => logoutListener !== listener,
+      );
+  }
+
+  onRefreshToken(listener: () => void): () => void {
+    this.onRefreshTokenSubscribers.push(listener);
+
+    return () =>
+      this.onRefreshTokenSubscribers.filter(
         (logoutListener) => logoutListener !== listener,
       );
   }
@@ -174,6 +184,7 @@ export class AuthTransport implements IAuthTransport {
         );
 
         this.setToken({ refreshToken, accessToken });
+        this.onRefreshTokenSubscribers.forEach((subscriber) => subscriber());
 
         const newRequest = {
           ...error.config,
@@ -204,13 +215,7 @@ export class AuthTransport implements IAuthTransport {
     this.refreshToken = null;
   }
 
-  private setToken({
-    accessToken,
-    refreshToken,
-  }: {
-    accessToken: string;
-    refreshToken: string;
-  }): void {
+  private setToken({ accessToken, refreshToken }: ITokens): void {
     this.token = accessToken;
     this.refreshToken = refreshToken;
   }

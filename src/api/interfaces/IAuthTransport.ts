@@ -10,9 +10,10 @@ export interface IAuthTransport {
   login(payload: ILoginRequestPayload): Promise<ITokensResponse>;
   logout(): void;
   updateToken(refreshToken: string): Promise<ITokensResponse>;
-  getToken(): Partial<ITokens>;
+  getToken(): ITokens;
   userByToken(): Promise<IUser>;
   onLogout(listener: () => void): () => void;
+  onRefreshToken(listener: () => void): () => void;
   setTokens(tokens: ITokens): void;
 
   delete<R = any>(url: string, config?: IHttpTransportOptions): Promise<R>;

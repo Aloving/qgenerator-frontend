@@ -5,20 +5,19 @@ import {
   QuestionStore,
   QuestionDataStore,
 } from '../../question/stores';
-import { history } from './history';
+import { navigator } from '../utils/navigator';
 
 const likesStore = new LikesStore();
 const questionDataStore = new QuestionDataStore(likesStore);
 export const question = new QuestionStore(
   api.questionsService,
-  history,
   questionDataStore,
 );
 
 const createAsyncStore = new AsyncStore();
 export const questions = new QuestionsStore(
   api.questionsService,
-  history,
   questionDataStore,
   createAsyncStore,
+  navigator,
 );

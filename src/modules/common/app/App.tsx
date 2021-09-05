@@ -9,6 +9,7 @@ import { history } from '../entities';
 
 import './index.css';
 import './App.css';
+import { NavigatorProvider } from '../containers/NavigatorProvider';
 
 export const App = () => {
   return (
@@ -16,9 +17,11 @@ export const App = () => {
       <IntlProvider>
         <Router history={history}>
           <SkeletonContainer>
-            <ThemeProvider>
-              <Routes />
-            </ThemeProvider>
+            <NavigatorProvider>
+              <ThemeProvider>
+                <Routes />
+              </ThemeProvider>
+            </NavigatorProvider>
           </SkeletonContainer>
         </Router>
       </IntlProvider>

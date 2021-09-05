@@ -1,13 +1,12 @@
 import { action, observable } from 'mobx';
-import { History } from 'history';
 
 import { IQuestionsStore } from './IQuestionsStore';
-import { buildQuestionId } from '../../../common/utils';
 import { IQuestionsService } from '../../services';
 import { IQuestionDataStore } from '../QuestionDataStore';
 import { ICreateQuestionDto } from '../../../common/dto';
 import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
+import { INavigator } from '../../../common/interfaces';
 
 export class QuestionsStore implements IQuestionsStore {
   @observable excludeIds: number[] = [];
@@ -15,9 +14,9 @@ export class QuestionsStore implements IQuestionsStore {
 
   constructor(
     private questionsService: IQuestionsService,
-    private history: History,
     private questionDataStore: IQuestionDataStore,
     private asyncStore: IAsyncStore,
+    private navigator: INavigator,
   ) {
     this.createAsync = asyncStore;
   }
@@ -63,7 +62,7 @@ export class QuestionsStore implements IQuestionsStore {
 
       this.questionDataStore.requestQuestionSuccess(question);
       this.excludeIds = excludeIds;
-      this.history.push(buildQuestionId(question.id));
+      this.navigator.goToQuestion(question.id);
     } catch (e) {
       this.questionDataStore.requestQuestionError();
     }

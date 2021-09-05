@@ -8,6 +8,8 @@ import { Role } from '../../enums';
 export const SettingsPageContainerPure: React.FC = () => {
   const { userStore } = useStores();
 
+  console.log(userStore.user?.role);
+
   return <Settings role={userStore.user?.role || Role.User} />;
 };
 

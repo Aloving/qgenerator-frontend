@@ -9,9 +9,9 @@ import {
   settingsUrl,
   mainPageUrl,
 } from './modules/common/utils';
-import { LoginPage, RegistrationPage } from './modules/authentication';
 import { SettingsPage } from './modules/users/components';
 import { PrivateRoute } from './modules/common/containers';
+import { LoginPageContainer, RegistrationPage } from './modules/authentication';
 
 export const Routes = () => {
   return (
@@ -26,7 +26,7 @@ export const Routes = () => {
         <RegistrationPage />
       </Route>
       <Route path={loginUrl} exact>
-        <LoginPage />
+        <LoginPageContainer />
       </Route>
       <PrivateRoute path={settingsUrl} exact>
         <SettingsPage />

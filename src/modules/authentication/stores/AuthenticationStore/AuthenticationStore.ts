@@ -1,21 +1,20 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx';
-import { History } from 'history';
+import { isEqual } from 'lodash';
 
 import {
   restoreTokensFromStorage,
-  settingsUrl,
   wait,
   storeTokensToStorage,
 } from '../../../common/utils';
 
 import { IAuthTransport } from '../../../../api';
-import { IUserStore } from '../../../users/stores/';
-import { IUsersService } from '../../../users';
+import { IUserStore } from '../../../users';
 import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
 import { ILoginDto } from '../../dto';
 import { ITokens } from '../../interfaces';
 import { IAuthenticationStore } from './IAuthenticationStore';
+import { INavigator } from '../../../common/interfaces';
 
 export class AuthenticationStore implements IAuthenticationStore {
   @observable readonly async: IAsyncStore | null = null;
@@ -25,11 +24,11 @@ export class AuthenticationStore implements IAuthenticationStore {
     private userStore: IUserStore,
     private authTransport: IAuthTransport,
     private asyncStore: IAsyncStore,
-    private userService: IUsersService,
-    private history: History<unknown>,
+    private navigator: INavigator,
   ) {
     makeAutoObservable(this);
     this.authTransport.onLogout(this.resetToken);
+    this.authTransport.onRefreshToken(this.syncTokens);
 
     this.async = asyncStore;
     this.onInit();
@@ -42,14 +41,22 @@ export class AuthenticationStore implements IAuthenticationStore {
   @action
   setTokens(tokens: ITokens) {
     this.tokens = tokens;
-    this.authTransport.setTokens(tokens);
+    !isEqual(tokens, this.authTransport.getToken()) &&
+      this.authTransport.setTokens(tokens);
     storeTokensToStorage(tokens);
   }
 
   @action
-  resetToken() {
+  resetToken = () => {
     this.tokens = null;
-  }
+  };
+
+  @action
+  syncTokens = () => {
+    const transportTokens = this.authTransport.getToken();
+
+    this.setTokens(transportTokens);
+  };
 
   @action
   async loadUserByToken() {
@@ -77,7 +84,7 @@ export class AuthenticationStore implements IAuthenticationStore {
       this.userStore.setUser(user);
       await wait(2500);
       this.userStore.completeUser(user);
-      this.history.push(settingsUrl);
+      this.navigator.goToSettings();
 
       this.async?.setStatus(AsyncStatus.Success);
     } catch (e) {
