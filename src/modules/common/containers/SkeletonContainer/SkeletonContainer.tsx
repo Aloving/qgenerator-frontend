@@ -2,11 +2,12 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { SkeletonContext } from '../../components';
-import { useStores } from '../StoreProvider/useStores';
+import { useStores } from '../StoreProvider';
 
 const SkeletonContainerPure: React.FC = ({ children }) => {
-  const { questionStore } = useStores();
-  const isLoading = questionStore.isLoading;
+  const stores = useStores();
+  const isLoading = true;
+  console.log(stores);
 
   return (
     <SkeletonContext.Provider value={{ isLoading }}>

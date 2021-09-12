@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
-import { QuestionPage } from './modules/question';
+import { QuestionPageContainer } from './modules/question';
 import {
   certainQuestionUrl,
   registrationUrl,
@@ -20,7 +20,7 @@ export const Routes = () => {
         MAINPAGE
       </Route>
       <Route path={certainQuestionUrl} exact>
-        <QuestionPage />
+        <QuestionPageContainer />
       </Route>
       <Route path={registrationUrl} exact>
         <RegistrationPage />

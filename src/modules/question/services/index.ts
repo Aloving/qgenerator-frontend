@@ -1,2 +1,2 @@
-export * from './QuestionsService';
-export * from './IQuestionsService';
+export * from './QuestionsService/QuestionsService';
+export * from './QuestionsService/IQuestionsService';

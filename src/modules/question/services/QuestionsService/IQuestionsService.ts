@@ -1,6 +1,9 @@
-import { IRandomizeQuestionRequest, IRandomizeQuestionResponse } from '../dto';
-import { IQuestion } from '../index';
-import { ICreateQuestionDto } from '../../common/dto';
+import {
+  IRandomizeQuestionRequest,
+  IRandomizeQuestionResponse,
+} from '../../dto';
+import { IQuestion } from '../../interfaces';
+import { ICreateQuestionDto } from '../../../common/dto';
 
 export interface IQuestionsService {
   create(payload: ICreateQuestionDto): Promise<IQuestion>;

@@ -1,6 +1,6 @@
 import { string, object } from 'yup';
 
-import { api } from '../../../../api';
+import { api } from '../../../common/entities';
 
 export const signUpValidationForm = object().shape({
   login: string()

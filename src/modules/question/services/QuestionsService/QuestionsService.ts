@@ -1,7 +1,10 @@
-import { IAuthTransport } from '../../../api';
-import { ICreateQuestionDto } from '../../common/dto';
-import { IQuestion } from '../interfaces';
-import { IRandomizeQuestionResponse, IRandomizeQuestionRequest } from '../dto';
+import { IAuthTransport } from '../../../../api/interfaces';
+import { ICreateQuestionDto } from '../../../common/dto';
+import { IQuestion } from '../../interfaces';
+import {
+  IRandomizeQuestionResponse,
+  IRandomizeQuestionRequest,
+} from '../../dto';
 import { IQuestionsService } from './IQuestionsService';
 
 export class QuestionsService implements IQuestionsService {

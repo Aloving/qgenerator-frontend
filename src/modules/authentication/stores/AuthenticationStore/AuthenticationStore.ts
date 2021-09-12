@@ -11,10 +11,10 @@ import { IAuthTransport } from '../../../../api';
 import { IUserStore } from '../../../users';
 import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
+import { INavigator } from '../../../common/interfaces';
 import { ILoginDto } from '../../dto';
 import { ITokens } from '../../interfaces';
 import { IAuthenticationStore } from './IAuthenticationStore';
-import { INavigator } from '../../../common/interfaces';
 
 export class AuthenticationStore implements IAuthenticationStore {
   @observable readonly async: IAsyncStore | null = null;
