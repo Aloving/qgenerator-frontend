@@ -17,5 +17,3 @@ export const questionsStore = new QuestionsStore(
   createAsyncStore,
   navigator,
 );
-
-console.log('questionsStore', questionsStore);

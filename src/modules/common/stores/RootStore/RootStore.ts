@@ -1,9 +1,9 @@
-import { IQuestionStore, IQuestionsStore } from '../../../question';
 import {
   IAuthenticationStore,
   IRegistrationStore,
 } from '../../../authentication';
 import { IUserStore } from '../../../users';
+import { IQuestionStore, IQuestionsStore } from '../../../question';
 
 export class RootStore {
   constructor(
