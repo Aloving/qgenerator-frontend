@@ -10,6 +10,7 @@ import { DataField } from '../DataFields/components';
 export interface UserDataProps extends Pick<IUser, 'login' | 'email' | 'role'> {
   answerCount: number;
   questionsCount: number;
+  questionProposalsCount: number;
 }
 
 export const UserData: React.FC<UserDataProps> = ({
@@ -17,6 +18,7 @@ export const UserData: React.FC<UserDataProps> = ({
   email,
   answerCount,
   questionsCount,
+  questionProposalsCount,
   role,
 }) => {
   return (
@@ -42,6 +44,13 @@ export const UserData: React.FC<UserDataProps> = ({
         name="questionsCount"
         value={questionsCount}
         label={<FormattedMessage {...usersTranslations.answerCount} />}
+      />
+      <DataField
+        name="questionProposalsCount"
+        value={questionProposalsCount}
+        label={
+          <FormattedMessage {...usersTranslations.questionProposalsCount} />
+        }
       />
       <DataField
         name="role"

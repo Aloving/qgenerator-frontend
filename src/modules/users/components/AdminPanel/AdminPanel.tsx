@@ -2,23 +2,25 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 
 import { CreateQuestionContainer } from '../../containers';
+import { ProposalsContainer } from '../../../proposals/containers';
 import { UserData, UserDataProps } from '../UserData';
 
 import styles from './AdminPanel.module.css';
-import { ProposalsContainer } from '../../../proposals/containers';
 
 type AdminPanelProps = UserDataProps;
 
 export const AdminPanel: React.FC<AdminPanelProps> = (props) => {
   return (
-    <div className={styles.root}>
+    <div>
       <Grid container justify="space-between" alignItems="stretch" spacing={3}>
         <Grid item xs={4}>
-          <div>
+          <div className={styles.userDataWrapper}>
             <UserData {...props} />
           </div>
         </Grid>
-        <Grid item xs={8}>
+      </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
           <ProposalsContainer />
           <div className={styles.addQuestion}>
             <CreateQuestionContainer />

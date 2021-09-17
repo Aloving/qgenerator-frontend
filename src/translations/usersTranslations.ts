@@ -25,6 +25,10 @@ export const usersTranslations = defineMessages({
     id: 'app.users.questionsCount',
     defaultMessage: 'Count of questions',
   },
+  questionProposalsCount: {
+    id: 'app.users.questionProposalsCount',
+    defaultMessage: 'Count of question proposals',
+  },
   question: {
     id: 'app.users.question',
     defaultMessage: 'Question',
