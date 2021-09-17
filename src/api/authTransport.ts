@@ -179,12 +179,17 @@ export class AuthTransport implements IAuthTransport {
           throw error;
         }
 
-        const { refreshToken, accessToken } = await this.updateToken(
-          this.refreshToken,
-        );
+        try {
+          const { refreshToken, accessToken } = await this.updateToken(
+            this.refreshToken,
+          );
 
-        this.setToken({ refreshToken, accessToken });
-        this.onRefreshTokenSubscribers.forEach((subscriber) => subscriber());
+          this.setToken({ refreshToken, accessToken });
+        } catch (e) {
+          this.setToken();
+        } finally {
+          this.onRefreshTokenSubscribers.forEach((subscriber) => subscriber());
+        }
 
         const newRequest = {
           ...error.config,
@@ -215,7 +220,12 @@ export class AuthTransport implements IAuthTransport {
     this.refreshToken = null;
   }
 
-  private setToken({ accessToken, refreshToken }: ITokens): void {
+  private setToken(
+    { accessToken, refreshToken }: ITokens = {
+      accessToken: '',
+      refreshToken: '',
+    },
+  ): void {
     this.token = accessToken;
     this.refreshToken = refreshToken;
   }

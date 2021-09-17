@@ -29,12 +29,12 @@ export const usersTranslations = defineMessages({
     id: 'app.users.question',
     defaultMessage: 'Question',
   },
-  authorId: {
-    id: 'app.users.authorId',
-    defaultMessage: 'Author ID',
-  },
   createQuestion: {
     id: 'app.users.createQuestion',
     defaultMessage: 'Create question',
+  },
+  createQuestionProposal: {
+    id: 'app.users.createQuestionProposal',
+    defaultMessage: 'Create proposal',
   },
 });

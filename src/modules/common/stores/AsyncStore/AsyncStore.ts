@@ -4,7 +4,7 @@ import { IAsyncStore } from './IAsyncStore';
 import { AsyncStatus } from '../../enum';
 
 export class AsyncStore implements IAsyncStore {
-  @observable private status: AsyncStatus | null = null;
+  @observable private _status: AsyncStatus | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -22,8 +22,12 @@ export class AsyncStore implements IAsyncStore {
     return this.status === AsyncStatus.Success;
   }
 
+  get status() {
+    return this._status;
+  }
+
   @action
   setStatus(status: AsyncStatus) {
-    this.status = status;
+    this._status = status;
   }
 }

@@ -1,21 +1,28 @@
 import React from 'react';
 import {
-  IconButton,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
 } from '@material-ui/core';
-import DoneIcon from '@material-ui/icons/Done';
 
-import { IProposalWithUserData } from '../../interfaces';
+import { ProposalRow } from '../ProposalRow';
+
+import { IProposal, IProposalWithUserData } from '../../interfaces';
 
 interface ProposalsProps {
   proposals: IProposalWithUserData[];
+  isLoading: boolean;
+
+  acceptProposal: (proposalId: IProposal['id']) => void;
 }
 
-export const Proposals: React.FC<ProposalsProps> = ({ proposals }) => {
+export const Proposals: React.FC<ProposalsProps> = ({
+  acceptProposal,
+  proposals,
+  isLoading,
+}) => {
   return (
     <Table size="small">
       <TableHead>
@@ -23,25 +30,19 @@ export const Proposals: React.FC<ProposalsProps> = ({ proposals }) => {
           <TableCell>ID</TableCell>
           <TableCell>Question Text</TableCell>
           <TableCell>Author</TableCell>
-          <TableCell align="right">Author role</TableCell>
+          <TableCell>Author role</TableCell>
+          <TableCell>Status</TableCell>
           <TableCell align="center" />
         </TableRow>
       </TableHead>
       <TableBody>
         {proposals.map((row) => (
-          <TableRow key={row.id}>
-            <TableCell component="th" scope="row">
-              {row.id}
-            </TableCell>
-            <TableCell>{row.text}</TableCell>
-            <TableCell>{row.login}</TableCell>
-            <TableCell align="right">{row.role}</TableCell>
-            <TableCell align="center">
-              <IconButton>
-                <DoneIcon color="primary" />
-              </IconButton>
-            </TableCell>
-          </TableRow>
+          <ProposalRow
+            key={row.id}
+            {...row}
+            isLoading={isLoading}
+            onAccept={() => acceptProposal(row.id)}
+          />
         ))}
       </TableBody>
     </Table>

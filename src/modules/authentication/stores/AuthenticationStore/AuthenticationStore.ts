@@ -68,6 +68,7 @@ export class AuthenticationStore implements IAuthenticationStore {
       this.userStore.completeUser(user);
       this.async?.setStatus(AsyncStatus.Success);
     } catch (e) {
+      this.syncTokens();
       this.async?.setStatus(AsyncStatus.Failed);
     }
   }

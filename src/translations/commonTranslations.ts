@@ -2,23 +2,31 @@ import { defineMessages } from 'react-intl';
 
 export const commonTranslations = defineMessages({
   question: {
-    id: 'app_question_textLabel',
+    id: 'app.common.question',
     defaultMessage: 'Вопрос',
   },
+  questionProposal: {
+    id: 'app.common.proposal',
+    defaultMessage: 'Предложить вопрос',
+  },
+  authorId: {
+    id: 'app.common.authorId',
+    defaultMessage: 'Author ID',
+  },
   answerIt: {
-    id: 'app_question_answerIt',
+    id: 'app.common.answerIt',
     defaultMessage: 'Ответить',
   },
   cancel: {
-    id: 'app_question_cancel',
+    id: 'app.common.cancel',
     defaultMessage: 'Отменить',
   },
   send: {
-    id: 'app_question_send',
+    id: 'app.common.send',
     defaultMessage: 'Отправить',
   },
   answer: {
-    id: 'qpp_question_answer',
+    id: 'qpp.common.answer',
     defaultMessage: 'Ответ',
   },
 });

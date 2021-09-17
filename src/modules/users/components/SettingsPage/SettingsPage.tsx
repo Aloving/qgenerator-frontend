@@ -9,7 +9,7 @@ import { SettingsPageContainer } from '../../containers';
 
 export const SettingsPage: React.FC = () => {
   return (
-    <BackgroundWrapper onePage>
+    <BackgroundWrapper>
       <Header />
       <OutWrapper>
         <SettingsPageContainer />

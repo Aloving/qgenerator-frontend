@@ -1,4 +1,4 @@
-import { makeAutoObservable, observable } from 'mobx';
+import { action, makeAutoObservable, observable } from 'mobx';
 
 import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
@@ -13,8 +13,8 @@ export class QuestionProposalsStore implements IQuestionProposalsStore {
   constructor(
     private proposalsService: IProposalsService,
     private acceptingProcessAsync: IAsyncStore,
-    private loading: IAsyncStore,
-    private proposeProcessAsync: IAsyncStore,
+    public loading: IAsyncStore,
+    public proposeProcessAsync: IAsyncStore,
   ) {
     makeAutoObservable(this);
   }
@@ -26,7 +26,7 @@ export class QuestionProposalsStore implements IQuestionProposalsStore {
       const proposal = await this.proposalsService.acceptQuestion(proposalId);
 
       this.acceptingProcessAsync.setStatus(AsyncStatus.Success);
-      this.setProposal(proposal);
+      this.updateProposal(proposal);
     } catch (e) {
       this.acceptingProcessAsync.setStatus(AsyncStatus.Failed);
     }
@@ -39,7 +39,7 @@ export class QuestionProposalsStore implements IQuestionProposalsStore {
       const proposal = await this.proposalsService.declineQuestion(proposalId);
 
       this.acceptingProcessAsync.setStatus(AsyncStatus.Success);
-      this.setProposal(proposal);
+      this.updateProposal(proposal);
     } catch (e) {
       this.acceptingProcessAsync.setStatus(AsyncStatus.Failed);
     }
@@ -71,13 +71,20 @@ export class QuestionProposalsStore implements IQuestionProposalsStore {
     }
   };
 
+  @action
   private resetProposals = (proposals: IProposalWithUserData[] = []) => {
     this.proposals = proposals;
   };
 
-  private setProposal = (proposalToSet: IProposalWithUserData) => {
+  @action
+  private updateProposal = (proposalToSet: IProposalWithUserData) => {
     this.proposals = this.proposals.map((proposal) => {
       return proposal.id === proposalToSet.id ? proposalToSet : proposal;
     });
+  };
+
+  @action
+  private setProposal = (proposal: IProposalWithUserData) => {
+    this.proposals = [...this.proposals, proposal];
   };
 }

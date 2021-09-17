@@ -1,1 +1,1 @@
-export * from './CreateQuestionDto';
+export * from './ICreateQuestionDto';

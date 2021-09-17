@@ -5,7 +5,7 @@ import { Button } from '../../../common/components';
 
 import { FormikProps } from 'formik';
 
-import { ToolWrapper } from '../ToolWrapper';
+import { ToolWrapper } from '../../../common/components/ToolWrapper';
 import { DataFieldStatus } from './components/DataFieldStatus';
 
 import styles from './DataFields.module.css';

@@ -4,4 +4,4 @@ export * from './AdminPanel';
 export * from './CreateQuestion';
 export * from './DataFields';
 export * from './UserData';
-export * from './ToolWrapper';
+export * from '../../common/components/ToolWrapper';
