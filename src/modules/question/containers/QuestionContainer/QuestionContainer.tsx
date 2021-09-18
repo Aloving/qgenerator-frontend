@@ -20,14 +20,14 @@ export const QuestionContainerPure: React.FC = () => {
     [questionStore],
   );
   const handleRequestQuestion = useCallback(() => {
-    questionsStore.randomizeQuestion();
+    questionStore.randomizeQuestion();
   }, [questionsStore]);
 
   useEffect(() => {
     questionId &&
       !isCompleted &&
       !isLoading &&
-      questionsStore.requestQuestion(+questionId);
+      questionStore.requestQuestion(+questionId);
   }, []);
 
   return (

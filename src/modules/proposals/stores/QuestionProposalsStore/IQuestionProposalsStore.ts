@@ -1,9 +1,9 @@
-import { IProposal, IProposalWithUserData } from '../../interfaces';
+import { IProposal } from '../../interfaces';
 import { IProposeQuestionDto } from '../../dto';
 import { IAsyncStore } from '../../../common/stores';
 
 export interface IQuestionProposalsStore {
-  readonly proposals: IProposalWithUserData[];
+  readonly proposals: IProposal[];
   readonly loading: IAsyncStore;
   readonly proposeProcessAsync: IAsyncStore;
 

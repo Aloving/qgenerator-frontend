@@ -1,4 +1,5 @@
 import { IQuestionDataStore } from '../QuestionDataStore';
+import { IQuestion } from '../../interfaces';
 
 export interface IQuestionStore {
   isDisliked: boolean;
@@ -9,4 +10,6 @@ export interface IQuestionStore {
 
   likeQuestion(): void;
   dislikeQuestion(): void;
+  randomizeQuestion(): void;
+  requestQuestion(id: IQuestion['id']): void;
 }

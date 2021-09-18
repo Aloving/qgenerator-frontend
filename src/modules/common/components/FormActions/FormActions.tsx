@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../../users/components/CreateQuestion/CreateQuestion.module.css';
+import styles from '../../../questions/components/CreateQuestion/CreateQuestion.module.css';
 import { Button } from '../index';
 import { FormattedMessage } from 'react-intl';
 import { commonTranslations } from '../../../../translations';

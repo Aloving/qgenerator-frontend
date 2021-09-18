@@ -3,15 +3,17 @@ import { action, makeAutoObservable, observable } from 'mobx';
 import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
 import { IProposalsService } from '../../services';
-import { IProposal, IProposalWithUserData } from '../../interfaces';
+import { IProposal } from '../../interfaces';
 import { IProposeQuestionDto } from '../../dto';
 import { IQuestionProposalsStore } from './IQuestionProposalsStore';
+import { IQuestionsStore } from '../../../question';
 
 export class QuestionProposalsStore implements IQuestionProposalsStore {
-  @observable proposals: IProposalWithUserData[] = [];
+  @observable proposals: IProposal[] = [];
 
   constructor(
     private proposalsService: IProposalsService,
+    private questionsStore: IQuestionsStore,
     private acceptingProcessAsync: IAsyncStore,
     public loading: IAsyncStore,
     public proposeProcessAsync: IAsyncStore,
@@ -27,7 +29,9 @@ export class QuestionProposalsStore implements IQuestionProposalsStore {
 
       this.acceptingProcessAsync.setStatus(AsyncStatus.Success);
       this.updateProposal(proposal);
+      this.questionsStore.loadQuestions();
     } catch (e) {
+      console.error(e);
       this.acceptingProcessAsync.setStatus(AsyncStatus.Failed);
     }
   };
@@ -40,6 +44,7 @@ export class QuestionProposalsStore implements IQuestionProposalsStore {
 
       this.acceptingProcessAsync.setStatus(AsyncStatus.Success);
       this.updateProposal(proposal);
+      this.questionsStore.loadQuestions();
     } catch (e) {
       this.acceptingProcessAsync.setStatus(AsyncStatus.Failed);
     }
@@ -71,20 +76,24 @@ export class QuestionProposalsStore implements IQuestionProposalsStore {
     }
   };
 
+  private getProposalLocally = (proposalId: IProposal['id']) => {
+    return this.proposals.find((proposal) => proposal.id === proposalId);
+  };
+
   @action
-  private resetProposals = (proposals: IProposalWithUserData[] = []) => {
+  private resetProposals = (proposals: IProposal[] = []) => {
     this.proposals = proposals;
   };
 
   @action
-  private updateProposal = (proposalToSet: IProposalWithUserData) => {
+  private updateProposal = (proposalToSet: IProposal) => {
     this.proposals = this.proposals.map((proposal) => {
       return proposal.id === proposalToSet.id ? proposalToSet : proposal;
     });
   };
 
   @action
-  private setProposal = (proposal: IProposalWithUserData) => {
+  private setProposal = (proposal: IProposal) => {
     this.proposals = [...this.proposals, proposal];
   };
 }

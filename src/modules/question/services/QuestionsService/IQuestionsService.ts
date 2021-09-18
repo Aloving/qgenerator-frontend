@@ -11,6 +11,7 @@ export interface IQuestionsService {
     payload: IRandomizeQuestionRequest,
   ): Promise<IRandomizeQuestionResponse>;
   getQuestion(questionId: number): Promise<IQuestion>;
+  getAllQuestions(): Promise<IQuestion[]>;
 
   increaseQuestionLikes(questionId: number): Promise<IQuestion>;
   decreaseQuestionLikes(questionId: number): Promise<IQuestion>;

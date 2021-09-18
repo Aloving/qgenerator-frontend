@@ -34,6 +34,10 @@ export class QuestionsService implements IQuestionsService {
     return this._httpTransport.get<IQuestion>(`/api/questions/${questionId}`);
   };
 
+  getAllQuestions = (): Promise<IQuestion[]> => {
+    return this._httpTransport.get<IQuestion[]>(`/api/questions`);
+  };
+
   increaseQuestionLikes = (questionId: number): Promise<IQuestion> => {
     return this._httpTransport.put<IQuestion>(
       `/api/questions/${questionId}/increaseLikes`,

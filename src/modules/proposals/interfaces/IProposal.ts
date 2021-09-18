@@ -1,8 +1,13 @@
 import { ProposalStatus } from '../enums';
+import { IQuestion } from '../../question';
+import { Role } from '../../users';
 
 export interface IProposal {
-  id: string;
   authorId: string;
-  text: string;
+  id: string;
+  login: string;
+  questionId: IQuestion['id'];
+  role: Role;
   status: ProposalStatus;
+  text: string;
 }

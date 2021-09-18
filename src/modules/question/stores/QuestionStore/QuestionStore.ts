@@ -1,13 +1,17 @@
-import { computed } from 'mobx';
+import { action, computed, observable } from 'mobx';
 
 import { IQuestionsService } from '../../services';
 import { IQuestionDataStore } from '../QuestionDataStore';
 import { IQuestionStore } from './IQuestionStore';
+import { INavigator } from '../../../common/interfaces';
 
 export class QuestionStore implements IQuestionStore {
+  @observable private excludeIds: number[] = [];
+
   constructor(
-    private questionService: IQuestionsService,
+    private questionsService: IQuestionsService,
     private questionDataStore: IQuestionDataStore,
+    private navigator: INavigator,
   ) {}
 
   @computed get isLiked() {
@@ -30,12 +34,48 @@ export class QuestionStore implements IQuestionStore {
     return this.questionDataStore.completed;
   }
 
+  @action
+  async requestQuestion(questionId: number) {
+    const excludeIds = this.excludeIds?.includes(questionId)
+      ? this.excludeIds
+      : [...this.excludeIds, questionId];
+
+    try {
+      this.questionDataStore.preRequestQuestionActions();
+      const question = await this.questionsService.getQuestion(questionId);
+
+      this.questionDataStore.requestQuestionSuccess(question);
+      this.excludeIds = excludeIds;
+    } catch (e) {
+      this.questionDataStore.requestQuestionError();
+    }
+  }
+
+  @action
+  async randomizeQuestion() {
+    try {
+      this.questionDataStore.preRequestQuestionActions();
+      const {
+        question,
+        excludeIds,
+      } = await this.questionsService.randomizeQuestion({
+        excludeIds: this.excludeIds,
+      });
+
+      this.questionDataStore.requestQuestionSuccess(question);
+      this.excludeIds = excludeIds;
+      this.navigator.goToQuestion(question.id);
+    } catch (e) {
+      this.questionDataStore.requestQuestionError();
+    }
+  }
+
   async likeQuestion() {
     try {
       if (!this.isLiked && !this.isDisliked) {
         this.questionDataStore.increaseLikes();
 
-        await this.questionService.increaseQuestionLikes(
+        await this.questionsService.increaseQuestionLikes(
           this.questionDataStore.questionId,
         );
       }
@@ -44,10 +84,10 @@ export class QuestionStore implements IQuestionStore {
         this.questionDataStore.decreaseDislikes();
         this.questionDataStore.increaseLikes();
 
-        await this.questionService.decreaseQuestionDislikes(
+        await this.questionsService.decreaseQuestionDislikes(
           this.questionDataStore.questionId,
         );
-        await this.questionService.increaseQuestionLikes(
+        await this.questionsService.increaseQuestionLikes(
           this.questionDataStore.questionId,
         );
       }
@@ -55,7 +95,7 @@ export class QuestionStore implements IQuestionStore {
       if (this.isLiked) {
         this.questionDataStore.decreaseLikes();
 
-        await this.questionService.decreaseQuestionLikes(
+        await this.questionsService.decreaseQuestionLikes(
           this.questionDataStore.questionId,
         );
       }
@@ -71,7 +111,7 @@ export class QuestionStore implements IQuestionStore {
       if (!this.isLiked && !this.isDisliked) {
         this.questionDataStore.increaseDislikes();
 
-        await this.questionService.increaseQuestionLikes(
+        await this.questionsService.increaseQuestionLikes(
           this.questionDataStore.questionId,
         );
       }
@@ -80,10 +120,10 @@ export class QuestionStore implements IQuestionStore {
         this.questionDataStore.decreaseLikes();
         this.questionDataStore.increaseDislikes();
 
-        await this.questionService.decreaseQuestionLikes(
+        await this.questionsService.decreaseQuestionLikes(
           this.questionDataStore.questionId,
         );
-        await this.questionService.increaseQuestionDislikes(
+        await this.questionsService.increaseQuestionDislikes(
           this.questionDataStore.questionId,
         );
       }
@@ -91,7 +131,7 @@ export class QuestionStore implements IQuestionStore {
       if (this.isDisliked) {
         this.questionDataStore.decreaseDislikes();
 
-        await this.questionService.decreaseQuestionDislikes(
+        await this.questionsService.decreaseQuestionDislikes(
           this.questionDataStore.questionId,
         );
       }

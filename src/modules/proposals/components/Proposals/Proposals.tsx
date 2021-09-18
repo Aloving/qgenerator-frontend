@@ -9,10 +9,10 @@ import {
 
 import { ProposalRow } from '../ProposalRow';
 
-import { IProposal, IProposalWithUserData } from '../../interfaces';
+import { IProposal } from '../../interfaces';
 
 interface ProposalsProps {
-  proposals: IProposalWithUserData[];
+  proposals: IProposal[];
   isLoading: boolean;
 
   acceptProposal: (proposalId: IProposal['id']) => void;

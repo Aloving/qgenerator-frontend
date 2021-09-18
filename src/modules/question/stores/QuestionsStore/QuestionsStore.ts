@@ -1,24 +1,21 @@
-import { action, observable } from 'mobx';
+import { action, makeAutoObservable, observable } from 'mobx';
 
 import { IQuestionsStore } from './IQuestionsStore';
 import { IQuestionsService } from '../../services';
-import { IQuestionDataStore } from '../QuestionDataStore';
 import { ICreateQuestionDto } from '../../../common/dto';
 import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
-import { INavigator } from '../../../common/interfaces';
+import { IQuestion } from '../../interfaces';
 
 export class QuestionsStore implements IQuestionsStore {
-  @observable excludeIds: number[] = [];
-  @observable createAsync: IAsyncStore | null = null;
+  @observable questions: IQuestion[] = [];
 
   constructor(
     private questionsService: IQuestionsService,
-    private questionDataStore: IQuestionDataStore,
-    private asyncStore: IAsyncStore,
-    private navigator: INavigator,
+    private createAsync: IAsyncStore,
+    public loading: IAsyncStore,
   ) {
-    this.createAsync = asyncStore;
+    makeAutoObservable(this);
   }
 
   @action
@@ -33,38 +30,27 @@ export class QuestionsStore implements IQuestionsStore {
     }
   }
 
+  loadQuestions = async () => {
+    try {
+      this.loading.setStatus(AsyncStatus.Loading);
+      const questions = await this.questionsService.getAllQuestions();
+
+      this.setQuestions(questions);
+      this.loading.setStatus(AsyncStatus.Success);
+    } catch (e) {
+      this.loading.setStatus(AsyncStatus.Failed);
+    }
+  };
+
   @action
-  async requestQuestion(questionId: number) {
-    const excludeIds = this.excludeIds?.includes(questionId)
-      ? this.excludeIds
-      : [...this.excludeIds, questionId];
+  removeQuestion = (questionId: IQuestion['id']) => {
+    this.questions = this.questions.filter(
+      (question) => question.id !== questionId,
+    );
+  };
 
-    try {
-      this.questionDataStore.preRequestQuestionActions();
-      const question = await this.questionsService.getQuestion(questionId);
-
-      this.questionDataStore.requestQuestionSuccess(question);
-      this.excludeIds = excludeIds;
-    } catch (e) {
-      this.questionDataStore.requestQuestionError();
-    }
-  }
-
-  async randomizeQuestion() {
-    try {
-      this.questionDataStore.preRequestQuestionActions();
-      const {
-        question,
-        excludeIds,
-      } = await this.questionsService.randomizeQuestion({
-        excludeIds: this.excludeIds,
-      });
-
-      this.questionDataStore.requestQuestionSuccess(question);
-      this.excludeIds = excludeIds;
-      this.navigator.goToQuestion(question.id);
-    } catch (e) {
-      this.questionDataStore.requestQuestionError();
-    }
-  }
+  @action
+  private setQuestions = (questions: IQuestion[]) => {
+    this.questions = questions;
+  };
 }

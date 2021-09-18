@@ -1,5 +1,6 @@
 import { IAuthor } from './IAuthor';
 import { IAnswer } from './IAnswer';
+import { IProposal } from '../../proposals';
 
 export interface IQuestion {
   id: number;
@@ -9,4 +10,5 @@ export interface IQuestion {
   author: IAuthor;
   answers: IAnswer[];
   text: string;
+  proposalId?: IProposal['id'];
 }

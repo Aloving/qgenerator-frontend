@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 
-import { CreateQuestionContainer } from '../../containers';
+import { QuestionsContainer } from '../../../questions/containers';
 import { ProposalsContainer } from '../../../proposals/containers';
 import { UserData, UserDataProps } from '../UserData';
 
@@ -22,8 +22,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = (props) => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <ProposalsContainer />
-          <div className={styles.addQuestion}>
-            <CreateQuestionContainer />
+          <div className={styles.questions}>
+            <QuestionsContainer />
           </div>
         </Grid>
       </Grid>
