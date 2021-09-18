@@ -4,6 +4,8 @@ import { Skeleton } from '@material-ui/lab';
 import DoneIcon from '@material-ui/icons/Done';
 import CancelIcon from '@material-ui/icons/Cancel';
 
+import { ProposalStatusIcon } from '../ProposalStatusIcon';
+
 import { Role } from '../../../users';
 import { ProposalStatus } from '../../enums';
 
@@ -45,19 +47,21 @@ export const ProposalRow: React.FC<ProposalRowProps> = ({
         {isLoading ? <Skeleton width={80} height={24} /> : role}
       </TableCell>
       <TableCell>
-        {isLoading ? <Skeleton width={80} height={24} /> : status}
+        {isLoading ? (
+          <Skeleton width={80} height={24} />
+        ) : (
+          <ProposalStatusIcon status={status} />
+        )}
       </TableCell>
       <TableCell align="center">
-        {status !== ProposalStatus.Accepted && (
-          <>
-            <IconButton disabled={isLoading} onClick={onAccept}>
-              <DoneIcon color="primary" />
-            </IconButton>
-            <IconButton disabled={isLoading} onClick={onDecline}>
-              <CancelIcon color="primary" />
-            </IconButton>
-          </>
-        )}
+        <>
+          <IconButton disabled={isLoading} onClick={onAccept}>
+            <DoneIcon color="primary" />
+          </IconButton>
+          <IconButton disabled={isLoading} onClick={onDecline}>
+            <CancelIcon color="primary" />
+          </IconButton>
+        </>
       </TableCell>
     </TableRow>
   );
