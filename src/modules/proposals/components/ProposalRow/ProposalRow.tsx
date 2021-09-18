@@ -2,6 +2,7 @@ import React from 'react';
 import { IconButton, TableCell, TableRow } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import DoneIcon from '@material-ui/icons/Done';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import { Role } from '../../../users';
 import { ProposalStatus } from '../../enums';
@@ -15,16 +16,19 @@ interface ProposalRowProps {
   isLoading: boolean;
 
   onAccept: () => void;
+  onDecline: () => void;
 }
 
 export const ProposalRow: React.FC<ProposalRowProps> = ({
   id,
   isLoading,
   login,
-  onAccept,
   role,
   status,
   text,
+
+  onAccept,
+  onDecline,
 }) => {
   return (
     <TableRow>
@@ -48,6 +52,9 @@ export const ProposalRow: React.FC<ProposalRowProps> = ({
           <>
             <IconButton disabled={isLoading} onClick={onAccept}>
               <DoneIcon color="primary" />
+            </IconButton>
+            <IconButton disabled={isLoading} onClick={onDecline}>
+              <CancelIcon color="primary" />
             </IconButton>
           </>
         )}

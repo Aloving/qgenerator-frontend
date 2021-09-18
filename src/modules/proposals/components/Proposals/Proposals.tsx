@@ -16,12 +16,15 @@ interface ProposalsProps {
   isLoading: boolean;
 
   acceptProposal: (proposalId: IProposal['id']) => void;
+  declineProposal: (proposalId: IProposal['id']) => void;
 }
 
 export const Proposals: React.FC<ProposalsProps> = ({
-  acceptProposal,
   proposals,
   isLoading,
+
+  acceptProposal,
+  declineProposal,
 }) => {
   return (
     <Table size="small">
@@ -42,6 +45,7 @@ export const Proposals: React.FC<ProposalsProps> = ({
             {...row}
             isLoading={isLoading}
             onAccept={() => acceptProposal(row.id)}
+            onDecline={() => declineProposal(row.id)}
           />
         ))}
       </TableBody>

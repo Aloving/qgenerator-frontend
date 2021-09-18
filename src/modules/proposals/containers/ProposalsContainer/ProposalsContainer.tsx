@@ -22,6 +22,7 @@ export const ProposalsContainerPure: React.FC = () => {
           questionProposalsStore.proposeProcessAsync.isLoading
         }
         acceptProposal={questionProposalsStore.acceptProposal}
+        declineProposal={questionProposalsStore.declineProposal}
       />
       <CreateProposal
         onCreate={questionProposalsStore.proposeQuestion}

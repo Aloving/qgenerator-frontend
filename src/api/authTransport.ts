@@ -109,8 +109,13 @@ export class AuthTransport implements IAuthTransport {
     this.onLogoutSubscribers.forEach((subscriber) => subscriber());
   };
 
-  setTokens(tokens: ITokens) {
-    this.setToken(tokens);
+  setTokens(tokens: ITokens | null) {
+    this.setToken(
+      tokens || {
+        accessToken: '',
+        refreshToken: '',
+      },
+    );
   }
 
   post<R = any, D = Record<string, any>>(

@@ -48,7 +48,10 @@ export class AuthenticationStore implements IAuthenticationStore {
 
   @action
   resetToken = () => {
-    this.tokens = null;
+    this.setTokens({
+      accessToken: '',
+      refreshToken: '',
+    });
   };
 
   @action
