@@ -9,7 +9,7 @@ export * from './Likes';
 export * from './Logo';
 export * from './OnePageLayout';
 export * from './OutWrapper';
-export * from './SimpleForm';
 export * from './SkeletonContext';
 export * from './TextField';
 export * from './ThemeSwitcher';
+export * from './ToolWrapper';

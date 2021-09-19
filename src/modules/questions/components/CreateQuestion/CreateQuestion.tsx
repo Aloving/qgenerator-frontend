@@ -5,8 +5,8 @@ import { Formik, Field, FieldProps } from 'formik';
 import {
   AuthorIdField,
   FormActions,
-  SimpleForm,
   TextField,
+  ToolWrapper,
 } from '../../../common/components';
 
 import { ICreateQuestionDto } from '../../../common/dto';
@@ -41,8 +41,9 @@ export const CreateQuestion: React.FC<CreateQuestionProps> = ({
       onSubmit={handleSubmit}
     >
       {({ handleSubmit }) => (
-        <SimpleForm
+        <ToolWrapper
           title={<FormattedMessage {...usersTranslations.createQuestion} />}
+          borderless={true}
         >
           <Field name="text">
             {({ field }: FieldProps) => (
@@ -56,7 +57,7 @@ export const CreateQuestion: React.FC<CreateQuestionProps> = ({
           </Field>
           <AuthorIdField id="question-authorId" />
           <FormActions onSubmit={handleSubmit} />
-        </SimpleForm>
+        </ToolWrapper>
       )}
     </Formik>
   );

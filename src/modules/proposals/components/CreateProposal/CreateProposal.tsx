@@ -6,7 +6,7 @@ import {
   AuthorIdField,
   FormActions,
   TextField,
-  SimpleForm,
+  ToolWrapper,
 } from '../../../common/components';
 
 import { IProposeQuestionDto } from '../../dto';
@@ -50,7 +50,8 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
       onSubmit={handleSubmit}
     >
       {({ handleSubmit }) => (
-        <SimpleForm
+        <ToolWrapper
+          borderless={true}
           title={
             <FormattedMessage {...usersTranslations.createQuestionProposal} />
           }
@@ -69,7 +70,7 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
           </Field>
           <AuthorIdField id="proposal-question-authorId" />
           <FormActions onSubmit={handleSubmit} />
-        </SimpleForm>
+        </ToolWrapper>
       )}
     </Formik>
   );

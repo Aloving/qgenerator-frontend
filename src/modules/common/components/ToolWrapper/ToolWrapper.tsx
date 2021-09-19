@@ -6,12 +6,16 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
+import classNames from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     backgroundColor: 'transparent',
     borderColor: '#fff',
+  },
+  borderless: {
+    border: '0',
   },
   bullet: {
     display: 'inline-block',
@@ -29,15 +33,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ToolWrapper: React.FC<{ title: React.ReactElement }> = ({
+interface IToolWrapperProps {
+  title: React.ReactElement;
+  borderless?: boolean;
+}
+
+export const ToolWrapper: React.FC<IToolWrapperProps> = ({
   children,
   title,
+  borderless,
 }) => {
   const classes = useStyles();
 
   return (
     <Card
-      className={classes.root}
+      className={classNames(classes.root, { [classes.borderless]: borderless })}
       variant="outlined"
       color="secondary"
       elevation={3}

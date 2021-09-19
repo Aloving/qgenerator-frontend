@@ -27,7 +27,6 @@ export const Questions: React.FC<QuestionsProps> = ({
           <TableCell>ID</TableCell>
           <TableCell>Question Text</TableCell>
           <TableCell>Proposal ID</TableCell>
-          <TableCell align="center" />
         </TableRow>
       </TableHead>
       <TableBody>
