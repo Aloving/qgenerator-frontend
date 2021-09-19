@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { AdminPanel } from '../../components';
 import { useStores } from '../../../common/containers';
+import { AdminPanel } from '../../components';
 
 import { Role } from '../../enums';
 

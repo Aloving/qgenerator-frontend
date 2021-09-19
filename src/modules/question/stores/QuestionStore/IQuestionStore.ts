@@ -1,12 +1,13 @@
-import { IQuestionDataStore } from '../QuestionDataStore';
 import { IQuestion } from '../../interfaces';
+import { IQuestionDataStore } from '../QuestionDataStore';
 
 export interface IQuestionStore {
-  isDisliked: boolean;
-  isLiked: boolean;
-  data: IQuestionDataStore['data'];
-  isLoading: boolean;
-  completed: boolean;
+  readonly isDisliked: boolean;
+  readonly isLiked: boolean;
+  readonly data: IQuestionDataStore['data'];
+  readonly isLoading: boolean;
+  readonly completed: boolean;
+  readonly failed: boolean;
 
   likeQuestion(): void;
   dislikeQuestion(): void;

@@ -1,4 +1,4 @@
-import { IUser } from '../../index';
+import { IUser } from '../../interfaces';
 import { ICreateUserDto } from '../../dto';
 
 export interface IUsersService {

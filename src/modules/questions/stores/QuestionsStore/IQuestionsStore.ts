@@ -1,5 +1,5 @@
 import { ICreateQuestionDto } from '../../../common/dto';
-import { IQuestion } from '../../interfaces';
+import { IQuestion } from '../../../question/interfaces';
 import { IAsyncStore } from '../../../common/stores';
 
 export interface IQuestionsStore {

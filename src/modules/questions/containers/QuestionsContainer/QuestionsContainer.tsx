@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
+import { Box } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 
-import { CreateQuestion, Questions } from '../../components';
 import { useStores } from '../../../common/containers';
 import { ToolWrapper } from '../../../common/components';
-import { Box } from '@material-ui/core';
+import { CreateQuestion, Questions } from '../../components';
 
 export const QuestionsContainerPure: React.FC = () => {
   const { userStore, questionsStore } = useStores();

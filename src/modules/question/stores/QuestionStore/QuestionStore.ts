@@ -27,11 +27,13 @@ export class QuestionStore implements IQuestionStore {
   }
 
   @computed get isLoading() {
-    return this.questionDataStore.isLoading;
+    return this.questionDataStore.loading.isLoading;
   }
-
   @computed get completed() {
-    return this.questionDataStore.completed;
+    return this.questionDataStore.loading.isSucceed;
+  }
+  @computed get failed() {
+    return this.questionDataStore.loading.isFailed;
   }
 
   @action

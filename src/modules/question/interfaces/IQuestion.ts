@@ -4,11 +4,11 @@ import { IProposal } from '../../proposals';
 
 export interface IQuestion {
   id: number;
-  likes: number;
-  dislikes: number;
-  commentariesCount: number;
-  author: IAuthor;
   answers: IAnswer[];
-  text: string;
+  author: IAuthor;
+  commentariesCount: number;
+  dislikes: number;
+  likes: number;
   proposalId?: IProposal['id'];
+  text: string;
 }

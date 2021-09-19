@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { DataFields } from '../DataFields';
+import { DataFields, DataField } from '../DataFields';
 
 import { usersTranslations } from '../../../../translations';
+
 import { IUser } from '../../interfaces';
-import { DataField } from '../DataFields/components';
 
 export interface UserDataProps extends Pick<IUser, 'login' | 'email' | 'role'> {
   answerCount: number;

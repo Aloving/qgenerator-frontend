@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Answer } from '../Answer';
 
-import { IAnswer } from '../../interfaces/IAnswer';
+import { IAnswer } from '../../interfaces';
 
 import { makeEmptyAnswer } from '../../helpers';
 import styles from './Answers.module.css';

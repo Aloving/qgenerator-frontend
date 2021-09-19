@@ -1,4 +1,4 @@
-import { IAuthTransport } from '../../../../api/interfaces';
+import { IAuthTransport } from '../../../../api';
 import { ICreateQuestionDto } from '../../../common/dto';
 import { IQuestion } from '../../interfaces';
 import {

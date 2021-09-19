@@ -39,12 +39,13 @@ export class AuthenticationStore implements IAuthenticationStore {
   }
 
   @action
-  setTokens(tokens: ITokens) {
+  setTokens = (tokens: ITokens) => {
+    const areTokensEqual = isEqual(tokens, this.authTransport.getToken());
+
     this.tokens = tokens;
-    !isEqual(tokens, this.authTransport.getToken()) &&
-      this.authTransport.setTokens(tokens);
+    !areTokensEqual && this.authTransport.setTokens(tokens);
     storeTokensToStorage(tokens);
-  }
+  };
 
   @action
   resetToken = () => {

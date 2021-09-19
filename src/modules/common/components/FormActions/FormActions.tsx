@@ -1,7 +1,9 @@
 import React from 'react';
-import styles from '../../../questions/components/CreateQuestion/CreateQuestion.module.css';
-import { Button } from '../index';
 import { FormattedMessage } from 'react-intl';
+
+import { Button } from '../Button';
+
+import styles from './FormActions.module.css';
 import { commonTranslations } from '../../../../translations';
 
 interface FormActionsProps {

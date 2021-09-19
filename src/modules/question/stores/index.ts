@@ -1,3 +1,3 @@
 export * from './QuestionDataStore';
-export * from './QuestionsStore';
+export * from '../../questions/stores/QuestionsStore';
 export * from './QuestionStore';

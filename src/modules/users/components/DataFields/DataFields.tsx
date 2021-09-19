@@ -1,12 +1,8 @@
 import React, { createRef, PropsWithChildren, useCallback } from 'react';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 
-import { Button } from '../../../common/components';
-
-import { FormikProps } from 'formik';
-
-import { ToolWrapper } from '../../../common/components/ToolWrapper';
-import { DataFieldStatus } from './components/DataFieldStatus';
+import { Button, ToolWrapper } from '../../../common/components';
+import { DataFieldStatus } from './components';
 
 import styles from './DataFields.module.css';
 

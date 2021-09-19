@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useStores } from '../../../common/containers';
 import { SkeletonContext } from '../../../common/components';
+import { useStores } from '../../../common/containers';
 import { QuestionPage } from '../../components';
 
 export const QuestionPageContainer: React.FC = () => {

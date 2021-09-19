@@ -9,12 +9,12 @@ import {
   ToolWrapper,
 } from '../../../common/components';
 
-import { ICreateQuestionDto } from '../../../common/dto';
-
 import {
   commonTranslations,
   usersTranslations,
 } from '../../../../translations';
+
+import { ICreateQuestionDto } from '../../../common/dto';
 
 interface CreateQuestionProps {
   onCreate(payload: ICreateQuestionDto): void;

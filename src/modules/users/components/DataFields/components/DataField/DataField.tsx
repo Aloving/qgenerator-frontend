@@ -9,7 +9,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import { TextField } from '../../../../../common/components';
 
 import styles from './DataField.module.css';
-import { DataFieldStatus } from '../DataFieldStatus';
+import { DataFieldStatus } from './DataFieldStatus';
 import classNames from 'classnames';
 
 interface DataFieldProps {

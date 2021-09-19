@@ -7,4 +7,5 @@ export interface IAsyncStore {
   readonly status: AsyncStatus | null;
 
   setStatus(status: AsyncStatus): void;
+  resetStatus(): void;
 }

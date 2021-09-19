@@ -1,25 +1,17 @@
 import { action, makeAutoObservable, observable } from 'mobx';
 
-import { IUsersService } from '../../services';
+import { AsyncStatus } from '../../../common/enum';
 
-import { IUserStore } from './IUserStore';
-import { IUser } from '../../interfaces';
 import { ITokens } from '../../../authentication';
 import { IAsyncStore } from '../../../common/stores';
-import { AsyncStatus } from '../../../common/enum';
-import { IAuthTransport } from '../../../../api';
+import { IUser } from '../../interfaces';
+import { IUserStore } from './IUserStore';
 
 export class UserStore implements IUserStore {
   @observable user: IUser | null = null;
-  readonly async: IAsyncStore | null = null;
 
-  constructor(
-    private usersService: IUsersService,
-    private authTransport: IAuthTransport,
-    private asyncStore: IAsyncStore,
-  ) {
+  constructor(public readonly async: IAsyncStore) {
     makeAutoObservable(this);
-    this.async = asyncStore;
   }
 
   @action

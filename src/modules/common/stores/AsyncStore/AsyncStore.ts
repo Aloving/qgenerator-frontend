@@ -27,7 +27,12 @@ export class AsyncStore implements IAsyncStore {
   }
 
   @action
-  setStatus(status: AsyncStatus) {
+  setStatus = (status: AsyncStatus) => {
     this._status = status;
-  }
+  };
+
+  @action
+  resetStatus = () => {
+    this._status = null;
+  };
 }
