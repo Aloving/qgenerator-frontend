@@ -9,14 +9,22 @@ import {
 
 import { UserRow } from '../UserRow';
 
+import { Role } from '../../enums';
+
 import { IUser } from '../../interfaces';
 
 interface UsersTableProps {
   users: IUser[];
   isLoading: boolean;
+
+  onRoleChange: (userId: IUser['id'], role: Role) => void;
 }
 
-export const UsersTable: React.FC<UsersTableProps> = ({ isLoading, users }) => {
+export const UsersTable: React.FC<UsersTableProps> = ({
+  isLoading,
+  users,
+  onRoleChange,
+}) => {
   return (
     <Table size="small">
       <TableHead>
@@ -43,6 +51,7 @@ export const UsersTable: React.FC<UsersTableProps> = ({ isLoading, users }) => {
           }) => (
             <UserRow
               key={id}
+              onRoleChange={onRoleChange}
               isLoading={isLoading}
               email={email}
               id={id}

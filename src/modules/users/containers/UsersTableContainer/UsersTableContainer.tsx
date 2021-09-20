@@ -19,6 +19,7 @@ export const UsersTableContainerPure: React.FC = () => {
       <UsersTable
         users={usersStore.users}
         isLoading={usersStore.loading.isLoading}
+        onRoleChange={usersStore.changeRole}
       />
     </ToolWrapper>
   );

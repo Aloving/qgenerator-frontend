@@ -1,6 +1,6 @@
 import { IAuthTransport } from '../../../../api';
 import { IUser, IUsersService } from '../../interfaces';
-import { ICreateUserDto } from '../../dto';
+import { IChangeRoleDto, ICreateUserDto } from '../../dto';
 
 export class UsersService implements IUsersService {
   private _httpTransport: IAuthTransport;
@@ -18,7 +18,14 @@ export class UsersService implements IUsersService {
     return this._httpTransport.post<IUser>(`${this.API_URL}/create`, payload);
   };
 
-  getAllUsers = (): Promise<IUser[]> => {
+  getAllUsers = () => {
     return this._httpTransport.get<IUser[]>(`${this.API_URL}`);
+  };
+
+  changeUserRole = (payload: IChangeRoleDto) => {
+    return this._httpTransport.put<IUser>(
+      `${this.API_URL}/changeRole`,
+      payload,
+    );
   };
 }

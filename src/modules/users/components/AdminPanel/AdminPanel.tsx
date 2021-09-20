@@ -4,11 +4,10 @@ import { Box, Grid } from '@material-ui/core';
 import { QuestionsContainer } from '../../../questions/containers';
 import { ProposalsContainer } from '../../../proposals/containers';
 import { UserDataContainer } from '../../../user/containers';
-import { UsersTableContainer } from '../../containers';
 
 import styles from './AdminPanel.module.css';
 
-export const AdminPanel: React.FC = () => {
+export const AdminPanel: React.FC = ({ children }) => {
   return (
     <div>
       <Grid container justify="space-between" alignItems="stretch" spacing={3}>
@@ -26,7 +25,7 @@ export const AdminPanel: React.FC = () => {
           <Box marginBottom="3rem">
             <QuestionsContainer />
           </Box>
-          <UsersTableContainer />
+          {children}
         </Grid>
       </Grid>
     </div>

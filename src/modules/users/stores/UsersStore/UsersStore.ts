@@ -3,8 +3,8 @@ import { action, makeAutoObservable, observable } from 'mobx';
 import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
 import { IUsersService } from '../../services';
-import { IUser } from '../../interfaces';
-import { IUsersStore } from '../../interfaces/IUsersStore';
+import { IUser, IUsersStore } from '../../interfaces';
+import { Role } from '../../enums';
 
 export class UsersStore implements IUsersStore {
   @observable users: IUser[] = [];
@@ -12,6 +12,7 @@ export class UsersStore implements IUsersStore {
   constructor(
     private usersService: IUsersService,
     public loading: IAsyncStore,
+    public changeRoleAsync: IAsyncStore,
   ) {
     makeAutoObservable(this);
   }
@@ -30,8 +31,30 @@ export class UsersStore implements IUsersStore {
     }
   };
 
+  changeRole = async (userId: IUser['id'], role: Role) => {
+    try {
+      this.changeRoleAsync.setStatus(AsyncStatus.Loading);
+
+      const updatedUser = await this.usersService.changeUserRole({
+        userId,
+        role,
+      });
+      this.updateUser(updatedUser);
+      this.changeRoleAsync.setStatus(AsyncStatus.Success);
+    } catch (e) {
+      this.changeRoleAsync.setStatus(AsyncStatus.Failed);
+    }
+  };
+
   @action
   private setUsers = (users: IUser[]) => {
     this.users = users;
+  };
+
+  @action
+  private updateUser = (userToUpdate: IUser) => {
+    this.users = this.users.map((user) =>
+      user.id === userToUpdate.id ? userToUpdate : user,
+    );
   };
 }
