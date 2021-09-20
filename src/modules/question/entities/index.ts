@@ -1,2 +1,2 @@
 export * from './questionsStore';
-export * from './questionsService';
+export * from './questionService';

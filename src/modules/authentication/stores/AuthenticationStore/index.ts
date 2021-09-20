@@ -1,2 +1,2 @@
 export * from './AuthenticationStore';
-export * from './IAuthenticationStore';
+export * from '../../interfaces/IAuthenticationStore';

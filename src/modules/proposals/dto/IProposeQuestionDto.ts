@@ -1,4 +1,4 @@
-import { IUser } from '../../users';
+import { IUser } from '../../users/interfaces';
 
 export interface IProposeQuestionDto {
   text: string;

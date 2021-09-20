@@ -1,6 +1,7 @@
 import { AsyncStore } from '../../common/stores';
-import { questionsService } from '../../question/entities';
 import { QuestionsStore } from '../stores';
+
+import { questionsService } from './questionsService';
 
 const createAsyncStore = new AsyncStore();
 const loadingQuestionsStore = new AsyncStore();

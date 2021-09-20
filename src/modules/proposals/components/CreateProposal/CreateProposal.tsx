@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Field, FieldProps, Formik } from 'formik';
+import { Field, FieldProps, Formik, FormikHelpers } from 'formik';
 
 import {
   AuthorIdField,
@@ -9,14 +9,13 @@ import {
   ToolWrapper,
 } from '../../../common/components';
 
-import { IProposeQuestionDto } from '../../dto';
-
 import {
   commonTranslations,
   usersTranslations,
 } from '../../../../translations';
-import { FormikHelpers } from 'formik/dist/types';
-import { IUser } from '../../../users';
+
+import { IUser } from '../../../users/interfaces';
+import { IProposeQuestionDto } from '../../dto';
 
 interface CreateProposalProps {
   onCreate(payload: IProposeQuestionDto): void;

@@ -1,30 +1,32 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 
 import { QuestionsContainer } from '../../../questions/containers';
 import { ProposalsContainer } from '../../../proposals/containers';
-import { UserData, UserDataProps } from '../UserData';
+import { UserDataContainer } from '../../../user/containers';
+import { UsersTableContainer } from '../../containers';
 
 import styles from './AdminPanel.module.css';
 
-type AdminPanelProps = UserDataProps;
-
-export const AdminPanel: React.FC<AdminPanelProps> = (props) => {
+export const AdminPanel: React.FC = () => {
   return (
     <div>
       <Grid container justify="space-between" alignItems="stretch" spacing={3}>
         <Grid item xs={4}>
           <div className={styles.userDataWrapper}>
-            <UserData {...props} />
+            <UserDataContainer />
           </div>
         </Grid>
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <ProposalsContainer />
-          <div className={styles.questions}>
+          <Box marginBottom="3rem">
+            <ProposalsContainer />
+          </Box>
+          <Box marginBottom="3rem">
             <QuestionsContainer />
-          </div>
+          </Box>
+          <UsersTableContainer />
         </Grid>
       </Grid>
     </div>

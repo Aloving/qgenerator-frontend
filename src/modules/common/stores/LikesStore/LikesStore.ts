@@ -2,7 +2,7 @@ import { action, makeAutoObservable, observable } from 'mobx';
 import { filter } from 'lodash';
 import { makePersistable } from 'mobx-persist-store';
 
-import { ILikesStore } from './ILikesStore';
+import { ILikesStore } from '../../interfaces/ILikesStore';
 
 type LikeType = string | number;
 

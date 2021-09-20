@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
-import { QuestionPageContainer } from './modules/question';
+import { QuestionPageContainer } from './modules/question/containers';
 import {
   certainQuestionUrl,
   registrationUrl,
@@ -11,7 +11,8 @@ import {
 } from './modules/common/utils';
 import { SettingsPage } from './modules/users/components';
 import { PrivateRoute } from './modules/common/containers';
-import { LoginPageContainer, RegistrationPage } from './modules/authentication';
+import { RegistrationPage } from './modules/authentication/components';
+import { LoginPageContainer } from './modules/authentication/containers';
 
 export const Routes = () => {
   return (

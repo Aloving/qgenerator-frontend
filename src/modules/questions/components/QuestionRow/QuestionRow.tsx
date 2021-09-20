@@ -2,8 +2,8 @@ import React from 'react';
 import { TableCell, TableRow } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 
-import { IQuestion } from '../../../question';
-import { IProposal } from '../../../proposals';
+import { IQuestion } from '../../../question/interfaces';
+import { IProposal } from '../../../proposals/interfaces';
 
 interface QuestionRowProps {
   id: IQuestion['id'];

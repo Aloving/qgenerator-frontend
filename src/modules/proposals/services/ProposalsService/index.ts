@@ -1,2 +1,2 @@
-export * from './IProposalsService';
+export * from '../../interfaces/IProposalsService';
 export * from './ProposalsService';

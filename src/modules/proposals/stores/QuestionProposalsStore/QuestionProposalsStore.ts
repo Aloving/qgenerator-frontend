@@ -2,11 +2,10 @@ import { action, makeAutoObservable, observable } from 'mobx';
 
 import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
+import { IQuestionsStore } from '../../../questions/interfaces';
 import { IProposalsService } from '../../services';
-import { IProposal } from '../../interfaces';
+import { IProposal, IQuestionProposalsStore } from '../../interfaces';
 import { IProposeQuestionDto } from '../../dto';
-import { IQuestionProposalsStore } from './IQuestionProposalsStore';
-import { IQuestionsStore } from '../../../question';
 
 export class QuestionProposalsStore implements IQuestionProposalsStore {
   @observable proposals: IProposal[] = [];

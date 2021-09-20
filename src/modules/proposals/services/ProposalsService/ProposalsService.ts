@@ -1,4 +1,4 @@
-import { IProposalsService } from './IProposalsService';
+import { IProposalsService } from '../../interfaces/IProposalsService';
 import { IAuthTransport } from '../../../../api';
 import { IProposal } from '../../interfaces';
 import { IProposeQuestionDto } from '../../dto';

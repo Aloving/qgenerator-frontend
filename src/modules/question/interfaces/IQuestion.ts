@@ -1,6 +1,6 @@
 import { IAuthor } from './IAuthor';
 import { IAnswer } from './IAnswer';
-import { IProposal } from '../../proposals';
+import { IProposal } from '../../proposals/interfaces';
 
 export interface IQuestion {
   id: number;

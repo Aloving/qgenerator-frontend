@@ -7,14 +7,13 @@ import {
   storeTokensToStorage,
 } from '../../../common/utils';
 
-import { IAuthTransport } from '../../../../api';
-import { IUserStore } from '../../../users';
 import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
-import { INavigator } from '../../../common/interfaces';
+import { INavigator, ITokens } from '../../../common/interfaces';
+import { IAuthTransport } from '../../../../api';
+import { IUserStore } from '../../../user/interfaces';
 import { ILoginDto } from '../../dto';
-import { ITokens } from '../../interfaces';
-import { IAuthenticationStore } from './IAuthenticationStore';
+import { IAuthenticationStore } from '../../interfaces';
 
 export class AuthenticationStore implements IAuthenticationStore {
   @observable readonly async: IAsyncStore | null = null;

@@ -1,6 +1,6 @@
+import { Role } from '../../users/enums';
+import { IQuestion } from '../../question/interfaces';
 import { ProposalStatus } from '../enums';
-import { IQuestion } from '../../question';
-import { Role } from '../../users';
 
 export interface IProposal {
   authorId: string;

@@ -1,15 +1,16 @@
 import { action, computed, observable } from 'mobx';
 
-import { IQuestionsService } from '../../services';
-import { IQuestionDataStore } from '../QuestionDataStore';
-import { IQuestionStore } from './IQuestionStore';
+import { IQuestionService } from '../../services';
+import { IQuestionStore, IQuestionDataStore } from '../../interfaces';
 import { INavigator } from '../../../common/interfaces';
+import { IQuestionsService } from '../../../questions/interfaces';
 
 export class QuestionStore implements IQuestionStore {
   @observable private excludeIds: number[] = [];
 
   constructor(
     private questionsService: IQuestionsService,
+    private questionService: IQuestionService,
     private questionDataStore: IQuestionDataStore,
     private navigator: INavigator,
   ) {}
@@ -77,7 +78,7 @@ export class QuestionStore implements IQuestionStore {
       if (!this.isLiked && !this.isDisliked) {
         this.questionDataStore.increaseLikes();
 
-        await this.questionsService.increaseQuestionLikes(
+        await this.questionService.increaseQuestionLikes(
           this.questionDataStore.questionId,
         );
       }
@@ -86,10 +87,10 @@ export class QuestionStore implements IQuestionStore {
         this.questionDataStore.decreaseDislikes();
         this.questionDataStore.increaseLikes();
 
-        await this.questionsService.decreaseQuestionDislikes(
+        await this.questionService.decreaseQuestionDislikes(
           this.questionDataStore.questionId,
         );
-        await this.questionsService.increaseQuestionLikes(
+        await this.questionService.increaseQuestionLikes(
           this.questionDataStore.questionId,
         );
       }
@@ -97,7 +98,7 @@ export class QuestionStore implements IQuestionStore {
       if (this.isLiked) {
         this.questionDataStore.decreaseLikes();
 
-        await this.questionsService.decreaseQuestionLikes(
+        await this.questionService.decreaseQuestionLikes(
           this.questionDataStore.questionId,
         );
       }
@@ -113,7 +114,7 @@ export class QuestionStore implements IQuestionStore {
       if (!this.isLiked && !this.isDisliked) {
         this.questionDataStore.increaseDislikes();
 
-        await this.questionsService.increaseQuestionLikes(
+        await this.questionService.increaseQuestionLikes(
           this.questionDataStore.questionId,
         );
       }
@@ -122,10 +123,10 @@ export class QuestionStore implements IQuestionStore {
         this.questionDataStore.decreaseLikes();
         this.questionDataStore.increaseDislikes();
 
-        await this.questionsService.decreaseQuestionLikes(
+        await this.questionService.decreaseQuestionLikes(
           this.questionDataStore.questionId,
         );
-        await this.questionsService.increaseQuestionDislikes(
+        await this.questionService.increaseQuestionDislikes(
           this.questionDataStore.questionId,
         );
       }
@@ -133,7 +134,7 @@ export class QuestionStore implements IQuestionStore {
       if (this.isDisliked) {
         this.questionDataStore.decreaseDislikes();
 
-        await this.questionsService.decreaseQuestionDislikes(
+        await this.questionService.decreaseQuestionDislikes(
           this.questionDataStore.questionId,
         );
       }

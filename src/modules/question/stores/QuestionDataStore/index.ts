@@ -1,2 +1,2 @@
 export * from './QuestionDataStore';
-export * from './IQuestionDataStore';
+export * from '../../interfaces/IQuestionDataStore';

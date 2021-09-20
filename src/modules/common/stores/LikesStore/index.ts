@@ -1,2 +1,2 @@
-export * from './ILikesStore';
+export * from '../../interfaces/ILikesStore';
 export * from './LikesStore';

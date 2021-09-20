@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AdminPanelContainer } from '../../containers';
+import { AdminPanel } from '../AdminPanel';
 
 import { Role } from '../../enums';
 
@@ -16,7 +16,7 @@ export const Settings: React.FC<SettingsProps> = ({ role }) => {
   return (
     <div className={styles.informationWrapper}>
       <div className={styles.informationContainer}>
-        {isAdmin && <AdminPanelContainer />}
+        {isAdmin && <AdminPanel />}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { action, makeAutoObservable, observable } from 'mobx';
 
-import { IAsyncStore } from './IAsyncStore';
+import { IAsyncStore } from '../../interfaces';
 import { AsyncStatus } from '../../enum';
 
 export class AsyncStore implements IAsyncStore {

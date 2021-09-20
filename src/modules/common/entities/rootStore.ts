@@ -1,4 +1,5 @@
 import { RootStore } from '../stores';
+
 import {
   authenticationStore,
   registrationStore,
@@ -6,7 +7,8 @@ import {
 import { questionStore } from '../../question/entities';
 import { questionsStore } from '../../questions/entities';
 import { questionProposalsStore } from '../../proposals/entities';
-import { userStore } from '../../users';
+import { userStore } from '../../user/entities';
+import { usersStore } from '../../users/entities';
 
 export const rootStore = new RootStore(
   questionStore,
@@ -15,4 +17,5 @@ export const rootStore = new RootStore(
   authenticationStore,
   registrationStore,
   userStore,
+  usersStore,
 );

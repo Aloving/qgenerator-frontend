@@ -9,7 +9,7 @@ import {
 
 import { QuestionRow } from '../QuestionRow';
 
-import { IQuestion } from '../../../question';
+import { IQuestion } from '../../../question/interfaces';
 
 interface QuestionsProps {
   questions: IQuestion[];

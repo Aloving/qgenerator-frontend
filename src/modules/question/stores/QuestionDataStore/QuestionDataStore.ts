@@ -2,7 +2,7 @@ import { action, computed, makeAutoObservable, observable } from 'mobx';
 
 import { IAsyncStore, ILikesStore } from '../../../common/stores';
 import { IQuestion } from '../../interfaces';
-import { IQuestionDataStore } from './IQuestionDataStore';
+import { IQuestionDataStore } from '../../interfaces/IQuestionDataStore';
 import { AsyncStatus } from '../../../common/enum';
 
 export class QuestionDataStore implements IQuestionDataStore {

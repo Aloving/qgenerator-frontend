@@ -6,7 +6,7 @@ import {
   ILoginRequestPayload,
   ITokensResponse,
 } from './interfaces';
-import { IUser } from '../modules/users';
+import { IUser } from '../modules/users/interfaces';
 import { ITokens } from '../modules/common/interfaces';
 
 interface IAuthTransportOptions {

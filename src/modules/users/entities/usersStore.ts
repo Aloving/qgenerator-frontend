@@ -1,6 +1,7 @@
 import { AsyncStore } from '../../common/stores';
-import { UsersStore, UserStore } from '../stores';
+import { UsersStore } from '../stores';
+
+import { usersService } from './usersService';
 
 const asyncStore = new AsyncStore();
-export const userStore = new UserStore(asyncStore);
-export const usersStore = new UsersStore();
+export const usersStore = new UsersStore(usersService, asyncStore);

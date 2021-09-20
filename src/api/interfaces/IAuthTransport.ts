@@ -1,7 +1,7 @@
 import { IHttpTransportOptions } from './IHttpTransportOptions';
 import { ILoginRequestPayload } from './ILoginRequestPayload';
 import { ITokensResponse } from './ITokenResponse';
-import { IUser } from '../../modules/users';
+import { IUser } from '../../modules/users/interfaces';
 import { ITokens } from '../../modules/common/interfaces';
 
 type TDataRequest = Record<string, any>;

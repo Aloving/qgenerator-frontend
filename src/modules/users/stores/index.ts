@@ -1,2 +1,2 @@
 export * from './UsersStore';
-export * from './UserStore';
+export * from '../../user/stores/UserStore';

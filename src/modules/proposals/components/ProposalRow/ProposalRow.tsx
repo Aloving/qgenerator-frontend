@@ -6,7 +6,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 import { ProposalStatusIcon } from '../ProposalStatusIcon';
 
-import { Role } from '../../../users';
+import { Role } from '../../../users/enums';
 import { ProposalStatus } from '../../enums';
 
 interface ProposalRowProps {

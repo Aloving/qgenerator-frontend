@@ -1,2 +1,2 @@
 export * from './AsyncStore';
-export * from './IAsyncStore';
+export * from '../../interfaces/IAsyncStore';
