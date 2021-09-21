@@ -2,8 +2,7 @@ import { action, makeAutoObservable, observable } from 'mobx';
 
 import { AsyncStatus } from '../../../common/enum';
 
-import { ITokens } from '../../../common/interfaces';
-import { IAsyncStore } from '../../../common/stores';
+import { ITokens, IAsyncStore } from '../../../common/interfaces';
 import { IUser } from '../../../users/interfaces';
 import { IUserStore } from '../../interfaces';
 

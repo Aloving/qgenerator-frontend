@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Grid } from '@material-ui/core';
 
-import { Proposals, CreateProposal } from '../../components';
 import { useStores } from '../../../common/containers';
+import { Proposals, CreateProposal } from '../../components';
 
 export const ProposalsContainerPure: React.FC = () => {
   const { questionProposalsStore, userStore } = useStores();

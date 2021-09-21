@@ -7,9 +7,8 @@ import {
   storeTokensToStorage,
 } from '../../../common/utils';
 
-import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
-import { INavigator, ITokens } from '../../../common/interfaces';
+import { INavigator, ITokens, IAsyncStore } from '../../../common/interfaces';
 import { IAuthTransport } from '../../../../api';
 import { IUserStore } from '../../../user/interfaces';
 import { ILoginDto } from '../../dto';

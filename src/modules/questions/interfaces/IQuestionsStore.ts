@@ -1,6 +1,6 @@
 import { ICreateQuestionDto } from '../../common/dto';
+import { IAsyncStore } from '../../common/interfaces';
 import { IQuestion } from '../../question/interfaces';
-import { IAsyncStore } from '../../common/stores';
 
 export interface IQuestionsStore {
   readonly questions: IQuestion[];

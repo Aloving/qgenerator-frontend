@@ -1,5 +1,5 @@
-import { IQuestion } from './index';
-import { IQuestionDataStore } from '../stores/QuestionDataStore';
+import { IQuestionDataStore } from '../interfaces';
+import { IQuestion } from './IQuestion';
 
 export interface IQuestionStore {
   readonly isDisliked: boolean;

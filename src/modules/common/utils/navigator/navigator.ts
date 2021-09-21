@@ -1,7 +1,7 @@
 import { history } from '../../entities';
+import { buildQuestionId, settingsUrl } from '../urls';
 
 import { INavigator } from '../../interfaces';
-import { buildQuestionId, settingsUrl } from '../urls';
 
 const goToSettings = () => {
   history.push(settingsUrl);

@@ -6,8 +6,6 @@ import { useThemeInteractions } from './useThemeInteractions';
 import { mainTheme } from './mainTheme';
 import { GlobalStyles } from './GlobalStyles';
 
-import './GlobalStyles.css';
-
 export const ThemeInteractions = createContext({
   theme: mainTheme,
   isMainTheme: true,

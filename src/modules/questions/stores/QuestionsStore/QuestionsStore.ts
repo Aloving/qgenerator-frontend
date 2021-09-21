@@ -1,6 +1,6 @@
 import { action, makeAutoObservable, observable } from 'mobx';
 
-import { IAsyncStore } from '../../../common/stores';
+import { IAsyncStore } from '../../../common/interfaces';
 import { AsyncStatus } from '../../../common/enum';
 import { ICreateQuestionDto } from '../../../common/dto';
 import { IQuestion } from '../../../question/interfaces';

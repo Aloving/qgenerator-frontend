@@ -1,6 +1,6 @@
-import { IProposal } from './index';
+import { IAsyncStore } from '../../common/interfaces';
 import { IProposeQuestionDto } from '../dto';
-import { IAsyncStore } from '../../common/stores';
+import { IProposal } from './IProposal';
 
 export interface IQuestionProposalsStore {
   readonly proposals: IProposal[];

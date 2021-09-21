@@ -17,19 +17,11 @@ const useStyles = makeStyles((theme) => ({
   borderless: {
     border: '0',
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   divider: {
     backgroundColor: theme.palette.common.white,
   },
   title: {
     fontSize: 24,
-  },
-  pos: {
-    marginBottom: 12,
   },
 }));
 

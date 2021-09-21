@@ -1,7 +1,7 @@
 import { AsyncStore } from '../../common/stores';
+import { questionsStore } from '../../questions/entities';
 import { QuestionProposalsStore } from '../stores';
 import { proposalsService } from './proposalsService';
-import { questionsStore } from '../../questions/entities';
 
 const acceptingProcessAsync = new AsyncStore();
 const loading = new AsyncStore();

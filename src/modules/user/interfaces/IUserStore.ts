@@ -1,4 +1,4 @@
-import { IAsyncStore } from '../../common/stores';
+import { IAsyncStore } from '../../common/interfaces';
 import { IUser } from '../../users/interfaces';
 
 export interface IUserStore {

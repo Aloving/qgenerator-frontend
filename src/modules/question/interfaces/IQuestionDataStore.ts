@@ -1,5 +1,5 @@
-import { IAsyncStore } from '../../common/stores';
-import { IQuestion } from './index';
+import { IAsyncStore } from '../../common/interfaces';
+import { IQuestion } from './IQuestion';
 
 export interface IQuestionDataStore {
   readonly loading: IAsyncStore;

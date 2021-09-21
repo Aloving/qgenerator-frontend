@@ -1,9 +1,8 @@
 import { action, makeAutoObservable, observable } from 'mobx';
 
-import { IAsyncStore } from '../../../common/stores';
+import { IAsyncStore } from '../../../common/interfaces';
 import { AsyncStatus } from '../../../common/enum';
-import { IUsersService } from '../../services';
-import { IUser, IUsersStore } from '../../interfaces';
+import { IUser, IUsersStore, IUsersService } from '../../interfaces';
 import { Role } from '../../enums';
 
 export class UsersStore implements IUsersStore {

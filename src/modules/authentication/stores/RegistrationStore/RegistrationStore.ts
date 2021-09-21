@@ -1,10 +1,10 @@
 import { makeAutoObservable, observable } from 'mobx';
 
 import { AsyncStatus } from '../../../common/enum';
-import { IAsyncStore } from '../../../common/stores';
+import { IAsyncStore } from '../../../common/interfaces';
 import { ICreateUserDto } from '../../../users/dto';
-import { IUsersStore, IUserStore } from '../../../users/stores';
-import { IUsersService } from '../../../users/interfaces';
+import { IUsersStore, IUsersService } from '../../../users/interfaces';
+import { IUserStore } from '../../../user/interfaces';
 import { IRegistrationStore } from '../../interfaces';
 
 export class RegistrationStore implements IRegistrationStore {
