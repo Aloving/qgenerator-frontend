@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import { AccordionSummary, AccordionDetails } from '@material-ui/core';
+import { ExpandMore } from '@material-ui/icons';
 
 import { useStores } from '../../../common/containers';
-import { ToolWrapper } from '../../../common/components';
+import { Accordion } from '../../../common/components';
 import { UsersTable } from '../../components';
 
 export const UsersTableContainerPure: React.FC = () => {
@@ -15,13 +17,18 @@ export const UsersTableContainerPure: React.FC = () => {
   }, []);
 
   return (
-    <ToolWrapper title={<div>Пользователи</div>}>
-      <UsersTable
-        users={usersStore.users}
-        isLoading={usersStore.loading.isLoading}
-        onRoleChange={usersStore.changeRole}
-      />
-    </ToolWrapper>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMore />}>
+        <div>Пользователи</div>
+      </AccordionSummary>
+      <AccordionDetails>
+        <UsersTable
+          users={usersStore.users}
+          isLoading={usersStore.loading.isLoading}
+          onRoleChange={usersStore.changeRole}
+        />
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

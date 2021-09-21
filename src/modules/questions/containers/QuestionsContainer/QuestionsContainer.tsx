@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Box } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 
 import { useStores } from '../../../common/containers';
-import { ToolWrapper } from '../../../common/components';
 import { CreateQuestion, Questions } from '../../components';
 
 export const QuestionsContainerPure: React.FC = () => {
@@ -16,18 +15,20 @@ export const QuestionsContainerPure: React.FC = () => {
   }, []);
 
   return (
-    <ToolWrapper title={<div>Вопросы</div>}>
-      <Box marginBottom={8}>
+    <Grid container>
+      <Grid item xs={8}>
         <Questions
           questions={questionsStore.questions}
           isLoading={questionsStore.loading.isLoading}
         />
-      </Box>
-      <CreateQuestion
-        onCreate={() => void 0}
-        authorId={userStore.user?.id || ''}
-      />
-    </ToolWrapper>
+      </Grid>
+      <Grid item xs={4}>
+        <CreateQuestion
+          onCreate={() => void 0}
+          authorId={userStore.user?.id || ''}
+        />
+      </Grid>
+    </Grid>
   );
 };
 

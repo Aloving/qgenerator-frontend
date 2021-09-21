@@ -1,3 +1,4 @@
+export * from './Accordion';
 export * from './AuthorIdField';
 export * from './BackgroundWrapper';
 export * from './Button';

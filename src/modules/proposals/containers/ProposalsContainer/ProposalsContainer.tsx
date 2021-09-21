@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import { Grid } from '@material-ui/core';
 
 import { Proposals, CreateProposal } from '../../components';
 import { useStores } from '../../../common/containers';
-import { ToolWrapper } from '../../../common/components';
-import { Box } from '@material-ui/core';
 
 export const ProposalsContainerPure: React.FC = () => {
   const { questionProposalsStore, userStore } = useStores();
@@ -16,8 +15,8 @@ export const ProposalsContainerPure: React.FC = () => {
   }, []);
 
   return (
-    <ToolWrapper title={<div>Вопросы: Предложения</div>}>
-      <Box marginBottom={8}>
+    <Grid container>
+      <Grid item xs={8}>
         <Proposals
           proposals={questionProposalsStore.proposals}
           isLoading={
@@ -27,12 +26,14 @@ export const ProposalsContainerPure: React.FC = () => {
           acceptProposal={questionProposalsStore.acceptProposal}
           declineProposal={questionProposalsStore.declineProposal}
         />
-      </Box>
-      <CreateProposal
-        onCreate={questionProposalsStore.proposeQuestion}
-        authorId={userStore.user?.id || ''}
-      />
-    </ToolWrapper>
+      </Grid>
+      <Grid item xs={4}>
+        <CreateProposal
+          onCreate={questionProposalsStore.proposeQuestion}
+          authorId={userStore.user?.id || ''}
+        />
+      </Grid>
+    </Grid>
   );
 };
 
