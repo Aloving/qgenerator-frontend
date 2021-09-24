@@ -1,19 +1,18 @@
-import { computed, observable } from 'mobx';
-import { History } from 'history';
-
-import { buildQuestionId } from '../../../common/utils';
+import { action, computed, observable } from 'mobx';
 
 import { IQuestionService } from '../../services';
-import { IQuestionDataStore } from '../QuestionDataStore';
-import { IQuestionStore } from './IQuestionStore';
+import { IQuestionStore, IQuestionDataStore } from '../../interfaces';
+import { INavigator } from '../../../common/interfaces';
+import { IQuestionsService } from '../../../questions/interfaces';
 
 export class QuestionStore implements IQuestionStore {
-  @observable excludeIds: number[] = [];
+  @observable private excludeIds: number[] = [];
 
   constructor(
+    private questionsService: IQuestionsService,
     private questionService: IQuestionService,
-    private history: History,
     private questionDataStore: IQuestionDataStore,
+    private navigator: INavigator,
   ) {}
 
   @computed get isLiked() {
@@ -29,14 +28,52 @@ export class QuestionStore implements IQuestionStore {
   }
 
   @computed get isLoading() {
-    return this.questionDataStore.isLoading;
+    return this.questionDataStore.loading.isLoading;
   }
-
   @computed get completed() {
-    return this.questionDataStore.completed;
+    return this.questionDataStore.loading.isSucceed;
+  }
+  @computed get failed() {
+    return this.questionDataStore.loading.isFailed;
   }
 
-  likeQuestion = async () => {
+  @action
+  async requestQuestion(questionId: number) {
+    const excludeIds = this.excludeIds?.includes(questionId)
+      ? this.excludeIds
+      : [...this.excludeIds, questionId];
+
+    try {
+      this.questionDataStore.preRequestQuestionActions();
+      const question = await this.questionsService.getQuestion(questionId);
+
+      this.questionDataStore.requestQuestionSuccess(question);
+      this.excludeIds = excludeIds;
+    } catch (e) {
+      this.questionDataStore.requestQuestionError();
+    }
+  }
+
+  @action
+  async randomizeQuestion() {
+    try {
+      this.questionDataStore.preRequestQuestionActions();
+      const {
+        question,
+        excludeIds,
+      } = await this.questionsService.randomizeQuestion({
+        excludeIds: this.excludeIds,
+      });
+
+      this.questionDataStore.requestQuestionSuccess(question);
+      this.excludeIds = excludeIds;
+      this.navigator.goToQuestion(question.id);
+    } catch (e) {
+      this.questionDataStore.requestQuestionError();
+    }
+  }
+
+  async likeQuestion() {
     try {
       if (!this.isLiked && !this.isDisliked) {
         this.questionDataStore.increaseLikes();
@@ -70,9 +107,9 @@ export class QuestionStore implements IQuestionStore {
     } catch (e) {
       // the catch flow
     }
-  };
+  }
 
-  dislikeQuestion = async () => {
+  async dislikeQuestion() {
     try {
       if (!this.isLiked && !this.isDisliked) {
         this.questionDataStore.increaseDislikes();
@@ -106,39 +143,5 @@ export class QuestionStore implements IQuestionStore {
     } catch (e) {
       // the catch flow
     }
-  };
-
-  requestQuestion = async (questionId: number) => {
-    const excludeIds = this.excludeIds?.includes(questionId)
-      ? this.excludeIds
-      : [...this.excludeIds, questionId];
-
-    try {
-      this.questionDataStore.preRequestQuestionActions();
-      const question = await this.questionService.getQuestion(questionId);
-
-      this.questionDataStore.requestQuestionSuccess(question);
-      this.excludeIds = excludeIds;
-    } catch (e) {
-      this.questionDataStore.requestQuestionError();
-    }
-  };
-
-  randomizeQuestion = async () => {
-    try {
-      this.questionDataStore.preRequestQuestionActions();
-      const {
-        question,
-        excludeIds,
-      } = await this.questionService.randomizeQuestion({
-        excludeIds: this.excludeIds,
-      });
-
-      this.questionDataStore.requestQuestionSuccess(question);
-      this.excludeIds = excludeIds;
-      this.history.push(buildQuestionId(question.id));
-    } catch (e) {
-      this.questionDataStore.requestQuestionError();
-    }
-  };
+  }
 }

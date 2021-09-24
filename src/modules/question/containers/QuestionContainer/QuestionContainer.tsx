@@ -3,25 +3,28 @@ import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router';
 
 import { SkeletonContext } from '../../../common/components';
+import { useStores } from '../../../common/containers';
 import { Question } from '../../components';
-import { useStores } from '../../../common/containers/StoreProvider/useStores';
+
 import { IRouterParams } from '../../../common/interfaces';
 
 export const QuestionContainerPure: React.FC = () => {
   const { isLoading } = useContext(SkeletonContext);
-  const { questionStore } = useStores();
-  const isCompleted = questionStore.completed;
+  const { questionsStore, questionStore } = useStores();
   const { questionId } = useParams<IRouterParams>();
+
+  const isCompleted = questionStore.isLoading;
   const data = questionStore.data;
   const disliked = questionStore.isDisliked;
   const liked = questionStore.isLiked;
+
   const handleQuestionDislike = useCallback(
     () => questionStore.dislikeQuestion(),
     [questionStore],
   );
   const handleRequestQuestion = useCallback(() => {
     questionStore.randomizeQuestion();
-  }, [questionStore.requestQuestion]);
+  }, [questionsStore]);
 
   useEffect(() => {
     questionId &&

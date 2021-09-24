@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Answer } from '../Answer';
 
-import { IAnswer } from '../../interfaces/IAnswer';
-
 import { makeEmptyAnswer } from '../../helpers';
 import styles from './Answers.module.css';
+
+import { IAnswer } from '../../interfaces';
 
 interface IAnswersProps {
   answers: IAnswer[];

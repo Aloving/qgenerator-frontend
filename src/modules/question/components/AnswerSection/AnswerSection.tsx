@@ -5,10 +5,10 @@ import { Typography } from '@material-ui/core';
 import { Answers } from '../Answers';
 import { AnswerCounter } from '../AnswerCounter';
 
-import { IAnswer } from '../../interfaces/IAnswer';
-
 import { questionTranslations } from '../../../../translations';
 import styles from './AnswerSection.module.css';
+
+import { IAnswer } from '../../interfaces';
 
 interface IAnswerSectionProps {
   answers: IAnswer[];

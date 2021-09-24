@@ -1,8 +1,8 @@
-import { action, observable, makeAutoObservable, computed } from 'mobx';
+import { action, computed, makeAutoObservable, observable } from 'mobx';
 
-import { ILikesStore } from '../../../common/stores';
-import { IQuestion } from '../../interfaces';
-import { IQuestionDataStore } from './IQuestionDataStore';
+import { IAsyncStore, ILikesStore } from '../../../common/interfaces';
+import { AsyncStatus } from '../../../common/enum';
+import { IQuestion, IQuestionDataStore } from '../../interfaces';
 
 export class QuestionDataStore implements IQuestionDataStore {
   private readonly initialState = {
@@ -23,7 +23,7 @@ export class QuestionDataStore implements IQuestionDataStore {
   @observable completed = false;
   @observable data: IQuestion = this.initialState;
 
-  constructor(private likesStore: ILikesStore) {
+  constructor(private likesStore: ILikesStore, public loading: IAsyncStore) {
     makeAutoObservable(this);
   }
 
@@ -47,36 +47,6 @@ export class QuestionDataStore implements IQuestionDataStore {
   @action
   dislikeQuestion = () => {
     return this.likesStore.dislike(this.questionId);
-  };
-
-  @action
-  setLoading = () => {
-    this.isLoading = true;
-  };
-
-  @action
-  resetLoading = () => {
-    this.isLoading = false;
-  };
-
-  @action
-  setError = () => {
-    this.error = true;
-  };
-
-  @action
-  resetError = () => {
-    this.error = false;
-  };
-
-  @action
-  setCompleted = () => {
-    this.completed = true;
-  };
-
-  @action
-  resetCompleted = () => {
-    this.completed = false;
   };
 
   @action
@@ -106,20 +76,18 @@ export class QuestionDataStore implements IQuestionDataStore {
 
   @action
   preRequestQuestionActions = () => {
-    this.setLoading();
+    this.loading.setStatus(AsyncStatus.Loading);
   };
 
   @action
   requestQuestionSuccess = (data: IQuestion) => {
-    this.resetLoading();
-    this.resetError();
+    this.loading.resetStatus();
     this.setData(data);
   };
 
   @action
   requestQuestionError = () => {
-    this.resetLoading();
-    this.setError();
+    this.loading.setStatus(AsyncStatus.Failed);
   };
 
   private transformData(data: IQuestion): IQuestion {

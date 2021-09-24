@@ -1,11 +1,11 @@
 import { makeAutoObservable, observable } from 'mobx';
 
-import { IRegistrationStore } from './IRegistrationStore';
 import { AsyncStatus } from '../../../common/enum';
+import { IAsyncStore } from '../../../common/interfaces';
 import { ICreateUserDto } from '../../../users/dto';
-import { IAsyncStore } from '../../../common/stores';
-import { IUsersStore, IUserStore } from '../../../users/stores';
-import { IUsersService } from '../../../users';
+import { IUsersStore, IUsersService } from '../../../users/interfaces';
+import { IUserStore } from '../../../user/interfaces';
+import { IRegistrationStore } from '../../interfaces';
 
 export class RegistrationStore implements IRegistrationStore {
   @observable readonly async: IAsyncStore | null = null;
@@ -24,9 +24,8 @@ export class RegistrationStore implements IRegistrationStore {
     this.async?.setStatus(AsyncStatus.Loading);
 
     try {
-      const user = await this.usersService.createUser(payload);
+      await this.usersService.createUser(payload);
 
-      this.usersStore.setRegisteredUser(user);
       this.async?.setStatus(AsyncStatus.Success);
     } catch (e) {
       this.async?.setStatus(AsyncStatus.Failed);

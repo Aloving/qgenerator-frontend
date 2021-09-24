@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { QuestionContainer } from '../../containers';
-
 import { Header, BackgroundWrapper } from '../../../common/components';
+import { QuestionContainer } from '../../containers';
 
 import styles from './QuestionPage.module.css';
 

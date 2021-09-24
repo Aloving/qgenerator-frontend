@@ -4,7 +4,6 @@ import { Skeleton } from '@material-ui/lab';
 import { FormattedMessage } from 'react-intl';
 
 import { questionTranslations } from '../../../../translations';
-
 import styles from './QuestionCounter.module.css';
 
 export interface IQuestionNumProps {

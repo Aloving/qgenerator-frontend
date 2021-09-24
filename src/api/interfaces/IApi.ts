@@ -1,9 +1,11 @@
 import { IAuthTransport } from './IAuthTransport';
-import { IQuestionService } from '../../modules/question/services';
-import { IUsersService } from '../../modules/users';
+import { IQuestionsService } from '../../modules/questions/interfaces';
+import { IUsersService } from '../../modules/users/interfaces';
+import { IProposalsService } from '../../modules/proposals/interfaces';
 
 export interface IApi {
   authTransport: IAuthTransport;
-  questionService: IQuestionService;
+  questionsService: IQuestionsService;
   usersService: IUsersService;
+  proposalsService: IProposalsService;
 }

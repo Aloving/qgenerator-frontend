@@ -1,10 +1,10 @@
 import { action, makeAutoObservable, observable } from 'mobx';
 
-import { IAsyncStore } from './IAsyncStore';
+import { IAsyncStore } from '../../interfaces';
 import { AsyncStatus } from '../../enum';
 
 export class AsyncStore implements IAsyncStore {
-  @observable private status: AsyncStatus | null = null;
+  @observable private _status: AsyncStatus | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -22,8 +22,17 @@ export class AsyncStore implements IAsyncStore {
     return this.status === AsyncStatus.Success;
   }
 
-  @action
-  setStatus(status: AsyncStatus) {
-    this.status = status;
+  get status() {
+    return this._status;
   }
+
+  @action
+  setStatus = (status: AsyncStatus) => {
+    this._status = status;
+  };
+
+  @action
+  resetStatus = () => {
+    this._status = null;
+  };
 }
