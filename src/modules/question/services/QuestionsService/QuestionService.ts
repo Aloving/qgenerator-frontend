@@ -1,31 +1,36 @@
 import { IAuthTransport } from '../../../../api';
-import { IQuestion } from '../../interfaces';
-import { IQuestionService } from './IQuestionService';
+import { IQuestion, IQuestionService } from '../../interfaces';
 
 export class QuestionService implements IQuestionService {
+  private API_URL = '/api/questions';
+
   constructor(private _httpTransport: IAuthTransport) {}
 
-  increaseQuestionLikes = (questionId: number): Promise<IQuestion> => {
+  loadAnswers = (id: IQuestion['id']) => {
+    return this._httpTransport.get(`${this.API_URL}/`);
+  };
+
+  increaseQuestionLikes = (id: IQuestion['id']): Promise<IQuestion> => {
     return this._httpTransport.put<IQuestion>(
-      `/api/questions/${questionId}/increaseLikes`,
+      `${this.API_URL}/${id}/increaseLikes`,
     );
   };
 
-  decreaseQuestionLikes = (questionId: number): Promise<IQuestion> => {
+  decreaseQuestionLikes = (id: IQuestion['id']): Promise<IQuestion> => {
     return this._httpTransport.put<IQuestion>(
-      `/api/questions/${questionId}/decreaseLikes`,
+      `${this.API_URL}/${id}/decreaseLikes`,
     );
   };
 
-  increaseQuestionDislikes = (questionId: number): Promise<IQuestion> => {
+  increaseQuestionDislikes = (id: IQuestion['id']): Promise<IQuestion> => {
     return this._httpTransport.put<IQuestion>(
-      `/api/questions/${questionId}/increaseDislikes`,
+      `${this.API_URL}/${id}/increaseDislikes`,
     );
   };
 
-  decreaseQuestionDislikes = (questionId: number): Promise<IQuestion> => {
+  decreaseQuestionDislikes = (id: IQuestion['id']): Promise<IQuestion> => {
     return this._httpTransport.put<IQuestion>(
-      `/api/questions/${questionId}/decreaseDislikes`,
+      `${this.API_URL}/${id}/decreaseDislikes`,
     );
   };
 }

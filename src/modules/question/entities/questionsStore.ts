@@ -3,6 +3,7 @@ import { QuestionStore, QuestionDataStore } from '../stores';
 
 import { navigator } from '../../common/utils/navigator';
 import { questionsService } from '../../questions/entities';
+import { answersStore } from '../../answers/entities';
 import { questionService } from './questionService';
 
 const likesStore = new LikesStore();
@@ -12,5 +13,6 @@ export const questionStore = new QuestionStore(
   questionsService,
   questionService,
   questionDataStore,
+  answersStore,
   navigator,
 );

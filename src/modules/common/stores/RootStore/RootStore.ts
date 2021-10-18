@@ -7,6 +7,7 @@ import { IQuestionStore } from '../../../question/interfaces';
 import { IQuestionsStore } from '../../../questions/interfaces';
 import { IQuestionProposalsStore } from '../../../proposals/interfaces';
 import { IUsersStore } from '../../../users/interfaces';
+import { IAnswersStore } from '../../../answers/interfaces';
 
 export class RootStore {
   constructor(
@@ -17,5 +18,6 @@ export class RootStore {
     readonly registrationStore: IRegistrationStore,
     readonly userStore: IUserStore,
     readonly usersStore: IUsersStore,
+    readonly answersStore: IAnswersStore,
   ) {}
 }

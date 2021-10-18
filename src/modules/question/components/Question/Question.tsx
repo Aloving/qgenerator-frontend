@@ -5,21 +5,17 @@ import { FormattedMessage } from 'react-intl';
 
 import { Button } from '../../../common/components';
 import { QuestionHeader } from '../QuestionHeader';
-import { AnswerSection } from '../AnswerSection';
-import { AnswerForm } from '../AnswerForm';
+import { AnswersContainer } from '../../../answers/containers';
+import { AnswerForm } from '../../../answers/components/AnswerForm';
 
 import {
   questionTranslations,
   commonTranslations,
 } from '../../../../translations';
-
-import { IAnswer } from '../../interfaces';
-
 import styles from './Question.module.css';
 
 export interface IQuestionProps {
   id: number;
-  answers: IAnswer[];
   text: string;
   dislikes: number;
   likes: number;
@@ -35,7 +31,6 @@ export interface IQuestionProps {
 
 export const Question: React.FC<IQuestionProps> = ({
   id,
-  answers,
   text,
   illustration,
   isLoading,
@@ -114,7 +109,7 @@ export const Question: React.FC<IQuestionProps> = ({
           </div>
         )}
       </div>
-      <AnswerSection answers={answers} isLoading={isLoading} />
+      <AnswersContainer />
     </div>
   );
 };

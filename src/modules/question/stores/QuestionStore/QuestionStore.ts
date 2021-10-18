@@ -1,9 +1,14 @@
 import { action, computed, observable } from 'mobx';
 
-import { IQuestionService } from '../../services';
-import { IQuestionStore, IQuestionDataStore } from '../../interfaces';
+import {
+  IQuestion,
+  IQuestionDataStore,
+  IQuestionService,
+  IQuestionStore,
+} from '../../interfaces';
 import { INavigator } from '../../../common/interfaces';
 import { IQuestionsService } from '../../../questions/interfaces';
+import { IAnswer, IAnswersStore } from '../../../answers/interfaces';
 
 export class QuestionStore implements IQuestionStore {
   @observable private excludeIds: number[] = [];
@@ -12,6 +17,7 @@ export class QuestionStore implements IQuestionStore {
     private questionsService: IQuestionsService,
     private questionService: IQuestionService,
     private questionDataStore: IQuestionDataStore,
+    private answersStore: IAnswersStore,
     private navigator: INavigator,
   ) {}
 
@@ -38,7 +44,7 @@ export class QuestionStore implements IQuestionStore {
   }
 
   @action
-  async requestQuestion(questionId: number) {
+  async requestQuestion(questionId: IQuestion['id']) {
     const excludeIds = this.excludeIds?.includes(questionId)
       ? this.excludeIds
       : [...this.excludeIds, questionId];
@@ -47,8 +53,8 @@ export class QuestionStore implements IQuestionStore {
       this.questionDataStore.preRequestQuestionActions();
       const question = await this.questionsService.getQuestion(questionId);
 
-      this.questionDataStore.requestQuestionSuccess(question);
-      this.excludeIds = excludeIds;
+      this.successHandler(question, excludeIds);
+      this.answersStore.setAnswers(question.answers, questionId);
     } catch (e) {
       this.questionDataStore.requestQuestionError();
     }
@@ -65,9 +71,9 @@ export class QuestionStore implements IQuestionStore {
         excludeIds: this.excludeIds,
       });
 
-      this.questionDataStore.requestQuestionSuccess(question);
-      this.excludeIds = excludeIds;
-      this.navigator.goToQuestion(question.id);
+      this.successHandler(question, excludeIds, () =>
+        this.navigator.goToQuestion(question.id),
+      );
     } catch (e) {
       this.questionDataStore.requestQuestionError();
     }
@@ -143,5 +149,25 @@ export class QuestionStore implements IQuestionStore {
     } catch (e) {
       // the catch flow
     }
+  }
+
+  @action
+  private successHandler(
+    question: IQuestion,
+    excludeIds: IQuestion['id'][],
+    cb?: () => void,
+  ) {
+    this.questionDataStore.requestQuestionSuccess(question);
+    this.excludeIds = excludeIds;
+
+    cb && cb();
+  }
+
+  @action
+  private setAnswers(answers: IAnswer[]) {
+    this.questionDataStore.setData({
+      ...this.data,
+      answers,
+    });
   }
 }

@@ -1,11 +1,12 @@
-import { IQuestionsService } from '../../interfaces';
+import { IAuthTransport } from '../../../../api';
 import {
   IRandomizeQuestionRequest,
   IRandomizeQuestionResponse,
 } from '../../../question/dto';
 import { IQuestion } from '../../../question/interfaces';
-import { IAuthTransport } from '../../../../api';
+import { IAnswer } from '../../../answers/interfaces';
 import { ICreateQuestionDto } from '../../../common/dto';
+import { IQuestionsService } from '../../interfaces';
 
 export class QuestionsService implements IQuestionsService {
   constructor(private _httpTransport: IAuthTransport) {}
@@ -32,5 +33,9 @@ export class QuestionsService implements IQuestionsService {
 
   getAllQuestions = (): Promise<IQuestion[]> => {
     return this._httpTransport.get<IQuestion[]>(`/api/questions`);
+  };
+
+  loadAnswers = (id: IQuestion['id']): Promise<IAnswer[]> => {
+    return this._httpTransport.get<IAnswer[]>(``);
   };
 }

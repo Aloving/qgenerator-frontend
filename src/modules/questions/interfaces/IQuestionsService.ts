@@ -1,5 +1,6 @@
 import { ICreateQuestionDto } from '../../common/dto';
 import { IQuestion } from '../../question/interfaces';
+import { IAnswer } from '../../answers/interfaces';
 import {
   IRandomizeQuestionRequest,
   IRandomizeQuestionResponse,
@@ -12,4 +13,5 @@ export interface IQuestionsService {
   ): Promise<IRandomizeQuestionResponse>;
   getQuestion(questionId: number): Promise<IQuestion>;
   getAllQuestions(): Promise<IQuestion[]>;
+  loadAnswers(id: IQuestion['id']): Promise<IAnswer[]>;
 }
