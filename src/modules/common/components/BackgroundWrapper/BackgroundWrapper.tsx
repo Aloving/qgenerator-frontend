@@ -1,14 +1,19 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import { useTheme } from '../../styles';
 
+import styles from './BackgroundWrapper.module.css';
+
 interface BackgroundWrapperProps {
   className?: string;
+  onePage?: boolean;
 }
 
 export const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({
   className,
   children,
+  onePage = false,
 }) => {
   const { theme } = useTheme();
 
@@ -17,7 +22,7 @@ export const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({
       style={{
         background: theme.palette.common.black,
       }}
-      className={className}
+      className={classNames(onePage && styles.fullHeight, className)}
     >
       {children}
     </div>

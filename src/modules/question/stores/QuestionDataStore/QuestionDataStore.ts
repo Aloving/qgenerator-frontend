@@ -1,14 +1,11 @@
 import { action, observable, makeAutoObservable, computed } from 'mobx';
 
-import { IQuestionDataStore } from './IQuestionDataStore';
+import { ILikesStore } from '../../../common/stores';
 import { IQuestion } from '../../interfaces';
-import { ILikesStore } from '../../../common/stores/LikesStore';
+import { IQuestionDataStore } from './IQuestionDataStore';
 
 export class QuestionDataStore implements IQuestionDataStore {
-  @observable isLoading = false;
-  @observable error = false;
-  @observable completed = false;
-  @observable data: IQuestion = {
+  private readonly initialState = {
     id: -1,
     commentariesCount: 0,
     likes: 0,
@@ -21,6 +18,10 @@ export class QuestionDataStore implements IQuestionDataStore {
     answers: [],
     text: '',
   };
+  @observable isLoading = false;
+  @observable error = false;
+  @observable completed = false;
+  @observable data: IQuestion = this.initialState;
 
   constructor(private likesStore: ILikesStore) {
     makeAutoObservable(this);
@@ -80,13 +81,12 @@ export class QuestionDataStore implements IQuestionDataStore {
 
   @action
   setData = (data: IQuestion) => {
-    this.data = data;
+    this.data = this.transformData(data);
   };
 
   @action
   increaseLikes = () => {
     this.data && this.data.likes++;
-    console.log(this.completed);
   };
 
   @action
@@ -121,4 +121,8 @@ export class QuestionDataStore implements IQuestionDataStore {
     this.resetLoading();
     this.setError();
   };
+
+  private transformData(data: IQuestion): IQuestion {
+    return { ...this.initialState, ...data };
+  }
 }
