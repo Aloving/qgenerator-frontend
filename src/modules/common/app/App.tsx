@@ -2,7 +2,7 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 
 import { Routes } from '../../../routes';
-import { StoreProvider, SkeletonContainer } from '../containers';
+import { StoreProvider, NavigatorProvider } from '../containers';
 import { ThemeProvider } from '../styles';
 import { IntlProvider } from '../translations';
 import { history } from '../entities';
@@ -15,11 +15,11 @@ export const App = () => {
     <StoreProvider>
       <IntlProvider>
         <Router history={history}>
-          <SkeletonContainer>
+          <NavigatorProvider>
             <ThemeProvider>
               <Routes />
             </ThemeProvider>
-          </SkeletonContainer>
+          </NavigatorProvider>
         </Router>
       </IntlProvider>
     </StoreProvider>

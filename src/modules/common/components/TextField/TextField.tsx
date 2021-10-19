@@ -41,7 +41,6 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
           input: classes.borders,
           underline: classes.borders,
           focused: classes.borders,
-          formControl: classes.borders,
         },
       }}
       {...props}

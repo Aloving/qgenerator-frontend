@@ -1,1 +1,2 @@
-export * from '../../common/interfaces/ITokens';
+export * from './IRegistrationStore';
+export * from './IAuthenticationStore';

@@ -1,20 +1,18 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx';
-import { History } from 'history';
+import { isEqual } from 'lodash';
 
 import {
   restoreTokensFromStorage,
-  settingsUrl,
   wait,
+  storeTokensToStorage,
 } from '../../../common/utils';
 
-import { IAuthTransport } from '../../../../api';
-import { IUserStore } from '../../../users/stores/';
-import { IUsersService } from '../../../users';
-import { IAsyncStore } from '../../../common/stores';
 import { AsyncStatus } from '../../../common/enum';
+import { INavigator, ITokens, IAsyncStore } from '../../../common/interfaces';
+import { IAuthTransport } from '../../../../api';
+import { IUserStore } from '../../../user/interfaces';
 import { ILoginDto } from '../../dto';
-import { ITokens } from '../../interfaces';
-import { IAuthenticationStore } from './IAuthenticationStore';
+import { IAuthenticationStore } from '../../interfaces';
 
 export class AuthenticationStore implements IAuthenticationStore {
   @observable readonly async: IAsyncStore | null = null;
@@ -24,11 +22,11 @@ export class AuthenticationStore implements IAuthenticationStore {
     private userStore: IUserStore,
     private authTransport: IAuthTransport,
     private asyncStore: IAsyncStore,
-    private userService: IUsersService,
-    private history: History<unknown>,
+    private navigator: INavigator,
   ) {
     makeAutoObservable(this);
     this.authTransport.onLogout(this.resetToken);
+    this.authTransport.onRefreshToken(this.syncTokens);
 
     this.async = asyncStore;
     this.onInit();
@@ -39,15 +37,28 @@ export class AuthenticationStore implements IAuthenticationStore {
   }
 
   @action
-  setTokens(tokens: ITokens) {
-    this.authTransport.setTokens(tokens);
+  setTokens = (tokens: ITokens) => {
+    const areTokensEqual = isEqual(tokens, this.authTransport.getToken());
+
     this.tokens = tokens;
-  }
+    !areTokensEqual && this.authTransport.setTokens(tokens);
+    storeTokensToStorage(tokens);
+  };
 
   @action
-  resetToken() {
-    this.tokens = null;
-  }
+  resetToken = () => {
+    this.setTokens({
+      accessToken: '',
+      refreshToken: '',
+    });
+  };
+
+  @action
+  syncTokens = () => {
+    const transportTokens = this.authTransport.getToken();
+
+    this.setTokens(transportTokens);
+  };
 
   @action
   async loadUserByToken() {
@@ -59,6 +70,7 @@ export class AuthenticationStore implements IAuthenticationStore {
       this.userStore.completeUser(user);
       this.async?.setStatus(AsyncStatus.Success);
     } catch (e) {
+      this.syncTokens();
       this.async?.setStatus(AsyncStatus.Failed);
     }
   }
@@ -75,7 +87,7 @@ export class AuthenticationStore implements IAuthenticationStore {
       this.userStore.setUser(user);
       await wait(2500);
       this.userStore.completeUser(user);
-      this.history.push(settingsUrl);
+      this.navigator.goToSettings();
 
       this.async?.setStatus(AsyncStatus.Success);
     } catch (e) {
@@ -91,6 +103,10 @@ export class AuthenticationStore implements IAuthenticationStore {
 
   private onInit() {
     const tokens = restoreTokensFromStorage();
-    tokens && this.setTokens(tokens);
+
+    if (tokens) {
+      this.setTokens(tokens);
+      this.loadUserByToken();
+    }
   }
 }
