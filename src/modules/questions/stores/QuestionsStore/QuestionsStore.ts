@@ -18,16 +18,17 @@ export class QuestionsStore implements IQuestionsStore {
   }
 
   @action
-  async createQuestion(payload: ICreateQuestionDto) {
+  createQuestion = async (payload: ICreateQuestionDto) => {
     try {
       this.createAsync?.setStatus(AsyncStatus.Loading);
-      await this.questionsService.create(payload);
+      const question = await this.questionsService.create(payload);
 
+      this.pushQuestion(question);
       this.createAsync?.setStatus(AsyncStatus.Success);
     } catch (e) {
       this.createAsync?.setStatus(AsyncStatus.Failed);
     }
-  }
+  };
 
   loadQuestions = async () => {
     try {
@@ -42,7 +43,24 @@ export class QuestionsStore implements IQuestionsStore {
   };
 
   @action
-  removeQuestion = (questionId: IQuestion['id']) => {
+  deleteQuestion = async (questionId: IQuestion['id']) => {
+    try {
+      this.loading.setStatus(AsyncStatus.Loading);
+
+      const deleted = await this.questionsService.remove(questionId);
+
+      if (deleted) {
+        this.removeQuestion(questionId);
+      }
+
+      this.loading.setStatus(AsyncStatus.Success);
+    } catch (e) {
+      this.loading.setStatus(AsyncStatus.Failed);
+    }
+  };
+
+  @action
+  private removeQuestion = (questionId: IQuestion['id']) => {
     this.questions = this.questions.filter(
       (question) => question.id !== questionId,
     );
@@ -51,5 +69,10 @@ export class QuestionsStore implements IQuestionsStore {
   @action
   private setQuestions = (questions: IQuestion[]) => {
     this.questions = questions;
+  };
+
+  @action
+  private pushQuestion = (question: IQuestion) => {
+    this.questions = [...this.questions, question];
   };
 }

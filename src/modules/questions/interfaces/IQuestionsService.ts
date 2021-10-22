@@ -8,6 +8,7 @@ import {
 
 export interface IQuestionsService {
   create(payload: ICreateQuestionDto): Promise<IQuestion>;
+  remove(id: IQuestion['id']): Promise<boolean>;
   randomizeQuestion(
     payload: IRandomizeQuestionRequest,
   ): Promise<IRandomizeQuestionResponse>;

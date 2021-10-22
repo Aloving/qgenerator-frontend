@@ -1,4 +1,4 @@
-import { action, computed, makeAutoObservable, observable } from 'mobx';
+import { action, makeAutoObservable, observable } from 'mobx';
 
 import { IAnswer, IAnswersService, IAnswersStore } from '../../interfaces';
 import { IAddAnswerDto } from '../../dto';
@@ -18,7 +18,7 @@ export class AnswersStore implements IAnswersStore {
     makeAutoObservable(this);
   }
 
-  async loadAnswers(id: IQuestion['id']) {
+  loadAnswers = async (id: IQuestion['id']) => {
     try {
       this.loading.setStatus(AsyncStatus.Loading);
 
@@ -29,9 +29,9 @@ export class AnswersStore implements IAnswersStore {
     } catch (e) {
       this.loading.setStatus(AsyncStatus.Failed);
     }
-  }
+  };
 
-  async editAnswer(id: IAnswer['id'], payload: Partial<IAnswer>) {
+  editAnswer = async (id: IAnswer['id'], payload: Partial<IAnswer>) => {
     try {
       this.loading.setStatus(AsyncStatus.Loading);
 
@@ -42,10 +42,9 @@ export class AnswersStore implements IAnswersStore {
     } catch (e) {
       this.loading.setStatus(AsyncStatus.Failed);
     }
-  }
+  };
 
-  @action
-  async addAnswer(payload: IAddAnswerDto) {
+  addAnswer = async (payload: IAddAnswerDto) => {
     try {
       this.loading.setStatus(AsyncStatus.Loading);
 
@@ -56,9 +55,9 @@ export class AnswersStore implements IAnswersStore {
     } catch (e) {
       this.loading.setStatus(AsyncStatus.Failed);
     }
-  }
+  };
 
-  async deleteAnswer(id: IAnswer['id']) {
+  deleteAnswer = async (id: IAnswer['id']) => {
     try {
       this.loading.setStatus(AsyncStatus.Loading);
 
@@ -72,7 +71,7 @@ export class AnswersStore implements IAnswersStore {
     } catch (e) {
       this.loading.setStatus(AsyncStatus.Failed);
     }
-  }
+  };
 
   @action
   // eslint-disable-next-line @typescript-eslint/no-empty-function

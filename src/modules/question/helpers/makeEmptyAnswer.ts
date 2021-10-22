@@ -10,7 +10,8 @@ export const makeEmptyAnswer = ({
   // disliked: false,
   // liked: false,
   // avatar: '',
-  // authorName: '',
+  authorName: '',
   // date: '',
+  created: '',
   text: '',
 });

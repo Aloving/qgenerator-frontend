@@ -3,10 +3,12 @@ import { Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { FormattedMessage } from 'react-intl';
 
-import { Button } from '../../../common/components';
 import { QuestionHeader } from '../QuestionHeader';
-import { AnswersContainer } from '../../../answers/containers';
-import { AnswerForm } from '../../../answers/components/AnswerForm';
+import { Button } from '../../../common/components';
+import {
+  AnswersContainer,
+  AnswersFormContainer,
+} from '../../../answers/containers';
 
 import {
   questionTranslations,
@@ -105,7 +107,7 @@ export const Question: React.FC<IQuestionProps> = ({
         </div>
         {isAnswerActive && (
           <div className={styles.answerForm}>
-            <AnswerForm />
+            <AnswersFormContainer />
           </div>
         )}
       </div>

@@ -9,13 +9,21 @@ import { ICreateQuestionDto } from '../../../common/dto';
 import { IQuestionsService } from '../../interfaces';
 
 export class QuestionsService implements IQuestionsService {
+  private API_URL = '/api/questions';
+
   constructor(private _httpTransport: IAuthTransport) {}
 
   create = (payload: ICreateQuestionDto): Promise<IQuestion> => {
     return this._httpTransport.post<IQuestion>(
-      '/api/questions/create',
+      `${this.API_URL}/create`,
       payload,
     );
+  };
+
+  remove = async (id: IQuestion['id']) => {
+    await this._httpTransport.delete(`${this.API_URL}/${id}`);
+
+    return true;
   };
 
   randomizeQuestion = ({

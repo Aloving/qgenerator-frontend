@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Formik, Field, FieldProps } from 'formik';
+import { Formik, Field, FieldProps, Form, FormikProps } from 'formik';
 
 import {
   AuthorIdField,
@@ -30,34 +30,42 @@ export const CreateQuestion: React.FC<CreateQuestionProps> = ({
   onCreate,
   authorId,
 }) => {
-  const handleSubmit = useCallback((payload: ICreateQuestionDto) => {
-    onCreate(payload);
-  }, []);
+  const formikRef = useRef<FormikProps<ICreateQuestionDto>>(null);
+  const handleSubmit = useCallback(
+    (payload: ICreateQuestionDto) => {
+      onCreate(payload);
+      formikRef.current?.resetForm();
+    },
+    [formikRef, onCreate],
+  );
 
   return (
     <Formik<ICreateQuestionDto>
       initialValues={{ ...initialValues, authorId }}
       enableReinitialize
       onSubmit={handleSubmit}
+      innerRef={formikRef}
     >
       {({ handleSubmit }) => (
-        <ToolWrapper
-          title={<FormattedMessage {...usersTranslations.createQuestion} />}
-          borderless={true}
-        >
-          <Field name="text">
-            {({ field }: FieldProps) => (
-              <TextField
-                {...field}
-                id="question-field"
-                label={<FormattedMessage {...commonTranslations.question} />}
-                fullWidth
-              />
-            )}
-          </Field>
-          <AuthorIdField id="question-authorId" />
-          <FormActions onSubmit={handleSubmit} />
-        </ToolWrapper>
+        <Form onSubmit={handleSubmit}>
+          <ToolWrapper
+            title={<FormattedMessage {...usersTranslations.createQuestion} />}
+            borderless={true}
+          >
+            <Field name="text">
+              {({ field }: FieldProps) => (
+                <TextField
+                  {...field}
+                  id="question-field"
+                  label={<FormattedMessage {...commonTranslations.question} />}
+                  fullWidth
+                />
+              )}
+            </Field>
+            <AuthorIdField id="question-authorId" />
+            <FormActions />
+          </ToolWrapper>
+        </Form>
       )}
     </Formik>
   );

@@ -27,7 +27,6 @@ export const Answers: React.FC<IAnswersProps> = ({ answers, isLoading }) => {
             disliked={false}
             liked={false}
             avatar={''}
-            authorName={''}
             date={''}
             {...answer}
           />

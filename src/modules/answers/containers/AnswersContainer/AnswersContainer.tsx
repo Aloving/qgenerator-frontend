@@ -9,7 +9,7 @@ export const AnswersContainer: React.FC = observer(() => {
 
   return (
     <AnswerSection
-      answers={answersStore.answers}
+      answers={answersStore.answers || []}
       isLoading={answersStore.loading.isLoading}
     />
   );

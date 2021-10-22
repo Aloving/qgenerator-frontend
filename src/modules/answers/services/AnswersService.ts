@@ -8,7 +8,7 @@ export class AnswersService implements IAnswersService {
   constructor(private _httpTransport: IAuthTransport) {}
 
   addAnswer = (payload: IAddAnswerDto) => {
-    return this._httpTransport.put<IAnswer>(
+    return this._httpTransport.post<IAnswer>(
       `${this.API_URL}/addAnswer`,
       payload,
     );

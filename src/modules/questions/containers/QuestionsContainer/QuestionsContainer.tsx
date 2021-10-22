@@ -19,12 +19,13 @@ export const QuestionsContainerPure: React.FC = () => {
       <Grid item xs={8}>
         <Questions
           questions={questionsStore.questions}
+          onDelete={questionsStore.deleteQuestion}
           isLoading={questionsStore.loading.isLoading}
         />
       </Grid>
       <Grid item xs={4}>
         <CreateQuestion
-          onCreate={() => void 0}
+          onCreate={questionsStore.createQuestion}
           authorId={userStore.user?.id || ''}
         />
       </Grid>
