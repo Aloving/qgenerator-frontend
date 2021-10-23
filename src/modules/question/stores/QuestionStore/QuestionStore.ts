@@ -9,6 +9,7 @@ import {
 import { INavigator } from '../../../common/interfaces';
 import { IQuestionsService } from '../../../questions/interfaces';
 import { IAnswer, IAnswersStore } from '../../../answers/interfaces';
+import { AsyncStatus } from '../../../common/enum';
 
 export class QuestionStore implements IQuestionStore {
   @observable private excludeIds: number[] = [];
@@ -63,6 +64,7 @@ export class QuestionStore implements IQuestionStore {
   @action
   async randomizeQuestion() {
     try {
+      this.answersStore.loading.setStatus(AsyncStatus.Loading);
       this.questionDataStore.preRequestQuestionActions();
       const {
         question,
@@ -71,9 +73,11 @@ export class QuestionStore implements IQuestionStore {
         excludeIds: this.excludeIds,
       });
 
-      this.successHandler(question, excludeIds, () =>
-        this.navigator.goToQuestion(question.id),
-      );
+      this.successHandler(question, excludeIds, () => {
+        this.navigator.goToQuestion(question.id);
+        this.answersStore.loading.setStatus(AsyncStatus.Success);
+        this.answersStore.setAnswers(question.answers, question.id);
+      });
     } catch (e) {
       this.questionDataStore.requestQuestionError();
     }
