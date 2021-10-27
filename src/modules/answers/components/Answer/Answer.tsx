@@ -67,7 +67,7 @@ export const Answer: React.FC<IAnswerProps> = ({
                 color="secondary"
                 className={cn(classNames.time, styles.time)}
               >
-                <FromNowDate date={date} />
+                {date && <FromNowDate date={date} />}
               </Typography>
             )}
           </div>

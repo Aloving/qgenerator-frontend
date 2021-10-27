@@ -14,11 +14,15 @@ import { IQuestion } from '../../../question/interfaces';
 interface QuestionsProps {
   questions: IQuestion[];
   isLoading: boolean;
+
+  onDelete: (id: IQuestion['id']) => void;
 }
 
 export const Questions: React.FC<QuestionsProps> = ({
   questions,
   isLoading,
+
+  onDelete,
 }) => {
   return (
     <Table size="small">
@@ -27,6 +31,7 @@ export const Questions: React.FC<QuestionsProps> = ({
           <TableCell>ID</TableCell>
           <TableCell>Question Text</TableCell>
           <TableCell>Proposal ID</TableCell>
+          <TableCell></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -38,6 +43,7 @@ export const Questions: React.FC<QuestionsProps> = ({
             id={row.id}
             text={row.text}
             proposalId={row.proposalId}
+            onDelete={() => onDelete(row.id)}
           />
         ))}
       </TableBody>

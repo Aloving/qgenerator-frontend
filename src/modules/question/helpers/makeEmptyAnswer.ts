@@ -1,15 +1,17 @@
-import { IAnswer } from '../interfaces/IAnswer';
+import { IAnswer } from '../../answers/interfaces';
 
 export const makeEmptyAnswer = ({
-  id = -1,
+  id = '',
 }: Partial<IAnswer> = {}): IAnswer => ({
   id,
   likes: 0,
+  questionId: -1,
   dislikes: 0,
-  disliked: false,
-  liked: false,
-  avatar: '',
+  // disliked: false,
+  // liked: false,
+  // avatar: '',
   authorName: '',
-  date: '',
+  // date: '',
+  created: '',
   text: '',
 });

@@ -6,11 +6,7 @@ import { Button } from '../Button';
 import styles from './FormActions.module.css';
 import { commonTranslations } from '../../../../translations';
 
-interface FormActionsProps {
-  onSubmit: () => void;
-}
-
-export const FormActions: React.FC<FormActionsProps> = ({ onSubmit }) => {
+export const FormActions: React.FC = () => {
   return (
     <div className={styles.actions}>
       <div className={styles.action}>
@@ -19,7 +15,7 @@ export const FormActions: React.FC<FormActionsProps> = ({ onSubmit }) => {
         </Button>
       </div>
       <div className={styles.action}>
-        <Button size="small" type="submit" onClick={onSubmit}>
+        <Button size="small" type="submit">
           <FormattedMessage {...commonTranslations.send} />
         </Button>
       </div>

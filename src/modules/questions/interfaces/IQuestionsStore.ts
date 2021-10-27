@@ -8,5 +8,5 @@ export interface IQuestionsStore {
 
   createQuestion(payload: ICreateQuestionDto): void;
   loadQuestions(): void;
-  removeQuestion(questionId: IQuestion['id']): void;
+  deleteQuestion(questionId: IQuestion['id']): void;
 }

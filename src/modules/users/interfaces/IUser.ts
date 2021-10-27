@@ -1,4 +1,5 @@
-import { IAnswer, IQuestion } from '../../question/interfaces';
+import { IQuestion } from '../../question/interfaces';
+import { IAnswer } from '../../answers/interfaces';
 import { IProposal } from '../../proposals/interfaces';
 import { Role } from '../enums';
 

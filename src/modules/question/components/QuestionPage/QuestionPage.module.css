@@ -1,8 +1,9 @@
 .root {
-  padding-bottom: 80px;
+  min-height: 100vh;
 }
 
 .question {
   display: flex;
+  padding-bottom: 60px;
   justify-content: center;
 }

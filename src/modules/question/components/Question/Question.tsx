@@ -3,23 +3,21 @@ import { Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { FormattedMessage } from 'react-intl';
 
-import { Button } from '../../../common/components';
 import { QuestionHeader } from '../QuestionHeader';
-import { AnswerSection } from '../AnswerSection';
-import { AnswerForm } from '../AnswerForm';
+import { Button } from '../../../common/components';
+import {
+  AnswersContainer,
+  AnswersFormContainer,
+} from '../../../answers/containers';
 
 import {
   questionTranslations,
   commonTranslations,
 } from '../../../../translations';
-
-import { IAnswer } from '../../interfaces';
-
 import styles from './Question.module.css';
 
 export interface IQuestionProps {
   id: number;
-  answers: IAnswer[];
   text: string;
   dislikes: number;
   likes: number;
@@ -35,7 +33,6 @@ export interface IQuestionProps {
 
 export const Question: React.FC<IQuestionProps> = ({
   id,
-  answers,
   text,
   illustration,
   isLoading,
@@ -110,11 +107,11 @@ export const Question: React.FC<IQuestionProps> = ({
         </div>
         {isAnswerActive && (
           <div className={styles.answerForm}>
-            <AnswerForm />
+            <AnswersFormContainer />
           </div>
         )}
       </div>
-      <AnswerSection answers={answers} isLoading={isLoading} />
+      <AnswersContainer />
     </div>
   );
 };

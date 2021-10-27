@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Field, FieldProps, Formik, FormikHelpers } from 'formik';
+import { Field, FieldProps, Form, Formik, FormikHelpers } from 'formik';
 
 import {
   AuthorIdField,
@@ -49,27 +49,31 @@ export const CreateProposal: React.FC<CreateProposalProps> = ({
       onSubmit={handleSubmit}
     >
       {({ handleSubmit }) => (
-        <ToolWrapper
-          borderless={true}
-          title={
-            <FormattedMessage {...usersTranslations.createQuestionProposal} />
-          }
-        >
-          <Field name="text">
-            {({ field }: FieldProps) => (
-              <TextField
-                {...field}
-                id="question-proposal-field"
-                label={
-                  <FormattedMessage {...commonTranslations.questionProposal} />
-                }
-                fullWidth
-              />
-            )}
-          </Field>
-          <AuthorIdField id="proposal-question-authorId" />
-          <FormActions onSubmit={handleSubmit} />
-        </ToolWrapper>
+        <Form onSubmit={handleSubmit}>
+          <ToolWrapper
+            borderless={true}
+            title={
+              <FormattedMessage {...usersTranslations.createQuestionProposal} />
+            }
+          >
+            <Field name="text">
+              {({ field }: FieldProps) => (
+                <TextField
+                  {...field}
+                  id="question-proposal-field"
+                  label={
+                    <FormattedMessage
+                      {...commonTranslations.questionProposal}
+                    />
+                  }
+                  fullWidth
+                />
+              )}
+            </Field>
+            <AuthorIdField id="proposal-question-authorId" />
+            <FormActions />
+          </ToolWrapper>
+        </Form>
       )}
     </Formik>
   );
